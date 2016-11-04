@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.imobpay.base.dao.PrepModulesDao">
+
+	
+	<sql id="paramSql">
+		<!--  此处一定要增加一个查询 -->
+		<if test="status !=null and status !=''">
+			AND STATUS =  #{status}
+		</if>
+		<if test="updatetime !=null and updatetime !=''">
+			AND UPDATETIME =  #{updatetime}
+		</if>
+		<if test="version !=null and version !=''">
+			AND VERSION =  #{version}
+		</if>
+		<if test="moduleid !=null and moduleid !=''">
+			AND MODULEID =  #{moduleid}
+		</if>
+		<if test="name !=null and name !=''">
+			AND NAME =  #{name}
+		</if>
+		<if test="description !=null and description !=''">
+			AND DESCRIPTION =  #{description}
+		</if>
+		<if test="url !=null and url !=''">
+			AND URL =  #{url}
+		</if>
+		<if test="isnow !=null and isnow !=''">
+			AND ISNOW =  #{isnow}
+		</if>
+		<if test="src !=null and src !=''">
+			AND SRC =  #{src}
+		</if>
+		<if test="noticeid !=null and noticeid !=''">
+			AND NOTICEID =  #{noticeid}
+		</if>
+		<if test="id !=null and id !=''">
+			AND ID =  #{id}
+		</if>
+	</sql>
+	
+	<parameterMap type="com.imobpay.base.entity.PrepModules" id="paramIdPrepModules">
+		<parameter property="pageflag"  javaType="Boolean" jdbcType="VARCHAR" mode="IN" />
+		<parameter property="curPage"   javaType="Integer" jdbcType="NUMERIC" mode="IN" />
+		<parameter property="pageSize"  javaType="Integer" jdbcType="NUMERIC" mode="IN" />
+		<parameter property="status" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="updatetime" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="version" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="moduleid" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="name" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="description" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="url" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="isnow" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="src" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="noticeid" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="id" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+	</parameterMap>
+
+	<resultMap type="com.imobpay.base.entity.PrepModules" id="resultTbPrepModules">
+		<result column="STATUS" property="status" javaType="String" jdbcType="VARCHAR" />
+		<result column="UPDATETIME" property="updatetime" javaType="String" jdbcType="VARCHAR" />
+		<result column="VERSION" property="version" javaType="String" jdbcType="VARCHAR" />
+		<result column="MODULEID" property="moduleid" javaType="String" jdbcType="VARCHAR" />
+		<result column="NAME" property="name" javaType="String" jdbcType="VARCHAR" />
+		<result column="DESCRIPTION" property="description" javaType="String" jdbcType="VARCHAR" />
+		<result column="URL" property="url" javaType="String" jdbcType="VARCHAR" />
+		<result column="ISNOW" property="isnow" javaType="String" jdbcType="VARCHAR" />
+		<result column="SRC" property="src" javaType="String" jdbcType="VARCHAR" />
+		<result column="NOTICEID" property="noticeid" javaType="String" jdbcType="VARCHAR" />
+		<result column="ID" property="id" javaType="String" jdbcType="VARCHAR" />
+
+	</resultMap>
+
+
+ 
+	<select id="selectById" parameterMap="paramIdPrepModules" resultMap="resultTbPrepModules">
+		SELECT * FROM PREP_MODULES WHERE  ROWNUM = 1  
+		<include refid="paramSql"></include>
+	</select>
+	
+	<select id="list" parameterMap="paramIdPrepModules" resultMap="resultTbPrepModules">
+		<if test="pageflag==true">
+			SELECT * FROM (
+				SELECT A.*, ROWNUM RN FROM
+				(
+					SELECT * FROM PREP_MODULES WHERE 1=1
+					<include refid="paramSql"></include>
+				) A WHERE ROWNUM &lt;= #{curPage}*#{pageSize}
+				) WHERE RN  &gt;=
+			(#{curPage}-1)*#{pageSize}
+		</if>
+		<if test="pageBlag==false">
+			SELECT * FROM PREP_MODULES
+			WHERE 1=1
+			<include refid="paramSql"></include>
+		</if>
+	</select>
+	
+	<select id="listCount" parameterMap="paramIdPrepModules" resultType="Integer">
+				SELECT count(1) as count FROM PREP_MODULES
+				WHERE 1=1 
+				<include refid="paramSql"></include>
+	</select>
+	
+	<!-- 添加 -->
+	<insert id="insert" parameterMap="paramIdPrepModules" timeout="1000"  >
+		INSERT INTO 
+		PREP_MODULES(
+STATUS,
+		UPDATETIME,
+		VERSION,
+		MODULEID,
+		NAME,
+		DESCRIPTION,
+		URL,
+		ISNOW,
+		SRC,
+		NOTICEID,
+				ID
+		
+		)
+		VALUES(		#{status},
+				#{updatetime},
+				#{version},
+				#{moduleid},
+				#{name},
+				#{description},
+				#{url},
+				#{isnow},
+				#{src},
+				#{noticeid},
+		
+#{id})
+	</insert>
+	
+	<!-- 修改 -->
+	<update id="update"  timeout="1000" >
+		UPDATE PREP_MODULES 
+		<trim prefix="SET" prefixOverrides="SET ,">
+		<if test="status !=null and status !=''">
+			,STATUS = #{status}  
+		</if>
+		<if test="updatetime !=null and updatetime !=''">
+			,UPDATETIME = #{updatetime}  
+		</if>
+		<if test="version !=null and version !=''">
+			,VERSION = #{version}  
+		</if>
+		<if test="moduleid !=null and moduleid !=''">
+			,MODULEID = #{moduleid}  
+		</if>
+		<if test="name !=null and name !=''">
+			,NAME = #{name}  
+		</if>
+		<if test="description !=null and description !=''">
+			,DESCRIPTION = #{description}  
+		</if>
+		<if test="url !=null and url !=''">
+			,URL = #{url}  
+		</if>
+		<if test="isnow !=null and isnow !=''">
+			,ISNOW = #{isnow}  
+		</if>
+		<if test="src !=null and src !=''">
+			,SRC = #{src}  
+		</if>
+		<if test="noticeid !=null and noticeid !=''">
+			,NOTICEID = #{noticeid}  
+		</if>
+		<if test="id !=null and id !=''">
+			,ID = #{id}  
+		</if>
+		</trim>
+		WHERE 1=1
+		<include refid="paramSql"></include>
+	</update>
+	
+</mapper>

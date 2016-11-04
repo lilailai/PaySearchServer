@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.imobpay.base.dao.PrepClientNoticeDao">
+
+	
+	<sql id="paramSql">
+		<!--  此处一定要增加一个查询 -->
+		<if test="auditTime !=null and auditTime !=''">
+			AND AUDIT_TIME =  #{auditTime}
+		</if>
+		<if test="activeTime !=null and activeTime !=''">
+			AND ACTIVE_TIME =  #{activeTime}
+		</if>
+		<if test="effectTime !=null and effectTime !=''">
+			AND EFFECT_TIME =  #{effectTime}
+		</if>
+		<if test="noticeContent !=null and noticeContent !=''">
+			AND NOTICE_CONTENT =  #{noticeContent}
+		</if>
+		<if test="branchid !=null and branchid !=''">
+			AND BRANCHID =  #{branchid}
+		</if>
+		<if test="popupurl !=null and popupurl !=''">
+			AND POPUPURL =  #{popupurl}
+		</if>
+		<if test="entranceurl !=null and entranceurl !=''">
+			AND ENTRANCEURL =  #{entranceurl}
+		</if>
+		<if test="title !=null and title !=''">
+			AND TITLE =  #{title}
+		</if>
+		<if test="appPaybranch !=null and appPaybranch !=''">
+			AND APP_PAYBRANCH =  #{appPaybranch}
+		</if>
+		<if test="status !=null and status !=''">
+			AND STATUS =  #{status}
+		</if>
+		<if test="actionUser !=null and actionUser !=''">
+			AND ACTION_USER =  #{actionUser}
+		</if>
+		<if test="auditMessage !=null and auditMessage !=''">
+			AND AUDIT_MESSAGE =  #{auditMessage}
+		</if>
+		<if test="orgType !=null and orgType !=''">
+			AND ORG_TYPE =  #{orgType}
+		</if>
+		<if test="initiatoremail !=null and initiatoremail !=''">
+			AND INITIATOREMAIL =  #{initiatoremail}
+		</if>
+		<if test="noticeCode !=null and noticeCode !=''">
+			AND NOTICE_CODE =  #{noticeCode}
+		</if>
+		<if test="appuser !=null and appuser !=''">
+			AND APPUSER =  #{appuser}
+		</if>
+		<if test="popupnotice !=null and popupnotice !=''">
+			AND POPUPNOTICE =  #{popupnotice}
+		</if>
+		<if test="trottinghorselampnotice !=null and trottinghorselampnotice !=''">
+			AND TROTTINGHORSELAMPNOTICE =  #{trottinghorselampnotice}
+		</if>
+		<if test="commonnotice !=null and commonnotice !=''">
+			AND COMMONNOTICE =  #{commonnotice}
+		</if>
+	</sql>
+	
+	<parameterMap type="com.imobpay.base.entity.PrepClientNotice" id="paramIdPrepClientNotice">
+		<parameter property="pageflag"  javaType="Boolean" jdbcType="VARCHAR" mode="IN" />
+		<parameter property="curPage"   javaType="Integer" jdbcType="NUMERIC" mode="IN" />
+		<parameter property="pageSize"  javaType="Integer" jdbcType="NUMERIC" mode="IN" />
+		<parameter property="auditTime" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="activeTime" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="effectTime" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="noticeContent" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="branchid" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="popupurl" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="entranceurl" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="title" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="appPaybranch" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="status" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="actionUser" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="auditMessage" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="orgType" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="initiatoremail" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="noticeCode" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="appuser" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="popupnotice" javaType="String" jdbcType="CHAR" mode="IN"   />
+		<parameter property="trottinghorselampnotice" javaType="String" jdbcType="CHAR" mode="IN"   />
+		<parameter property="commonnotice" javaType="String" jdbcType="CHAR" mode="IN"   />
+	</parameterMap>
+
+	<resultMap type="com.imobpay.base.entity.PrepClientNotice" id="resultTbPrepClientNotice">
+		<result column="AUDIT_TIME" property="auditTime" javaType="String" jdbcType="VARCHAR" />
+		<result column="ACTIVE_TIME" property="activeTime" javaType="String" jdbcType="VARCHAR" />
+		<result column="EFFECT_TIME" property="effectTime" javaType="String" jdbcType="VARCHAR" />
+		<result column="NOTICE_CONTENT" property="noticeContent" javaType="String" jdbcType="VARCHAR" />
+		<result column="BRANCHID" property="branchid" javaType="String" jdbcType="VARCHAR" />
+		<result column="POPUPURL" property="popupurl" javaType="String" jdbcType="VARCHAR" />
+		<result column="ENTRANCEURL" property="entranceurl" javaType="String" jdbcType="VARCHAR" />
+		<result column="TITLE" property="title" javaType="String" jdbcType="VARCHAR" />
+		<result column="APP_PAYBRANCH" property="appPaybranch" javaType="String" jdbcType="VARCHAR" />
+		<result column="STATUS" property="status" javaType="String" jdbcType="VARCHAR" />
+		<result column="ACTION_USER" property="actionUser" javaType="String" jdbcType="VARCHAR" />
+		<result column="AUDIT_MESSAGE" property="auditMessage" javaType="String" jdbcType="VARCHAR" />
+		<result column="ORG_TYPE" property="orgType" javaType="String" jdbcType="VARCHAR" />
+		<result column="INITIATOREMAIL" property="initiatoremail" javaType="String" jdbcType="VARCHAR" />
+		<result column="NOTICE_CODE" property="noticeCode" javaType="String" jdbcType="VARCHAR" />
+		<result column="APPUSER" property="appuser" javaType="String" jdbcType="VARCHAR" />
+		<result column="POPUPNOTICE" property="popupnotice" javaType="String" jdbcType="CHAR" />
+		<result column="TROTTINGHORSELAMPNOTICE" property="trottinghorselampnotice" javaType="String" jdbcType="CHAR" />
+		<result column="COMMONNOTICE" property="commonnotice" javaType="String" jdbcType="CHAR" />
+	</resultMap>
+
+	<select id="selectById" parameterMap="paramIdPrepClientNotice" resultMap="resultTbPrepClientNotice">
+		SELECT * FROM PREP_CLIENT_NOTICE WHERE  ROWNUM = 1  
+		<include refid="paramSql"></include>
+	</select>
+
+	<!-- 查询公告信息 条件：公告编码大于所传最大编码号、在有效时间内、appuser 排序：公告编码 -->
+	<select id="list" parameterMap="paramIdPrepClientNotice"
+		resultMap="resultTbPrepClientNotice">
+		SELECT pc.notice_Code,
+		pc.notice_content,
+		pc.effect_time,
+		pc.active_time,
+		pc.title,
+		pc.commonnotice,
+		pc.trottinghorselampnotice,
+		pc.popupnotice,
+		pc.popupurl,
+		pc.entranceurl
+		FROM PREP_CLIENT_NOTICE pc
+		WHERE pc.notice_Code &gt; #{noticeCode}
+		AND pc.effect_time &lt;= #{effectTime}
+		AND pc.active_time &gt;= #{activeTime}
+		AND pc.appUser = #{appuser}
+		AND pc.status = 1
+		ORDER BY pc.effect_time desc
+	</select>
+	
+	<select id="listCount" parameterMap="paramIdPrepClientNotice" resultType="Integer">
+				SELECT count(1) as count FROM PREP_CLIENT_NOTICE
+				WHERE 1=1 
+				<include refid="paramSql"></include>
+	</select>
+	
+	<!-- 添加 -->
+	<insert id="insert" parameterMap="paramIdPrepClientNotice" timeout="1000"  >
+		INSERT INTO 
+		PREP_CLIENT_NOTICE(
+AUDIT_TIME,
+		ACTIVE_TIME,
+		EFFECT_TIME,
+		NOTICE_CONTENT,
+		BRANCHID,
+		POPUPURL,
+		ENTRANCEURL,
+		TITLE,
+		APP_PAYBRANCH,
+		STATUS,
+		ACTION_USER,
+		AUDIT_MESSAGE,
+		ORG_TYPE,
+		INITIATOREMAIL,
+		NOTICE_CODE,
+		APPUSER,
+		POPUPNOTICE,
+		TROTTINGHORSELAMPNOTICE,
+				COMMONNOTICE
+		
+		)
+		VALUES(		#{auditTime},
+				#{activeTime},
+				#{effectTime},
+				#{noticeContent},
+				#{branchid},
+				#{popupurl},
+				#{entranceurl},
+				#{title},
+				#{appPaybranch},
+				#{status},
+				#{actionUser},
+				#{auditMessage},
+				#{orgType},
+				#{initiatoremail},
+				#{noticeCode},
+				#{appuser},
+				#{popupnotice},
+				#{trottinghorselampnotice},
+		
+#{commonnotice})
+	</insert>
+	
+	<!-- 修改 -->
+	<update id="update"  timeout="1000" >
+		UPDATE PREP_CLIENT_NOTICE 
+		<trim prefix="SET" prefixOverrides="SET ,">
+		<if test="auditTime !=null and auditTime !=''">
+			,AUDIT_TIME = #{auditTime}  
+		</if>
+		<if test="activeTime !=null and activeTime !=''">
+			,ACTIVE_TIME = #{activeTime}  
+		</if>
+		<if test="effectTime !=null and effectTime !=''">
+			,EFFECT_TIME = #{effectTime}  
+		</if>
+		<if test="noticeContent !=null and noticeContent !=''">
+			,NOTICE_CONTENT = #{noticeContent}  
+		</if>
+		<if test="branchid !=null and branchid !=''">
+			,BRANCHID = #{branchid}  
+		</if>
+		<if test="popupurl !=null and popupurl !=''">
+			,POPUPURL = #{popupurl}  
+		</if>
+		<if test="entranceurl !=null and entranceurl !=''">
+			,ENTRANCEURL = #{entranceurl}  
+		</if>
+		<if test="title !=null and title !=''">
+			,TITLE = #{title}  
+		</if>
+		<if test="appPaybranch !=null and appPaybranch !=''">
+			,APP_PAYBRANCH = #{appPaybranch}  
+		</if>
+		<if test="status !=null and status !=''">
+			,STATUS = #{status}  
+		</if>
+		<if test="actionUser !=null and actionUser !=''">
+			,ACTION_USER = #{actionUser}  
+		</if>
+		<if test="auditMessage !=null and auditMessage !=''">
+			,AUDIT_MESSAGE = #{auditMessage}  
+		</if>
+		<if test="orgType !=null and orgType !=''">
+			,ORG_TYPE = #{orgType}  
+		</if>
+		<if test="initiatoremail !=null and initiatoremail !=''">
+			,INITIATOREMAIL = #{initiatoremail}  
+		</if>
+		<if test="noticeCode !=null and noticeCode !=''">
+			,NOTICE_CODE = #{noticeCode}  
+		</if>
+		<if test="appuser !=null and appuser !=''">
+			,APPUSER = #{appuser}  
+		</if>
+		<if test="popupnotice !=null and popupnotice !=''">
+			,POPUPNOTICE = #{popupnotice}  
+		</if>
+		<if test="trottinghorselampnotice !=null and trottinghorselampnotice !=''">
+			,TROTTINGHORSELAMPNOTICE = #{trottinghorselampnotice}  
+		</if>
+		<if test="commonnotice !=null and commonnotice !=''">
+			,COMMONNOTICE = #{commonnotice}  
+		</if>
+		</trim>
+		WHERE 1=1
+		<include refid="paramSql"></include>
+	</update>
+	
+</mapper>

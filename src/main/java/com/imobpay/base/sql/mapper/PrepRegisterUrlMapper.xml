@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.imobpay.base.dao.PrepRegisterUrlDao">
+
+	
+	<sql id="paramSql">
+		<!--  此处一定要增加一个查询 -->
+		<if test="id !=null and id !=''">
+			AND ID =  #{id}
+		</if>
+		<if test="appuser !=null and appuser !=''">
+			AND APPUSER =  #{appuser}
+		</if>
+		<if test="timestamps !=null and timestamps !=''">
+			AND TIMESTAMPS =  #{timestamps}
+		</if>
+		<if test="status !=null and status !=''">
+			AND STATUS =  #{status}
+		</if>
+		<if test="url !=null and url !=''">
+			AND URL =  #{url}
+		</if>
+	</sql>
+	
+	<parameterMap type="com.imobpay.base.entity.PrepRegisterUrl" id="paramIdPrepRegisterUrl">
+		<parameter property="pageflag"  javaType="Boolean" jdbcType="VARCHAR" mode="IN" />
+		<parameter property="curPage"   javaType="Integer" jdbcType="NUMERIC" mode="IN" />
+		<parameter property="pageSize"  javaType="Integer" jdbcType="NUMERIC" mode="IN" />
+		<parameter property="id" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="appuser" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="timestamps" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="status" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="url" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+	</parameterMap>
+
+	<resultMap type="com.imobpay.base.entity.PrepRegisterUrl" id="resultTbPrepRegisterUrl">
+		<result column="ID" property="id" javaType="String" jdbcType="VARCHAR" />
+		<result column="APPUSER" property="appuser" javaType="String" jdbcType="VARCHAR" />
+		<result column="TIMESTAMPS" property="timestamps" javaType="String" jdbcType="VARCHAR" />
+		<result column="STATUS" property="status" javaType="String" jdbcType="VARCHAR" />
+		<result column="URL" property="url" javaType="String" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<select id="selectById" parameterMap="paramIdPrepRegisterUrl" resultMap="resultTbPrepRegisterUrl">
+		SELECT * FROM PREP_REGISTER_URL WHERE  ROWNUM = 1  
+		<include refid="paramSql"></include>
+	</select>
+	
+	<select id="list" parameterMap="paramIdPrepRegisterUrl" resultMap="resultTbPrepRegisterUrl">
+		<if test="pageflag==true">
+			SELECT * FROM (
+				SELECT A.*, ROWNUM RN FROM
+				(
+					SELECT * FROM PREP_REGISTER_URL WHERE 1=1
+					<include refid="paramSql"></include>
+				) A WHERE ROWNUM &lt;= #{curPage}*#{pageSize}
+				) WHERE RN  &gt;=
+			(#{curPage}-1)*#{pageSize}
+		</if>
+		<if test="pageBlag==false">
+			SELECT * FROM PREP_REGISTER_URL
+			WHERE 1=1
+			<include refid="paramSql"></include>
+		</if>
+	</select>
+	
+	<select id="listCount" parameterMap="paramIdPrepRegisterUrl" resultType="Integer">
+				SELECT count(1) as count FROM PREP_REGISTER_URL
+				WHERE 1=1 
+				<include refid="paramSql"></include>
+	</select>
+	
+	<!-- 添加 -->
+	<insert id="insert" parameterMap="paramIdPrepRegisterUrl" timeout="1000"  >
+		INSERT INTO 
+		PREP_REGISTER_URL(
+ID,
+		APPUSER,
+		TIMESTAMPS,
+		STATUS,
+				URL
+		
+		)
+		VALUES(		#{id},
+				#{appuser},
+				#{timestamps},
+				#{status},
+		
+#{url})
+	</insert>
+	
+	<!-- 修改 -->
+	<update id="update"  timeout="1000" >
+		UPDATE PREP_REGISTER_URL 
+		<trim prefix="SET" prefixOverrides="SET ,">
+		<if test="id !=null and id !=''">
+			,ID = #{id}  
+		</if>
+		<if test="appuser !=null and appuser !=''">
+			,APPUSER = #{appuser}  
+		</if>
+		<if test="timestamps !=null and timestamps !=''">
+			,TIMESTAMPS = #{timestamps}  
+		</if>
+		<if test="status !=null and status !=''">
+			,STATUS = #{status}  
+		</if>
+		<if test="url !=null and url !=''">
+			,URL = #{url}  
+		</if>
+		</trim>
+		WHERE 1=1
+		<include refid="paramSql"></include>
+	</update>
+	
+</mapper>

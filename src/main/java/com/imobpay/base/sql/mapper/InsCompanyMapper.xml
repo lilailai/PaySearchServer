@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.imobpay.base.dao.InsCompanyDao">
+
+	
+	<sql id="paramSql">
+		<!--  此处一定要增加一个查询 -->
+		<if test="downloadid !=null and downloadid !=''">
+			AND DOWNLOADID =  #{downloadid}
+		</if>
+		<if test="templateid !=null and templateid !=''">
+			AND TEMPLATEID =  #{templateid}
+		</if>
+		<if test="bundleid !=null and bundleid !=''">
+			AND BUNDLEID =  #{bundleid}
+		</if>
+		<if test="wechatkey !=null and wechatkey !=''">
+			AND WECHATKEY =  #{wechatkey}
+		</if>
+		<if test="appusershort !=null and appusershort !=''">
+			AND APPUSERSHORT =  #{appusershort}
+		</if>
+		<if test="icon !=null and icon !=''">
+			AND ICON =  #{icon}
+		</if>
+		<if test="email !=null and email !=''">
+			AND EMAIL =  #{email}
+		</if>
+		<if test="startandriod !=null and startandriod !=''">
+			AND STARTANDRIOD =  #{startandriod}
+		</if>
+		<if test="startiphone4 !=null and startiphone4 !=''">
+			AND STARTIPHONE4 =  #{startiphone4}
+		</if>
+		<if test="startiphone5 !=null and startiphone5 !=''">
+			AND STARTIPHONE5 =  #{startiphone5}
+		</if>
+		<if test="status !=null and status !=''">
+			AND STATUS =  #{status}
+		</if>
+		<if test="updatetime !=null and updatetime !=''">
+			AND UPDATETIME =  #{updatetime}
+		</if>
+		<if test="downurl !=null and downurl !=''">
+			AND DOWNURL =  #{downurl}
+		</if>
+		<if test="appuser !=null and appuser !=''">
+			AND APPUSER =  #{appuser}
+		</if>
+		<if test="branchid !=null and branchid !=''">
+			AND BRANCHID =  #{branchid}
+		</if>
+		<if test="appname !=null and appname !=''">
+			AND APPNAME =  #{appname}
+		</if>
+		<if test="appename !=null and appename !=''">
+			AND APPENAME =  #{appename}
+		</if>
+		<if test="company !=null and company !=''">
+			AND COMPANY =  #{company}
+		</if>
+		<if test="comshort !=null and comshort !=''">
+			AND COMSHORT =  #{comshort}
+		</if>
+		<if test="isphone !=null and isphone !=''">
+			AND ISPHONE =  #{isphone}
+		</if>
+		<if test="phone !=null and phone !=''">
+			AND PHONE =  #{phone}
+		</if>
+		<if test="iswechat !=null and iswechat !=''">
+			AND ISWECHAT =  #{iswechat}
+		</if>
+		<if test="wechat !=null and wechat !=''">
+			AND WECHAT =  #{wechat}
+		</if>
+		<if test="id !=null and id !=''">
+			AND ID =  #{id}
+		</if>
+	</sql>
+	
+	<parameterMap type="com.imobpay.base.entity.InsCompany" id="paramIdInsCompany">
+		<parameter property="pageflag"  javaType="Boolean" jdbcType="VARCHAR" mode="IN" />
+		<parameter property="curPage"   javaType="Integer" jdbcType="NUMERIC" mode="IN" />
+		<parameter property="pageSize"  javaType="Integer" jdbcType="NUMERIC" mode="IN" />
+		<parameter property="downloadid" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="templateid" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="bundleid" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="wechatkey" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="appusershort" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="icon" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="email" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="startandriod" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="startiphone4" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="startiphone5" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="status" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="updatetime" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="downurl" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="appuser" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="branchid" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="appname" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="appename" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="company" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="comshort" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="isphone" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="phone" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="iswechat" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="wechat" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="id" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+	</parameterMap>
+
+	<resultMap type="com.imobpay.base.entity.InsCompany" id="resultTbInsCompany">
+		<result column="DOWNLOADID" property="downloadid" javaType="String" jdbcType="VARCHAR" />
+		<result column="TEMPLATEID" property="templateid" javaType="String" jdbcType="VARCHAR" />
+		<result column="BUNDLEID" property="bundleid" javaType="String" jdbcType="VARCHAR" />
+		<result column="WECHATKEY" property="wechatkey" javaType="String" jdbcType="VARCHAR" />
+		<result column="APPUSERSHORT" property="appusershort" javaType="String" jdbcType="VARCHAR" />
+		<result column="ICON" property="icon" javaType="String" jdbcType="VARCHAR" />
+		<result column="EMAIL" property="email" javaType="String" jdbcType="VARCHAR" />
+		<result column="STARTANDRIOD" property="startandriod" javaType="String" jdbcType="VARCHAR" />
+		<result column="STARTIPHONE4" property="startiphone4" javaType="String" jdbcType="VARCHAR" />
+		<result column="STARTIPHONE5" property="startiphone5" javaType="String" jdbcType="VARCHAR" />
+		<result column="STATUS" property="status" javaType="String" jdbcType="VARCHAR" />
+		<result column="UPDATETIME" property="updatetime" javaType="String" jdbcType="VARCHAR" />
+		<result column="DOWNURL" property="downurl" javaType="String" jdbcType="VARCHAR" />
+		<result column="APPUSER" property="appuser" javaType="String" jdbcType="VARCHAR" />
+		<result column="BRANCHID" property="branchid" javaType="String" jdbcType="VARCHAR" />
+		<result column="APPNAME" property="appname" javaType="String" jdbcType="VARCHAR" />
+		<result column="APPENAME" property="appename" javaType="String" jdbcType="VARCHAR" />
+		<result column="COMPANY" property="company" javaType="String" jdbcType="VARCHAR" />
+		<result column="COMSHORT" property="comshort" javaType="String" jdbcType="VARCHAR" />
+		<result column="ISPHONE" property="isphone" javaType="String" jdbcType="VARCHAR" />
+		<result column="PHONE" property="phone" javaType="String" jdbcType="VARCHAR" />
+		<result column="ISWECHAT" property="iswechat" javaType="String" jdbcType="VARCHAR" />
+		<result column="WECHAT" property="wechat" javaType="String" jdbcType="VARCHAR" />
+		<result column="ID" property="id" javaType="String" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<select id="selectById" parameterMap="paramIdInsCompany" resultMap="resultTbInsCompany">
+		SELECT * FROM INS_COMPANY WHERE  ROWNUM = 1  
+		<include refid="paramSql"></include>
+	</select>
+	
+	<select id="list" parameterMap="paramIdInsCompany" resultMap="resultTbInsCompany">
+		<if test="pageflag==true">
+			SELECT * FROM (
+				SELECT A.*, ROWNUM RN FROM
+				(
+					SELECT * FROM INS_COMPANY WHERE 1=1
+					<include refid="paramSql"></include>
+				) A WHERE ROWNUM &lt;= #{curPage}*#{pageSize}
+				) WHERE RN  &gt;=
+			(#{curPage}-1)*#{pageSize}
+		</if>
+		<if test="pageBlag==false">
+			SELECT * FROM INS_COMPANY
+			WHERE 1=1
+			<include refid="paramSql"></include>
+		</if>
+	</select>
+	
+	<select id="listCount" parameterMap="paramIdInsCompany" resultType="Integer">
+				SELECT count(1) as count FROM INS_COMPANY
+				WHERE 1=1 
+				<include refid="paramSql"></include>
+	</select>
+	
+	<!-- 添加 -->
+	<insert id="insert" parameterMap="paramIdInsCompany" timeout="1000"  >
+		INSERT INTO 
+		INS_COMPANY(
+DOWNLOADID,
+		TEMPLATEID,
+		BUNDLEID,
+		WECHATKEY,
+		APPUSERSHORT,
+		ICON,
+		EMAIL,
+		STARTANDRIOD,
+		STARTIPHONE4,
+		STARTIPHONE5,
+		STATUS,
+		UPDATETIME,
+		DOWNURL,
+		APPUSER,
+		BRANCHID,
+		APPNAME,
+		APPENAME,
+		COMPANY,
+		COMSHORT,
+		ISPHONE,
+		PHONE,
+		ISWECHAT,
+		WECHAT,
+				ID
+		
+		)
+		VALUES(		#{downloadid},
+				#{templateid},
+				#{bundleid},
+				#{wechatkey},
+				#{appusershort},
+				#{icon},
+				#{email},
+				#{startandriod},
+				#{startiphone4},
+				#{startiphone5},
+				#{status},
+				#{updatetime},
+				#{downurl},
+				#{appuser},
+				#{branchid},
+				#{appname},
+				#{appename},
+				#{company},
+				#{comshort},
+				#{isphone},
+				#{phone},
+				#{iswechat},
+				#{wechat},
+		
+#{id})
+	</insert>
+	
+	<!-- 修改 -->
+	<update id="update"  timeout="1000" >
+		UPDATE INS_COMPANY 
+		<trim prefix="SET" prefixOverrides="SET ,">
+		<if test="downloadid !=null and downloadid !=''">
+			,DOWNLOADID = #{downloadid}  
+		</if>
+		<if test="templateid !=null and templateid !=''">
+			,TEMPLATEID = #{templateid}  
+		</if>
+		<if test="bundleid !=null and bundleid !=''">
+			,BUNDLEID = #{bundleid}  
+		</if>
+		<if test="wechatkey !=null and wechatkey !=''">
+			,WECHATKEY = #{wechatkey}  
+		</if>
+		<if test="appusershort !=null and appusershort !=''">
+			,APPUSERSHORT = #{appusershort}  
+		</if>
+		<if test="icon !=null and icon !=''">
+			,ICON = #{icon}  
+		</if>
+		<if test="email !=null and email !=''">
+			,EMAIL = #{email}  
+		</if>
+		<if test="startandriod !=null and startandriod !=''">
+			,STARTANDRIOD = #{startandriod}  
+		</if>
+		<if test="startiphone4 !=null and startiphone4 !=''">
+			,STARTIPHONE4 = #{startiphone4}  
+		</if>
+		<if test="startiphone5 !=null and startiphone5 !=''">
+			,STARTIPHONE5 = #{startiphone5}  
+		</if>
+		<if test="status !=null and status !=''">
+			,STATUS = #{status}  
+		</if>
+		<if test="updatetime !=null and updatetime !=''">
+			,UPDATETIME = #{updatetime}  
+		</if>
+		<if test="downurl !=null and downurl !=''">
+			,DOWNURL = #{downurl}  
+		</if>
+		<if test="appuser !=null and appuser !=''">
+			,APPUSER = #{appuser}  
+		</if>
+		<if test="branchid !=null and branchid !=''">
+			,BRANCHID = #{branchid}  
+		</if>
+		<if test="appname !=null and appname !=''">
+			,APPNAME = #{appname}  
+		</if>
+		<if test="appename !=null and appename !=''">
+			,APPENAME = #{appename}  
+		</if>
+		<if test="company !=null and company !=''">
+			,COMPANY = #{company}  
+		</if>
+		<if test="comshort !=null and comshort !=''">
+			,COMSHORT = #{comshort}  
+		</if>
+		<if test="isphone !=null and isphone !=''">
+			,ISPHONE = #{isphone}  
+		</if>
+		<if test="phone !=null and phone !=''">
+			,PHONE = #{phone}  
+		</if>
+		<if test="iswechat !=null and iswechat !=''">
+			,ISWECHAT = #{iswechat}  
+		</if>
+		<if test="wechat !=null and wechat !=''">
+			,WECHAT = #{wechat}  
+		</if>
+		<if test="id !=null and id !=''">
+			,ID = #{id}  
+		</if>
+		</trim>
+		WHERE 1=1
+		<include refid="paramSql"></include>
+	</update>
+	
+</mapper>

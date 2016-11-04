@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.imobpay.base.dao.PrepSharecodeDao">
+
+	
+	<sql id="paramSql">
+		<!--  此处一定要增加一个查询 -->
+		<if test="qrcodeurl !=null and qrcodeurl !=''">
+			AND QRCODEURL =  #{qrcodeurl}
+		</if>
+		<if test="sharecode !=null and sharecode !=''">
+			AND SHARECODE =  #{sharecode}
+		</if>
+		<if test="appuser !=null and appuser !=''">
+			AND APPUSER =  #{appuser}
+		</if>
+		<if test="status !=null and status !=''">
+			AND STATUS =  #{status}
+		</if>
+		<if test="url !=null and url !=''">
+			AND URL =  #{url}
+		</if>
+		<if test="customerid !=null and customerid !=''">
+			AND CUSTOMERID =  #{customerid}
+		</if>
+	</sql>
+	
+	<parameterMap type="com.imobpay.base.entity.PrepSharecode" id="paramIdPrepSharecode">
+		<parameter property="pageflag"  javaType="Boolean" jdbcType="VARCHAR" mode="IN" />
+		<parameter property="curPage"   javaType="Integer" jdbcType="NUMERIC" mode="IN" />
+		<parameter property="pageSize"  javaType="Integer" jdbcType="NUMERIC" mode="IN" />
+		<parameter property="qrcodeurl" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="sharecode" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="appuser" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="status" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="url" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="customerid" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+	</parameterMap>
+
+	<resultMap type="com.imobpay.base.entity.PrepSharecode" id="resultTbPrepSharecode">
+		<result column="QRCODEURL" property="qrcodeurl" javaType="String" jdbcType="VARCHAR" />
+		<result column="SHARECODE" property="sharecode" javaType="String" jdbcType="VARCHAR" />
+		<result column="APPUSER" property="appuser" javaType="String" jdbcType="VARCHAR" />
+		<result column="STATUS" property="status" javaType="String" jdbcType="VARCHAR" />
+		<result column="URL" property="url" javaType="String" jdbcType="VARCHAR" />
+		<result column="CUSTOMERID" property="customerid" javaType="String" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<select id="selectById" parameterMap="paramIdPrepSharecode" resultMap="resultTbPrepSharecode">
+		SELECT * FROM PREP_SHARECODE WHERE  ROWNUM = 1  
+		<include refid="paramSql"></include>
+	</select>
+	
+	<select id="list" parameterMap="paramIdPrepSharecode" resultMap="resultTbPrepSharecode">
+		<if test="pageflag==true">
+			SELECT * FROM (
+				SELECT A.*, ROWNUM RN FROM
+				(
+					SELECT * FROM PREP_SHARECODE WHERE 1=1
+					<include refid="paramSql"></include>
+				) A WHERE ROWNUM &lt;= #{curPage}*#{pageSize}
+				) WHERE RN  &gt;=
+			(#{curPage}-1)*#{pageSize}
+		</if>
+		<if test="pageBlag==false">
+			SELECT * FROM PREP_SHARECODE
+			WHERE 1=1
+			<include refid="paramSql"></include>
+		</if>
+	</select>
+	
+	<select id="listCount" parameterMap="paramIdPrepSharecode" resultType="Integer">
+				SELECT count(1) as count FROM PREP_SHARECODE
+				WHERE 1=1 
+				<include refid="paramSql"></include>
+	</select>
+	
+	<!-- 添加 -->
+	<insert id="insert" parameterMap="paramIdPrepSharecode" timeout="1000"  >
+		INSERT INTO 
+		PREP_SHARECODE(
+QRCODEURL,
+		SHARECODE,
+		APPUSER,
+		STATUS,
+		URL,
+				CUSTOMERID
+		
+		)
+		VALUES(		#{qrcodeurl},
+				#{sharecode},
+				#{appuser},
+				#{status},
+				#{url},
+		
+#{customerid})
+	</insert>
+	
+	<!-- 修改 -->
+	<update id="update"  timeout="1000" >
+		UPDATE PREP_SHARECODE 
+		<trim prefix="SET" prefixOverrides="SET ,">
+		<if test="qrcodeurl !=null and qrcodeurl !=''">
+			,QRCODEURL = #{qrcodeurl}  
+		</if>
+		<if test="sharecode !=null and sharecode !=''">
+			,SHARECODE = #{sharecode}  
+		</if>
+		<if test="appuser !=null and appuser !=''">
+			,APPUSER = #{appuser}  
+		</if>
+		<if test="status !=null and status !=''">
+			,STATUS = #{status}  
+		</if>
+		<if test="url !=null and url !=''">
+			,URL = #{url}  
+		</if>
+		<if test="customerid !=null and customerid !=''">
+			,CUSTOMERID = #{customerid}  
+		</if>
+		</trim>
+		WHERE 1=1
+		<include refid="paramSql"></include>
+	</update>
+	
+</mapper>

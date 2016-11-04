@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC
+"-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<!-- <settings> -->
+	<!-- <setting name="lazyLoadingEnabled" value="false"/> -->
+	<!-- </settings> -->
+	<mappers>
+		<mapper resource="com/imobpay/base/sql/mapper/AppuserMapper.xml" />
+ 		<mapper resource="com/imobpay/base/sql/mapper/PaybranchMapper.xml" />
+		<mapper resource="com/imobpay/base/sql/mapper/PrepAppModulesMapper.xml" />
+		<mapper resource="com/imobpay/base/sql/mapper/PrepModulesMapper.xml" />
+		<mapper resource="com/imobpay/base/sql/mapper/PrepClientVersionMapper.xml" />
+		<mapper resource="com/imobpay/base/sql/mapper/PrepGoodsinfoMapper.xml" />
+	   	<mapper resource="com/imobpay/base/sql/mapper/PrepAppStartpicMapper.xml" />
+		<mapper resource="com/imobpay/base/sql/mapper/PrepBottomModulesMapper.xml" />
+		<mapper resource="com/imobpay/base/sql/mapper/PrepAppBottomMapper.xml" />        
+		<mapper resource="com/imobpay/base/sql/mapper/PaycustomerMapper.xml" />
+		<mapper resource="com/imobpay/base/sql/mapper/CrsUserInfoMapper.xml" />
+		<mapper resource="com/imobpay/base/sql/mapper/PrepAdvancedVipMapper.xml" />
+		<mapper resource="com/imobpay/base/sql/mapper/CrsUserGetmoneyListMapper.xml" />
+		<mapper resource="com/imobpay/base/sql/mapper/CrsBlackUserMapper.xml" />
+		<mapper resource="com/imobpay/base/sql/mapper/PayuserMapper.xml" />
+		<mapper resource="com/imobpay/base/sql/mapper/PayjnlsMapper.xml" />
+		<mapper resource="com/imobpay/base/sql/mapper/CrsAppLevelRuleMapper.xml" />
+		<mapper resource="com/imobpay/base/sql/mapper/InsCompanyMapper.xml" />
+		<mapper resource="com/imobpay/base/sql/mapper/PrepUseShareMapper.xml" />
+		<mapper resource="com/imobpay/base/sql/mapper/PrepRegisterUrlMapper.xml" />
+		<mapper resource="com/imobpay/base/sql/mapper/PrepSharecodeMapper.xml" />
+		<mapper resource="com/imobpay/base/sql/mapper/UserInstructMapper.xml" />
+		<mapper resource="com/imobpay/base/sql/mapper/PrepClientNoticeMapper.xml" />
+		<mapper resource="com/imobpay/base/sql/mapper/TxProductServeAllocateMapper.xml" />
+		<mapper resource="com/imobpay/base/sql/mapper/PaybranchamtcontrolMapper.xml" />
+		<mapper resource="com/imobpay/base/sql/mapper/AcctxnfeeMapper.xml" />
+ 		<mapper resource="com/imobpay/base/sql/mapper/TfeecommonparamMapper.xml" />
+		<mapper resource="com/imobpay/base/sql/mapper/TfeeMapper.xml" />
+		<mapper resource="com/imobpay/base/sql/mapper/TfeespecialparamMapper.xml" />
+		<mapper resource="com/imobpay/base/sql/mapper/TbGlbSysParamMapper.xml" />
+		<mapper resource="com/imobpay/base/sql/mapper/TbCustActivityRecordMapper.xml" />
+		<mapper resource="com/imobpay/base/sql/mapper/PayawardjnlsMapper.xml" />
+	</mappers>
+</configuration>

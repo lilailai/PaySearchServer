@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.imobpay.base.dao.PrepBottomModulesDao">
+
+	
+	<sql id="paramSql">
+		<!--  此处一定要增加一个查询 -->
+		<if test="remark !=null and remark !=''">
+			AND REMARK =  #{remark}
+		</if>
+		<if test="updateurl !=null and updateurl !=''">
+			AND UPDATEURL =  #{updateurl}
+		</if>
+		<if test="titlenamecolor !=null and titlenamecolor !=''">
+			AND TITLENAMECOLOR =  #{titlenamecolor}
+		</if>
+		<if test="statubarcolor !=null and statubarcolor !=''">
+			AND STATUBARCOLOR =  #{statubarcolor}
+		</if>
+		<if test="statubarfontcolor !=null and statubarfontcolor !=''">
+			AND STATUBARFONTCOLOR =  #{statubarfontcolor}
+		</if>
+		<if test="titlebarcolor !=null and titlebarcolor !=''">
+			AND TITLEBARCOLOR =  #{titlebarcolor}
+		</if>
+		<if test="barname !=null and barname !=''">
+			AND BARNAME =  #{barname}
+		</if>
+		<if test="version !=null and version !=''">
+			AND VERSION =  #{version}
+		</if>
+		<if test="functype !=null and functype !=''">
+			AND FUNCTYPE =  #{functype}
+		</if>
+		<if test="status !=null and status !=''">
+			AND STATUS =  #{status}
+		</if>
+		<if test="isnow !=null and isnow !=''">
+			AND ISNOW =  #{isnow}
+		</if>
+		<if test="iconoff !=null and iconoff !=''">
+			AND ICONOFF =  #{iconoff}
+		</if>
+		<if test="iconon !=null and iconon !=''">
+			AND ICONON =  #{iconon}
+		</if>
+		<if test="iosurl !=null and iosurl !=''">
+			AND IOSURL =  #{iosurl}
+		</if>
+		<if test="androidurl !=null and androidurl !=''">
+			AND ANDROIDURL =  #{androidurl}
+		</if>
+		<if test="h5url !=null and h5url !=''">
+			AND H5URL =  #{h5url}
+		</if>
+		<if test="isneedlogin !=null and isneedlogin !=''">
+			AND ISNEEDLOGIN =  #{isneedlogin}
+		</if>
+		<if test="h5flodername !=null and h5flodername !=''">
+			AND H5FLODERNAME =  #{h5flodername}
+		</if>
+		<if test="h5titlename !=null and h5titlename !=''">
+			AND H5TITLENAME =  #{h5titlename}
+		</if>
+		<if test="h5navigaterbutname !=null and h5navigaterbutname !=''">
+			AND H5NAVIGATERBUTNAME =  #{h5navigaterbutname}
+		</if>
+		<if test="h5navigaterbutcolor !=null and h5navigaterbutcolor !=''">
+			AND H5NAVIGATERBUTCOLOR =  #{h5navigaterbutcolor}
+		</if>
+		<if test="updatetime !=null and updatetime !=''">
+			AND UPDATETIME =  #{updatetime}
+		</if>
+		<if test="noticeid !=null and noticeid !=''">
+			AND NOTICEID =  #{noticeid}
+		</if>
+		<if test="description !=null and description !=''">
+			AND DESCRIPTION =  #{description}
+		</if>
+		<if test="id !=null and id !=''">
+			AND ID =  #{id}
+		</if>
+	</sql>
+	
+	<parameterMap type="com.imobpay.base.entity.PrepBottomModules" id="paramIdPrepBottomModules">
+		<parameter property="pageflag"  javaType="Boolean" jdbcType="VARCHAR" mode="IN" />
+		<parameter property="curPage"   javaType="Integer" jdbcType="NUMERIC" mode="IN" />
+		<parameter property="pageSize"  javaType="Integer" jdbcType="NUMERIC" mode="IN" />
+		<parameter property="remark" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="updateurl" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="titlenamecolor" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="statubarcolor" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="statubarfontcolor" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="titlebarcolor" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="barname" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="version" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="functype" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="status" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="isnow" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="iconoff" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="iconon" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="iosurl" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="androidurl" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="h5url" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="isneedlogin" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="h5flodername" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="h5titlename" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="h5navigaterbutname" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="h5navigaterbutcolor" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="updatetime" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="noticeid" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="description" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="id" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+	</parameterMap>
+
+	<resultMap type="com.imobpay.base.entity.PrepBottomModules" id="resultTbPrepBottomModules">
+		<result column="REMARK" property="remark" javaType="String" jdbcType="VARCHAR" />
+		<result column="UPDATEURL" property="updateurl" javaType="String" jdbcType="VARCHAR" />
+		<result column="TITLENAMECOLOR" property="titlenamecolor" javaType="String" jdbcType="VARCHAR" />
+		<result column="STATUBARCOLOR" property="statubarcolor" javaType="String" jdbcType="VARCHAR" />
+		<result column="STATUBARFONTCOLOR" property="statubarfontcolor" javaType="String" jdbcType="VARCHAR" />
+		<result column="TITLEBARCOLOR" property="titlebarcolor" javaType="String" jdbcType="VARCHAR" />
+		<result column="BARNAME" property="barname" javaType="String" jdbcType="VARCHAR" />
+		<result column="VERSION" property="version" javaType="String" jdbcType="VARCHAR" />
+		<result column="FUNCTYPE" property="functype" javaType="String" jdbcType="VARCHAR" />
+		<result column="STATUS" property="status" javaType="String" jdbcType="VARCHAR" />
+		<result column="ISNOW" property="isnow" javaType="String" jdbcType="VARCHAR" />
+		<result column="ICONOFF" property="iconoff" javaType="String" jdbcType="VARCHAR" />
+		<result column="ICONON" property="iconon" javaType="String" jdbcType="VARCHAR" />
+		<result column="IOSURL" property="iosurl" javaType="String" jdbcType="VARCHAR" />
+		<result column="ANDROIDURL" property="androidurl" javaType="String" jdbcType="VARCHAR" />
+		<result column="H5URL" property="h5url" javaType="String" jdbcType="VARCHAR" />
+		<result column="ISNEEDLOGIN" property="isneedlogin" javaType="String" jdbcType="VARCHAR" />
+		<result column="H5FLODERNAME" property="h5flodername" javaType="String" jdbcType="VARCHAR" />
+		<result column="H5TITLENAME" property="h5titlename" javaType="String" jdbcType="VARCHAR" />
+		<result column="H5NAVIGATERBUTNAME" property="h5navigaterbutname" javaType="String" jdbcType="VARCHAR" />
+		<result column="H5NAVIGATERBUTCOLOR" property="h5navigaterbutcolor" javaType="String" jdbcType="VARCHAR" />
+		<result column="UPDATETIME" property="updatetime" javaType="String" jdbcType="VARCHAR" />
+		<result column="NOTICEID" property="noticeid" javaType="String" jdbcType="VARCHAR" />
+		<result column="DESCRIPTION" property="description" javaType="String" jdbcType="VARCHAR" />
+		<result column="ID" property="id" javaType="String" jdbcType="VARCHAR" />
+		<result column="SORTNUM" property="sortnum" javaType="String" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<select id="selectById" parameterMap="paramIdPrepBottomModules" resultMap="resultTbPrepBottomModules">
+		SELECT * FROM PREP_BOTTOM_MODULES WHERE  ROWNUM = 1  
+		<include refid="paramSql"></include>
+	</select>
+	
+	<select id="list" parameterMap="paramIdPrepBottomModules" resultMap="resultTbPrepBottomModules">
+		<if test="pageflag==true">
+			SELECT * FROM (
+				SELECT A.*, ROWNUM RN FROM
+				(
+					SELECT * FROM PREP_BOTTOM_MODULES WHERE 1=1
+					<include refid="paramSql"></include>
+				) A WHERE ROWNUM &lt;= #{curPage}*#{pageSize}
+				) WHERE RN  &gt;=
+			(#{curPage}-1)*#{pageSize}
+		</if>
+		<if test="pageBlag==false">
+			SELECT * FROM PREP_BOTTOM_MODULES
+			WHERE 1=1
+			<include refid="paramSql"></include>
+		</if>
+	</select>
+	
+	
+	<select id="getListBottomModules" parameterType="String" resultMap="resultTbPrepBottomModules">
+	
+			 select t2.id                  as moduleid,
+			        t2.barname             as barname,
+			        t2.version             as version,
+			        t2.functype            as functype,
+			        t2.updateurl           as updateurl,
+			        t2.noticeid            as noticeid,
+			        T2.ISNEEDLOGIN         AS isneedlogin,
+			        t2.H5FLODERNAME        as h5flodername,
+			        t2.H5TITLENAME         as h5titlename,
+			        t2.H5NAVIGATERBUTNAME  as h5navigaterbutname,
+			        t2.H5NAVIGATERBUTCOLOR as h5navigaterbutcolor,
+			        t2.ICONOFF             as iconoff,
+			        t2.ICONON              as iconon,
+			        t2.IOSURL              as iosurl,
+			        t2.ANDROIDURL          as androidurl,
+			        t2.H5URL               as h5url,
+			        t2.DESCRIPTION         as description,
+			        T1.SORTNUM             AS sortnum,
+			        T2.TITLEBARCOLOR       AS titlebarcolor,
+			        T2.TITLENAMECOLOR      AS titlenamecolor,
+			        T2.STATUBARCOLOR       AS statubarcolor,
+			        T2.STATUBARFONTCOLOR   AS statubarfontcolor,
+			        t2.Splitlinecolor 	   AS splitLineColor
+			   from PREP_APP_BOTTOM t1
+			   left join PREP_BOTTOM_MODULES t2
+			     on t1.moduleid = t2.id
+			  where (t1.version = t2.version or t1.isnow = t2.isnow)
+			    and t1.status = '1'
+			    and t2.status = '1'
+				and t1.appuser = #{appUser}	
+			  ORDER BY T1.SORTNUM
+			  
+	</select>
+	
+	<select id="listCount" parameterMap="paramIdPrepBottomModules" resultType="Integer">
+				SELECT count(1) as count FROM PREP_BOTTOM_MODULES
+				WHERE 1=1 
+				<include refid="paramSql"></include>
+	</select>
+	
+	<!-- 添加 -->
+	<insert id="insert" parameterMap="paramIdPrepBottomModules" timeout="1000"  >
+		INSERT INTO 
+		PREP_BOTTOM_MODULES(
+REMARK,
+		UPDATEURL,
+		TITLENAMECOLOR,
+		STATUBARCOLOR,
+		STATUBARFONTCOLOR,
+		TITLEBARCOLOR,
+		BARNAME,
+		VERSION,
+		FUNCTYPE,
+		STATUS,
+		ISNOW,
+		ICONOFF,
+		ICONON,
+		IOSURL,
+		ANDROIDURL,
+		H5URL,
+		ISNEEDLOGIN,
+		H5FLODERNAME,
+		H5TITLENAME,
+		H5NAVIGATERBUTNAME,
+		H5NAVIGATERBUTCOLOR,
+		UPDATETIME,
+		NOTICEID,
+		DESCRIPTION,
+				ID
+		
+		)
+		VALUES(		#{remark},
+				#{updateurl},
+				#{titlenamecolor},
+				#{statubarcolor},
+				#{statubarfontcolor},
+				#{titlebarcolor},
+				#{barname},
+				#{version},
+				#{functype},
+				#{status},
+				#{isnow},
+				#{iconoff},
+				#{iconon},
+				#{iosurl},
+				#{androidurl},
+				#{h5url},
+				#{isneedlogin},
+				#{h5flodername},
+				#{h5titlename},
+				#{h5navigaterbutname},
+				#{h5navigaterbutcolor},
+				#{updatetime},
+				#{noticeid},
+				#{description},
+		
+#{id})
+	</insert>
+	
+	<!-- 修改 -->
+	<update id="update"  timeout="1000" >
+		UPDATE PREP_BOTTOM_MODULES 
+		<trim prefix="SET" prefixOverrides="SET ,">
+		<if test="remark !=null and remark !=''">
+			,REMARK = #{remark}  
+		</if>
+		<if test="updateurl !=null and updateurl !=''">
+			,UPDATEURL = #{updateurl}  
+		</if>
+		<if test="titlenamecolor !=null and titlenamecolor !=''">
+			,TITLENAMECOLOR = #{titlenamecolor}  
+		</if>
+		<if test="statubarcolor !=null and statubarcolor !=''">
+			,STATUBARCOLOR = #{statubarcolor}  
+		</if>
+		<if test="statubarfontcolor !=null and statubarfontcolor !=''">
+			,STATUBARFONTCOLOR = #{statubarfontcolor}  
+		</if>
+		<if test="titlebarcolor !=null and titlebarcolor !=''">
+			,TITLEBARCOLOR = #{titlebarcolor}  
+		</if>
+		<if test="barname !=null and barname !=''">
+			,BARNAME = #{barname}  
+		</if>
+		<if test="version !=null and version !=''">
+			,VERSION = #{version}  
+		</if>
+		<if test="functype !=null and functype !=''">
+			,FUNCTYPE = #{functype}  
+		</if>
+		<if test="status !=null and status !=''">
+			,STATUS = #{status}  
+		</if>
+		<if test="isnow !=null and isnow !=''">
+			,ISNOW = #{isnow}  
+		</if>
+		<if test="iconoff !=null and iconoff !=''">
+			,ICONOFF = #{iconoff}  
+		</if>
+		<if test="iconon !=null and iconon !=''">
+			,ICONON = #{iconon}  
+		</if>
+		<if test="iosurl !=null and iosurl !=''">
+			,IOSURL = #{iosurl}  
+		</if>
+		<if test="androidurl !=null and androidurl !=''">
+			,ANDROIDURL = #{androidurl}  
+		</if>
+		<if test="h5url !=null and h5url !=''">
+			,H5URL = #{h5url}  
+		</if>
+		<if test="isneedlogin !=null and isneedlogin !=''">
+			,ISNEEDLOGIN = #{isneedlogin}  
+		</if>
+		<if test="h5flodername !=null and h5flodername !=''">
+			,H5FLODERNAME = #{h5flodername}  
+		</if>
+		<if test="h5titlename !=null and h5titlename !=''">
+			,H5TITLENAME = #{h5titlename}  
+		</if>
+		<if test="h5navigaterbutname !=null and h5navigaterbutname !=''">
+			,H5NAVIGATERBUTNAME = #{h5navigaterbutname}  
+		</if>
+		<if test="h5navigaterbutcolor !=null and h5navigaterbutcolor !=''">
+			,H5NAVIGATERBUTCOLOR = #{h5navigaterbutcolor}  
+		</if>
+		<if test="updatetime !=null and updatetime !=''">
+			,UPDATETIME = #{updatetime}  
+		</if>
+		<if test="noticeid !=null and noticeid !=''">
+			,NOTICEID = #{noticeid}  
+		</if>
+		<if test="description !=null and description !=''">
+			,DESCRIPTION = #{description}  
+		</if>
+		<if test="id !=null and id !=''">
+			,ID = #{id}  
+		</if>
+		</trim>
+		WHERE 1=1
+		<include refid="paramSql"></include>
+	</update>
+	
+</mapper>

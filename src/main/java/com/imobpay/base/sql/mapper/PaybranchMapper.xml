@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.imobpay.base.dao.PaybranchDao">
+
+	
+	<sql id="paramSql">
+		<!--  此处一定要增加一个查询 -->
+		<if test="email !=null and email !=''">
+			AND EMAIL =  #{email}
+		</if>
+		<if test="branchid !=null and branchid !=''">
+			AND BRANCHID =  #{branchid}
+		</if>
+		<if test="branchname !=null and branchname !=''">
+			AND BRANCHNAME =  #{branchname}
+		</if>
+		<if test="branchattr !=null and branchattr !=''">
+			AND BRANCHATTR =  #{branchattr}
+		</if>
+		<if test="prepbranchPm !=null and prepbranchPm !=''">
+			AND PREPBRANCH_PM =  #{prepbranchPm}
+		</if>
+		<if test="prepbranch !=null and prepbranch !=''">
+			AND PREPBRANCH =  #{prepbranch}
+		</if>
+		<if test="auditflag !=null and auditflag !=''">
+			AND AUDITFLAG =  #{auditflag}
+		</if>
+		<if test="branchlevel !=null and branchlevel !=''">
+			AND BRANCHLEVEL =  #{branchlevel}
+		</if>
+		<if test="branchacct !=null and branchacct !=''">
+			AND BRANCHACCT =  #{branchacct}
+		</if>
+	</sql>
+	
+	<parameterMap type="com.imobpay.base.entity.Paybranch" id="paramIdPaybranch">
+		<parameter property="pageflag"  javaType="Boolean" jdbcType="VARCHAR" mode="IN" />
+		<parameter property="curPage"   javaType="Integer" jdbcType="NUMERIC" mode="IN" />
+		<parameter property="pageSize"  javaType="Integer" jdbcType="NUMERIC" mode="IN" />
+		<parameter property="email" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="branchid" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="branchname" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="branchattr" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="prepbranchPm" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="prepbranch" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="auditflag" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="branchlevel" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="branchacct" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+	</parameterMap>
+
+	<resultMap type="com.imobpay.base.entity.Paybranch" id="resultTbPaybranch">
+		<result column="EMAIL" property="email" javaType="String" jdbcType="VARCHAR" />
+		<result column="BRANCHID" property="branchid" javaType="String" jdbcType="VARCHAR" />
+		<result column="BRANCHNAME" property="branchname" javaType="String" jdbcType="VARCHAR" />
+		<result column="BRANCHATTR" property="branchattr" javaType="String" jdbcType="VARCHAR" />
+		<result column="PREPBRANCH_PM" property="prepbranchPm" javaType="String" jdbcType="VARCHAR" />
+		<result column="PREPBRANCH" property="prepbranch" javaType="String" jdbcType="VARCHAR" />
+		<result column="AUDITFLAG" property="auditflag" javaType="String" jdbcType="VARCHAR" />
+		<result column="BRANCHLEVEL" property="branchlevel" javaType="String" jdbcType="VARCHAR" />
+		<result column="BRANCHACCT" property="branchacct" javaType="String" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<select id="selectById" parameterMap="paramIdPaybranch" resultMap="resultTbPaybranch">
+		SELECT * FROM PAYBRANCH WHERE  ROWNUM = 1  
+		<include refid="paramSql"></include>
+	</select>
+	
+	<select id="list" parameterMap="paramIdPaybranch" resultMap="resultTbPaybranch">
+		<if test="pageflag==true">
+			SELECT * FROM (
+				SELECT A.*, ROWNUM RN FROM
+				(
+					SELECT * FROM PAYBRANCH WHERE 1=1
+					<include refid="paramSql"></include>
+				) A WHERE ROWNUM &lt;= #{curPage}*#{pageSize}
+				) WHERE RN  &gt;=
+			(#{curPage}-1)*#{pageSize}
+		</if>
+		<if test="pageBlag==false">
+			SELECT * FROM PAYBRANCH
+			WHERE 1=1
+			<include refid="paramSql"></include>
+		</if>
+	</select>
+	
+	<select id="listCount" parameterMap="paramIdPaybranch" resultType="Integer">
+				SELECT count(1) as count FROM PAYBRANCH
+				WHERE 1=1 
+				<include refid="paramSql"></include>
+	</select>
+	
+	<!-- 添加 -->
+	<insert id="insert" parameterMap="paramIdPaybranch" timeout="1000"  >
+		INSERT INTO 
+		PAYBRANCH(
+EMAIL,
+		BRANCHID,
+		BRANCHNAME,
+		BRANCHATTR,
+		PREPBRANCH_PM,
+		PREPBRANCH,
+		AUDITFLAG,
+		BRANCHLEVEL,
+				BRANCHACCT
+		
+		)
+		VALUES(		#{email},
+				#{branchid},
+				#{branchname},
+				#{branchattr},
+				#{prepbranchPm},
+				#{prepbranch},
+				#{auditflag},
+				#{branchlevel},
+		
+#{branchacct})
+	</insert>
+	
+	<!-- 修改 -->
+	<update id="update"  timeout="1000" >
+		UPDATE PAYBRANCH 
+		<trim prefix="SET" prefixOverrides="SET ,">
+		<if test="email !=null and email !=''">
+			,EMAIL = #{email}  
+		</if>
+		<if test="branchid !=null and branchid !=''">
+			,BRANCHID = #{branchid}  
+		</if>
+		<if test="branchname !=null and branchname !=''">
+			,BRANCHNAME = #{branchname}  
+		</if>
+		<if test="branchattr !=null and branchattr !=''">
+			,BRANCHATTR = #{branchattr}  
+		</if>
+		<if test="prepbranchPm !=null and prepbranchPm !=''">
+			,PREPBRANCH_PM = #{prepbranchPm}  
+		</if>
+		<if test="prepbranch !=null and prepbranch !=''">
+			,PREPBRANCH = #{prepbranch}  
+		</if>
+		<if test="auditflag !=null and auditflag !=''">
+			,AUDITFLAG = #{auditflag}  
+		</if>
+		<if test="branchlevel !=null and branchlevel !=''">
+			,BRANCHLEVEL = #{branchlevel}  
+		</if>
+		<if test="branchacct !=null and branchacct !=''">
+			,BRANCHACCT = #{branchacct}  
+		</if>
+		</trim>
+		WHERE 1=1
+		<include refid="paramSql"></include>
+	</update>
+	
+</mapper>

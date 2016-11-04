@@ -1,0 +1,8 @@
+/target/
+/.settings/
+/.classpath
+/.project
+/.checkstyle
+/logs/
+/bin/
+/lib/

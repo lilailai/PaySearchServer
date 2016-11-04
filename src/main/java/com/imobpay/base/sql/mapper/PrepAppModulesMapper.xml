@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.imobpay.base.dao.PrepAppModulesDao">
+
+	
+	<sql id="paramSql">
+		<!--  此处一定要增加一个查询 -->
+		<if test="updatetime !=null and updatetime !=''">
+			AND UPDATETIME =  #{updatetime}
+		</if>
+		<if test="moduleid !=null and moduleid !=''">
+			AND MODULEID =  #{moduleid}
+		</if>
+		<if test="appuser !=null and appuser !=''">
+			AND APPUSER =  #{appuser}
+		</if>
+		<if test="status !=null and status !=''">
+			AND STATUS =  #{status}
+		</if>
+		<if test="version !=null and version !=''">
+			AND VERSION =  #{version}
+		</if>
+		<if test="isnow !=null and isnow !=''">
+			AND ISNOW =  #{isnow}
+		</if>
+		<if test="id !=null and id !=''">
+			AND ID =  #{id}
+		</if>
+	</sql>
+	
+	<parameterMap type="com.imobpay.base.entity.PrepAppModules" id="paramIdPrepAppModules">
+		<parameter property="pageflag"  javaType="Boolean" jdbcType="VARCHAR" mode="IN" />
+		<parameter property="curPage"   javaType="Integer" jdbcType="NUMERIC" mode="IN" />
+		<parameter property="pageSize"  javaType="Integer" jdbcType="NUMERIC" mode="IN" />
+		<parameter property="updatetime" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="moduleid" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="appuser" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="status" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="version" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="isnow" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="id" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+	</parameterMap>
+
+	<resultMap type="com.imobpay.base.entity.PrepAppModules" id="resultTbPrepAppModules">
+		<result column="UPDATETIME" property="updatetime" javaType="String" jdbcType="VARCHAR" />
+		<result column="MODULEIDMOD" property="moduleid" javaType="String" jdbcType="VARCHAR" />
+		<result column="APPUSER" property="appuser" javaType="String" jdbcType="VARCHAR" />
+		<result column="STATUS" property="status" javaType="String" jdbcType="VARCHAR" />
+		<result column="VERSION" property="version" javaType="String" jdbcType="VARCHAR" />
+		<result column="ISNOW" property="isnow" javaType="String" jdbcType="VARCHAR" />
+		<result column="ID" property="id" javaType="String" jdbcType="VARCHAR" />
+        <result column="STATUS" property="status" javaType="String" jdbcType="VARCHAR" />
+		<result column="UPDATETIME" property="updatetime" javaType="String" jdbcType="VARCHAR" />
+		<result column="VERSIONMOD" property="version" javaType="String" jdbcType="VARCHAR" />
+		<result column="MODULEID" property="moduleid" javaType="String" jdbcType="VARCHAR" />
+		<result column="NAME" property="name" javaType="String" jdbcType="VARCHAR" />
+		<result column="DESCRIPTION" property="description" javaType="String" jdbcType="VARCHAR" />
+		<result column="URL" property="url" javaType="String" jdbcType="VARCHAR" />
+		<result column="ISNOWMOD" property="isnow" javaType="String" jdbcType="VARCHAR" />
+		<result column="SRC" property="src" javaType="String" jdbcType="VARCHAR" />
+		<result column="NOTICEID" property="noticeid" javaType="String" jdbcType="VARCHAR" />
+		<result column="ID" property="id" javaType="String" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<select id="selectUnion" parameterMap="paramIdPrepAppModules" resultMap="resultTbPrepAppModules">
+    select t1.*,
+           t2.id             as id,
+           t2.moduleid       as moduleidmod,
+           t2.name           as name,
+           t2.version        as versionmod,
+           t2.url            as url,
+           t2.isnow          as isnowmod,
+           t2.src            as src,
+           t2.noticeid       as noticeid,
+           t2.description    as description,
+           t2.tipsSpecial    as tipsSpecial,
+           t2.tipsDetail     as tipsDetail,
+           t2.funcType       as funcType,
+           t2.IOSUrl         as IOSUrl,
+           t2.androidUrl     as androidUrl,
+           t2.h5Url          as h5Url,
+           t2.showSeat       as showSeat,
+           t2.needRealName   as needRealName,
+       	   t2.whiteFlag      as whiteFlag,
+       	   t2.pathfloder 	 as pathfloder,
+       	   t2.startpage		 as	startpage
+  		from PREP_APP_MODULES t1
+  		left join PREP_MODULES t2
+    	on t1.moduleid = t2.moduleid
+ 		where (t1.version = t2.version or ( t1.isnow = t2.isnow and t1.version is null ))
+   		and t1.status = '1'
+  	 	and t1.appuser = #{appuser}
+  	 	order by t2.name asc,t1.version asc
+	</select>
+	
+	<select id="selectById" parameterMap="paramIdPrepAppModules" resultMap="resultTbPrepAppModules">
+		SELECT * FROM PREP_APP_MODULES WHERE  ROWNUM = 1  
+		<include refid="paramSql"></include>
+	</select>
+	
+	<select id="list" parameterMap="paramIdPrepAppModules" resultMap="resultTbPrepAppModules">
+		<if test="pageflag==true">
+			SELECT * FROM (
+				SELECT A.*, ROWNUM RN FROM
+				(
+					SELECT * FROM PREP_APP_MODULES WHERE 1=1
+					<include refid="paramSql"></include>
+				) A WHERE ROWNUM &lt;= #{curPage}*#{pageSize}
+				) WHERE RN  &gt;=
+			(#{curPage}-1)*#{pageSize}
+		</if>
+		<if test="pageBlag==false">
+			SELECT * FROM PREP_APP_MODULES
+			WHERE 1=1
+			<include refid="paramSql"></include>
+		</if>
+	</select>
+	
+	<select id="listCount" parameterMap="paramIdPrepAppModules" resultType="Integer">
+				SELECT count(1) as count FROM PREP_APP_MODULES
+				WHERE 1=1 AND STATUS != 0
+				<include refid="paramSql"></include>
+	</select>
+	
+	<!-- 添加 -->
+	<insert id="insert" parameterMap="paramIdPrepAppModules" timeout="1000"  >
+		INSERT INTO 
+		PREP_APP_MODULES(
+UPDATETIME,
+		MODULEID,
+		APPUSER,
+		STATUS,
+		VERSION,
+		ISNOW,
+				ID
+		
+		)
+		VALUES(		#{updatetime},
+				#{moduleid},
+				#{appuser},
+				#{status},
+				#{version},
+				#{isnow},
+		
+#{id})
+	</insert>
+	
+	<!-- 修改 -->
+	<update id="update"  timeout="1000" >
+		UPDATE PREP_APP_MODULES 
+		<trim prefix="SET" prefixOverrides="SET ,">
+		<if test="updatetime !=null and updatetime !=''">
+			,UPDATETIME = #{updatetime}  
+		</if>
+		<if test="moduleid !=null and moduleid !=''">
+			,MODULEID = #{moduleid}  
+		</if>
+		<if test="appuser !=null and appuser !=''">
+			,APPUSER = #{appuser}  
+		</if>
+		<if test="status !=null and status !=''">
+			,STATUS = #{status}  
+		</if>
+		<if test="version !=null and version !=''">
+			,VERSION = #{version}  
+		</if>
+		<if test="isnow !=null and isnow !=''">
+			,ISNOW = #{isnow}  
+		</if>
+		<if test="id !=null and id !=''">
+			,ID = #{id}  
+		</if>
+		</trim>
+		WHERE 1=1
+		<include refid="paramSql"></include>
+	</update>
+	
+</mapper>

@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.imobpay.base.dao.AppuserDao">
+
+	
+	<sql id="paramSql">
+		<!--  此处一定要增加一个查询 -->
+		<if test="description !=null and description !=''">
+			AND DESCRIPTION =  #{description}
+		</if>
+		<if test="name !=null and name !=''">
+			AND NAME =  #{name}
+		</if>
+		<if test="partnerid !=null and partnerid !=''">
+			AND PARTNERID =  #{partnerid}
+		</if>
+		<if test="status !=null and status !=''">
+			AND STATUS =  #{status}
+		</if>
+		<if test="lastVersion !=null and lastVersion !=''">
+			AND LAST_VERSION =  #{lastVersion}
+		</if>
+		<if test="id !=null and id !=''">
+			AND ID =  #{id}
+		</if>
+	</sql>
+	
+	<parameterMap type="com.imobpay.base.entity.Appuser" id="paramIdAppuser">
+		<parameter property="pageflag"  javaType="Boolean" jdbcType="VARCHAR" mode="IN" />
+		<parameter property="curPage"   javaType="Integer" jdbcType="NUMERIC" mode="IN" />
+		<parameter property="pageSize"  javaType="Integer" jdbcType="NUMERIC" mode="IN" />
+		<parameter property="description" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="name" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="partnerid" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="status" javaType="Integer" jdbcType="NUMERIC" mode="IN"   />
+		<parameter property="lastVersion" javaType="Integer" jdbcType="NUMERIC" mode="IN"   />
+		<parameter property="id" javaType="Integer" jdbcType="NUMERIC" mode="IN"   />
+	</parameterMap>
+
+	<resultMap type="com.imobpay.base.entity.Appuser" id="resultTbAppuser">
+		<result column="DESCRIPTION" property="description" javaType="String" jdbcType="VARCHAR" />
+		<result column="NAME" property="name" javaType="String" jdbcType="VARCHAR" />
+		<result column="PARTNERID" property="partnerid" javaType="String" jdbcType="VARCHAR" />
+		<result column="STATUS" property="status" javaType="Integer" jdbcType="NUMERIC" />
+		<result column="LAST_VERSION" property="lastVersion" javaType="Integer" jdbcType="NUMERIC" />
+		<result column="ID" property="id" javaType="Integer" jdbcType="NUMERIC" />
+		<result column="EMAIL" property="email" javaType="String" jdbcType="VARCHAR" />
+		<result column="BRANCHID" property="branchid" javaType="String" jdbcType="VARCHAR" />
+		<result column="BRANCHNAME" property="branchname" javaType="String" jdbcType="VARCHAR" />
+		<result column="BRANCHATTR" property="branchattr" javaType="String" jdbcType="VARCHAR" />
+		<result column="PREPBRANCH_PM" property="prepbranchPm" javaType="String" jdbcType="VARCHAR" />
+		<result column="PREPBRANCH" property="prepbranch" javaType="String" jdbcType="VARCHAR" />
+		<result column="AUDITFLAG" property="auditflag" javaType="String" jdbcType="VARCHAR" />
+		<result column="BRANCHLEVEL" property="branchlevel" javaType="String" jdbcType="VARCHAR" />
+		<result column="BRANCHACCT" property="branchacct" javaType="String" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<select id="selectById" parameterMap="paramIdAppuser" resultMap="resultTbAppuser">
+		SELECT * FROM APPUSER WHERE  ROWNUM = 1  
+		<include refid="paramSql"></include>
+	</select>
+	
+	<select id="selectBranch" parameterType="String" resultMap="resultTbAppuser">
+			select *
+			  from appuser t1
+			  left join paybranch t2
+			    on t1.description = t2.branchid
+			 where t1.name = #{appUser}
+	</select>
+	
+	<select id="list" parameterMap="paramIdAppuser" resultMap="resultTbAppuser">
+		<if test="pageflag==true">
+			SELECT * FROM (
+				SELECT A.*, ROWNUM RN FROM
+				(
+					SELECT * FROM APPUSER WHERE 1=1
+					<include refid="paramSql"></include>
+				) A WHERE ROWNUM &lt;= #{curPage}*#{pageSize}
+				) WHERE RN  &gt;=
+			(#{curPage}-1)*#{pageSize}
+		</if>
+		<if test="pageBlag==false">
+			SELECT * FROM APPUSER
+			WHERE 1=1
+			<include refid="paramSql"></include>
+		</if>
+	</select>
+	
+	<select id="listCount" parameterMap="paramIdAppuser" resultType="Integer">
+				SELECT count(1) as count FROM APPUSER
+				WHERE 1=1 
+				<include refid="paramSql"></include>
+	</select>
+	
+	<!-- 添加 -->
+	<insert id="insert" parameterMap="paramIdAppuser" timeout="1000"  >
+		INSERT INTO 
+		APPUSER(
+DESCRIPTION,
+		NAME,
+		PARTNERID,
+		STATUS,
+		LAST_VERSION,
+				ID
+		
+		)
+		VALUES(		#{description},
+				#{name},
+				#{partnerid},
+				#{status},
+				#{lastVersion},
+		
+#{id})
+	</insert>
+	
+	<!-- 修改 -->
+	<update id="update"  timeout="1000" >
+		UPDATE APPUSER 
+		<trim prefix="SET" prefixOverrides="SET ,">
+		<if test="description !=null and description !=''">
+			,DESCRIPTION = #{description}  
+		</if>
+		<if test="name !=null and name !=''">
+			,NAME = #{name}  
+		</if>
+		<if test="partnerid !=null and partnerid !=''">
+			,PARTNERID = #{partnerid}  
+		</if>
+		<if test="status !=null and status !=''">
+			,STATUS = #{status}  
+		</if>
+		<if test="lastVersion !=null and lastVersion !=''">
+			,LAST_VERSION = #{lastVersion}  
+		</if>
+		<if test="id !=null and id !=''">
+			,ID = #{id}  
+		</if>
+		</trim>
+		WHERE 1=1
+		<include refid="paramSql"></include>
+	</update>
+	
+</mapper>

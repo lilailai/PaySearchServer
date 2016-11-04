@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.imobpay.base.dao.CrsBlackUserDao">
+
+	
+	<sql id="paramSql">
+		<!--  此处一定要增加一个查询 -->
+		<if test="blackdesc !=null and blackdesc !=''">
+			AND BLACKDESC =  #{blackdesc}
+		</if>
+		<if test="branchid !=null and branchid !=''">
+			AND BRANCHID =  #{branchid}
+		</if>
+		<if test="appuser !=null and appuser !=''">
+			AND APPUSER =  #{appuser}
+		</if>
+		<if test="createdate !=null and createdate !=''">
+			AND CREATEDATE =  #{createdate}
+		</if>
+		<if test="status !=null and status !=''">
+			AND STATUS =  #{status}
+		</if>
+		<if test="pk1 !=null and pk1 !=''">
+			AND PK1 =  #{pk1}
+		</if>
+		<if test="usercode !=null and usercode !=''">
+			AND USERCODE =  #{usercode}
+		</if>
+	</sql>
+	
+	<parameterMap type="com.imobpay.base.entity.CrsBlackUser" id="paramIdCrsBlackUser">
+		<parameter property="pageflag"  javaType="Boolean" jdbcType="VARCHAR" mode="IN" />
+		<parameter property="curPage"   javaType="Integer" jdbcType="NUMERIC" mode="IN" />
+		<parameter property="pageSize"  javaType="Integer" jdbcType="NUMERIC" mode="IN" />
+		<parameter property="blackdesc" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="branchid" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="appuser" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="createdate" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="status" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="pk1" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="usercode" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+	</parameterMap>
+
+	<resultMap type="com.imobpay.base.entity.CrsBlackUser" id="resultTbCrsBlackUser">
+		<result column="BLACKDESC" property="blackdesc" javaType="String" jdbcType="VARCHAR" />
+		<result column="BRANCHID" property="branchid" javaType="String" jdbcType="VARCHAR" />
+		<result column="APPUSER" property="appuser" javaType="String" jdbcType="VARCHAR" />
+		<result column="CREATEDATE" property="createdate" javaType="String" jdbcType="VARCHAR" />
+		<result column="STATUS" property="status" javaType="String" jdbcType="VARCHAR" />
+		<result column="PK1" property="pk1" javaType="String" jdbcType="VARCHAR" />
+		<result column="USERCODE" property="usercode" javaType="String" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<select id="selectById" parameterMap="paramIdCrsBlackUser" resultMap="resultTbCrsBlackUser">
+		SELECT * FROM CRS_BLACK_USER WHERE  ROWNUM = 1  
+		<include refid="paramSql"></include>
+	</select>
+	
+	<select id="list" parameterMap="paramIdCrsBlackUser" resultMap="resultTbCrsBlackUser">
+		<if test="pageflag==true">
+			SELECT * FROM (
+				SELECT A.*, ROWNUM RN FROM
+				(
+					SELECT * FROM CRS_BLACK_USER WHERE 1=1
+					<include refid="paramSql"></include>
+				) A WHERE ROWNUM &lt;= #{curPage}*#{pageSize}
+				) WHERE RN  &gt;=
+			(#{curPage}-1)*#{pageSize}
+		</if>
+		<if test="pageBlag==false">
+			SELECT * FROM CRS_BLACK_USER
+			WHERE 1=1
+			<include refid="paramSql"></include>
+		</if>
+	</select>
+	
+	<select id="listCount" parameterMap="paramIdCrsBlackUser" resultType="Integer">
+				SELECT count(1) as count FROM CRS_BLACK_USER
+				WHERE 1=1 
+				<include refid="paramSql"></include>
+	</select>
+	
+	<!-- 添加 -->
+	<insert id="insert" parameterMap="paramIdCrsBlackUser" timeout="1000"  >
+		INSERT INTO 
+		CRS_BLACK_USER(
+BLACKDESC,
+		BRANCHID,
+		APPUSER,
+		CREATEDATE,
+		STATUS,
+		PK1,
+				USERCODE
+		
+		)
+		VALUES(		#{blackdesc},
+				#{branchid},
+				#{appuser},
+				#{createdate},
+				#{status},
+				#{pk1},
+		
+#{usercode})
+	</insert>
+	
+	<!-- 修改 -->
+	<update id="update"  timeout="1000" >
+		UPDATE CRS_BLACK_USER 
+		<trim prefix="SET" prefixOverrides="SET ,">
+		<if test="blackdesc !=null and blackdesc !=''">
+			,BLACKDESC = #{blackdesc}  
+		</if>
+		<if test="branchid !=null and branchid !=''">
+			,BRANCHID = #{branchid}  
+		</if>
+		<if test="appuser !=null and appuser !=''">
+			,APPUSER = #{appuser}  
+		</if>
+		<if test="createdate !=null and createdate !=''">
+			,CREATEDATE = #{createdate}  
+		</if>
+		<if test="status !=null and status !=''">
+			,STATUS = #{status}  
+		</if>
+		<if test="pk1 !=null and pk1 !=''">
+			,PK1 = #{pk1}  
+		</if>
+		<if test="usercode !=null and usercode !=''">
+			,USERCODE = #{usercode}  
+		</if>
+		</trim>
+		WHERE 1=1
+		<include refid="paramSql"></include>
+	</update>
+	
+</mapper>

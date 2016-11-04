@@ -1,0 +1,437 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.imobpay.base.dao.PaycustomerDao">
+
+	
+	<sql id="paramSql">
+		<!--  此处一定要增加一个查询 -->
+		<if test="signflag !=null and signflag !=''">
+			AND SIGNFLAG =  #{signflag}
+		</if>
+		<if test="acctflag !=null and acctflag !=''">
+			AND ACCTFLAG =  #{acctflag}
+		</if>
+		<if test="qauditstatus !=null and qauditstatus !=''">
+			AND QAUDITSTATUS =  #{qauditstatus}
+		</if>
+		<if test="timestamp !=null and timestamp !=''">
+			AND TIMESTAMP =  #{timestamp}
+		</if>
+		<if test="customerid !=null and customerid !=''">
+			AND CUSTOMERID =  #{customerid}
+		</if>
+		<if test="username !=null and username !=''">
+			AND USERNAME =  #{username}
+		</if>
+		<if test="customertype !=null and customertype !=''">
+			AND CUSTOMERTYPE =  #{customertype}
+		</if>
+		<if test="isEmployee !=null and isEmployee !=''">
+			AND IS_EMPLOYEE =  #{isEmployee}
+		</if>
+		<if test="isFasttrialStatus !=null and isFasttrialStatus !=''">
+			AND IS_FASTTRIAL_STATUS =  #{isFasttrialStatus}
+		</if>
+		<if test="customername !=null and customername !=''">
+			AND CUSTOMERNAME =  #{customername}
+		</if>
+		<if test="customerpidtype !=null and customerpidtype !=''">
+			AND CUSTOMERPIDTYPE =  #{customerpidtype}
+		</if>
+		<if test="customerpid !=null and customerpid !=''">
+			AND CUSTOMERPID =  #{customerpid}
+		</if>
+		<if test="customerregdate !=null and customerregdate !=''">
+			AND CUSTOMERREGDATE =  #{customerregdate}
+		</if>
+		<if test="branchid !=null and branchid !=''">
+			AND BRANCHID =  #{branchid}
+		</if>
+		<if test="attention !=null and attention !=''">
+			AND ATTENTION =  #{attention}
+		</if>
+		<if test="customertag !=null and customertag !=''">
+			AND CUSTOMERTAG =  #{customertag}
+		</if>
+		<if test="viplevel !=null and viplevel !=''">
+			AND VIPLEVEL =  #{viplevel}
+		</if>
+		<if test="lastchangedate !=null and lastchangedate !=''">
+			AND LASTCHANGEDATE =  #{lastchangedate}
+		</if>
+		<if test="memo !=null and memo !=''">
+			AND MEMO =  #{memo}
+		</if>
+		<if test="email !=null and email !=''">
+			AND EMAIL =  #{email}
+		</if>
+		<if test="customeraddr !=null and customeraddr !=''">
+			AND CUSTOMERADDR =  #{customeraddr}
+		</if>
+		<if test="businesslicence !=null and businesslicence !=''">
+			AND BUSINESSLICENCE =  #{businesslicence}
+		</if>
+		<if test="checkrange !=null and checkrange !=''">
+			AND CHECKRANGE =  #{checkrange}
+		</if>
+		<if test="firstreject !=null and firstreject !=''">
+			AND FIRSTREJECT =  #{firstreject}
+		</if>
+		<if test="finalreject !=null and finalreject !=''">
+			AND FINALREJECT =  #{finalreject}
+		</if>
+		<if test="mobilenolocate !=null and mobilenolocate !=''">
+			AND MOBILENOLOCATE =  #{mobilenolocate}
+		</if>
+		<if test="remark !=null and remark !=''">
+			AND REMARK =  #{remark}
+		</if>
+		<if test="credittag !=null and credittag !=''">
+			AND CREDITTAG =  #{credittag}
+		</if>
+		<if test="idcardvalidbegin !=null and idcardvalidbegin !=''">
+			AND IDCARDVALIDBEGIN =  #{idcardvalidbegin}
+		</if>
+		<if test="idcardvalidend !=null and idcardvalidend !=''">
+			AND IDCARDVALIDEND =  #{idcardvalidend}
+		</if>
+		<if test="creditvalid !=null and creditvalid !=''">
+			AND CREDITVALID =  #{creditvalid}
+		</if>
+		<if test="auditflag !=null and auditflag !=''">
+			AND AUDITFLAG =  #{auditflag}
+		</if>
+		<if test="perflag !=null and perflag !=''">
+			AND PERFLAG =  #{perflag}
+		</if>
+		<if test="shopstatus !=null and shopstatus !=''">
+			AND SHOPSTATUS =  #{shopstatus}
+		</if>
+		<if test="lastresetpassword !=null and lastresetpassword !=''">
+			AND LASTRESETPASSWORD =  #{lastresetpassword}
+		</if>
+		<if test="featureflag !=null and featureflag !=''">
+			AND FEATUREFLAG =  #{featureflag}
+		</if>
+		<if test="signreason !=null and signreason !=''">
+			AND SIGNREASON =  #{signreason}
+		</if>
+	</sql>
+	
+	<parameterMap type="com.imobpay.base.entity.Paycustomer" id="paramIdPaycustomer">
+		<parameter property="pageflag"  javaType="Boolean" jdbcType="VARCHAR" mode="IN" />
+		<parameter property="curPage"   javaType="Integer" jdbcType="NUMERIC" mode="IN" />
+		<parameter property="pageSize"  javaType="Integer" jdbcType="NUMERIC" mode="IN" />
+		<parameter property="signflag" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="acctflag" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="qauditstatus" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="timestamp" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="customerid" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="username" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="customertype" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="isEmployee" javaType="String" jdbcType="CHAR" mode="IN"   />
+		<parameter property="isFasttrialStatus" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="customername" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="customerpidtype" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="customerpid" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="customerregdate" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="branchid" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="attention" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="customertag" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="viplevel" javaType="Integer" jdbcType="NUMERIC" mode="IN"   />
+		<parameter property="lastchangedate" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="memo" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="email" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="customeraddr" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="businesslicence" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="checkrange" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="firstreject" javaType="Integer" jdbcType="NUMERIC" mode="IN"   />
+		<parameter property="finalreject" javaType="Integer" jdbcType="NUMERIC" mode="IN"   />
+		<parameter property="mobilenolocate" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="remark" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="credittag" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="idcardvalidbegin" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="idcardvalidend" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="creditvalid" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="auditflag" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="perflag" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="shopstatus" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="lastresetpassword" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="featureflag" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="signreason" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+	</parameterMap>
+
+	<resultMap type="com.imobpay.base.entity.Paycustomer" id="resultTbPaycustomer">
+		<result column="SIGNFLAG" property="signflag" javaType="String" jdbcType="VARCHAR" />
+		<result column="ACCTFLAG" property="acctflag" javaType="String" jdbcType="VARCHAR" />
+		<result column="QAUDITSTATUS" property="qauditstatus" javaType="String" jdbcType="VARCHAR" />
+		<result column="TIMESTAMP" property="timestamp" javaType="String" jdbcType="VARCHAR" />
+		<result column="CUSTOMERID" property="customerid" javaType="String" jdbcType="VARCHAR" />
+		<result column="USERNAME" property="username" javaType="String" jdbcType="VARCHAR" />
+		<result column="CUSTOMERTYPE" property="customertype" javaType="String" jdbcType="VARCHAR" />
+		<result column="IS_EMPLOYEE" property="isEmployee" javaType="String" jdbcType="CHAR" />
+		<result column="IS_FASTTRIAL_STATUS" property="isFasttrialStatus" javaType="String" jdbcType="VARCHAR" />
+		<result column="CUSTOMERNAME" property="customername" javaType="String" jdbcType="VARCHAR" />
+		<result column="CUSTOMERPIDTYPE" property="customerpidtype" javaType="String" jdbcType="VARCHAR" />
+		<result column="CUSTOMERPID" property="customerpid" javaType="String" jdbcType="VARCHAR" />
+		<result column="CUSTOMERREGDATE" property="customerregdate" javaType="String" jdbcType="VARCHAR" />
+		<result column="BRANCHID" property="branchid" javaType="String" jdbcType="VARCHAR" />
+		<result column="ATTENTION" property="attention" javaType="String" jdbcType="VARCHAR" />
+		<result column="CUSTOMERTAG" property="customertag" javaType="String" jdbcType="VARCHAR" />
+		<result column="VIPLEVEL" property="viplevel" javaType="Integer" jdbcType="NUMERIC" />
+		<result column="LASTCHANGEDATE" property="lastchangedate" javaType="String" jdbcType="VARCHAR" />
+		<result column="MEMO" property="memo" javaType="String" jdbcType="VARCHAR" />
+		<result column="EMAIL" property="email" javaType="String" jdbcType="VARCHAR" />
+		<result column="CUSTOMERADDR" property="customeraddr" javaType="String" jdbcType="VARCHAR" />
+		<result column="BUSINESSLICENCE" property="businesslicence" javaType="String" jdbcType="VARCHAR" />
+		<result column="CHECKRANGE" property="checkrange" javaType="String" jdbcType="VARCHAR" />
+		<result column="FIRSTREJECT" property="firstreject" javaType="Integer" jdbcType="NUMERIC" />
+		<result column="FINALREJECT" property="finalreject" javaType="Integer" jdbcType="NUMERIC" />
+		<result column="MOBILENOLOCATE" property="mobilenolocate" javaType="String" jdbcType="VARCHAR" />
+		<result column="REMARK" property="remark" javaType="String" jdbcType="VARCHAR" />
+		<result column="CREDITTAG" property="credittag" javaType="String" jdbcType="VARCHAR" />
+		<result column="IDCARDVALIDBEGIN" property="idcardvalidbegin" javaType="String" jdbcType="VARCHAR" />
+		<result column="IDCARDVALIDEND" property="idcardvalidend" javaType="String" jdbcType="VARCHAR" />
+		<result column="CREDITVALID" property="creditvalid" javaType="String" jdbcType="VARCHAR" />
+		<result column="AUDITFLAG" property="auditflag" javaType="String" jdbcType="VARCHAR" />
+		<result column="PERFLAG" property="perflag" javaType="String" jdbcType="VARCHAR" />
+		<result column="SHOPSTATUS" property="shopstatus" javaType="String" jdbcType="VARCHAR" />
+		<result column="LASTRESETPASSWORD" property="lastresetpassword" javaType="String" jdbcType="VARCHAR" />
+		<result column="FEATUREFLAG" property="featureflag" javaType="String" jdbcType="VARCHAR" />
+		<result column="SIGNREASON" property="signreason" javaType="String" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<select id="selectById" parameterMap="paramIdPaycustomer" resultMap="resultTbPaycustomer">
+		SELECT * FROM PAYCUSTOMER WHERE  ROWNUM = 1  
+		<include refid="paramSql"></include>
+	</select>
+	
+	<select id="list" parameterMap="paramIdPaycustomer" resultMap="resultTbPaycustomer">
+		<if test="pageflag==true">
+			SELECT * FROM (
+				SELECT A.*, ROWNUM RN FROM
+				(
+					SELECT * FROM PAYCUSTOMER WHERE 1=1
+					<include refid="paramSql"></include>
+				) A WHERE ROWNUM &lt;= #{curPage}*#{pageSize}
+				) WHERE RN  &gt;=
+			(#{curPage}-1)*#{pageSize}
+		</if>
+		<if test="pageBlag==false">
+			SELECT * FROM PAYCUSTOMER
+			WHERE 1=1
+			<include refid="paramSql"></include>
+		</if>
+	</select>
+	
+	<select id="listCount" parameterMap="paramIdPaycustomer" resultType="Integer">
+				SELECT count(1) as count FROM PAYCUSTOMER
+				WHERE 1=1 
+				<include refid="paramSql"></include>
+	</select>
+	
+	<!-- 添加 -->
+	<insert id="insert" parameterMap="paramIdPaycustomer" timeout="1000"  >
+		INSERT INTO 
+		PAYCUSTOMER(
+SIGNFLAG,
+		ACCTFLAG,
+		QAUDITSTATUS,
+		TIMESTAMP,
+		CUSTOMERID,
+		USERNAME,
+		CUSTOMERTYPE,
+		IS_EMPLOYEE,
+		IS_FASTTRIAL_STATUS,
+		CUSTOMERNAME,
+		CUSTOMERPIDTYPE,
+		CUSTOMERPID,
+		CUSTOMERREGDATE,
+		BRANCHID,
+		ATTENTION,
+		CUSTOMERTAG,
+		VIPLEVEL,
+		LASTCHANGEDATE,
+		MEMO,
+		EMAIL,
+		CUSTOMERADDR,
+		BUSINESSLICENCE,
+		CHECKRANGE,
+		FIRSTREJECT,
+		FINALREJECT,
+		MOBILENOLOCATE,
+		REMARK,
+		CREDITTAG,
+		IDCARDVALIDBEGIN,
+		IDCARDVALIDEND,
+		CREDITVALID,
+		AUDITFLAG,
+		PERFLAG,
+		SHOPSTATUS,
+		LASTRESETPASSWORD,
+		FEATUREFLAG,
+				SIGNREASON
+		
+		)
+		VALUES(		#{signflag},
+				#{acctflag},
+				#{qauditstatus},
+				#{timestamp},
+				#{customerid},
+				#{username},
+				#{customertype},
+				#{isEmployee},
+				#{isFasttrialStatus},
+				#{customername},
+				#{customerpidtype},
+				#{customerpid},
+				#{customerregdate},
+				#{branchid},
+				#{attention},
+				#{customertag},
+				#{viplevel},
+				#{lastchangedate},
+				#{memo},
+				#{email},
+				#{customeraddr},
+				#{businesslicence},
+				#{checkrange},
+				#{firstreject},
+				#{finalreject},
+				#{mobilenolocate},
+				#{remark},
+				#{credittag},
+				#{idcardvalidbegin},
+				#{idcardvalidend},
+				#{creditvalid},
+				#{auditflag},
+				#{perflag},
+				#{shopstatus},
+				#{lastresetpassword},
+				#{featureflag},
+		
+#{signreason})
+	</insert>
+	
+	<!-- 修改 -->
+	<update id="update"  timeout="1000" >
+		UPDATE PAYCUSTOMER 
+		<trim prefix="SET" prefixOverrides="SET ,">
+		<if test="signflag !=null and signflag !=''">
+			,SIGNFLAG = #{signflag}  
+		</if>
+		<if test="acctflag !=null and acctflag !=''">
+			,ACCTFLAG = #{acctflag}  
+		</if>
+		<if test="qauditstatus !=null and qauditstatus !=''">
+			,QAUDITSTATUS = #{qauditstatus}  
+		</if>
+		<if test="timestamp !=null and timestamp !=''">
+			,TIMESTAMP = #{timestamp}  
+		</if>
+		<if test="customerid !=null and customerid !=''">
+			,CUSTOMERID = #{customerid}  
+		</if>
+		<if test="username !=null and username !=''">
+			,USERNAME = #{username}  
+		</if>
+		<if test="customertype !=null and customertype !=''">
+			,CUSTOMERTYPE = #{customertype}  
+		</if>
+		<if test="isEmployee !=null and isEmployee !=''">
+			,IS_EMPLOYEE = #{isEmployee}  
+		</if>
+		<if test="isFasttrialStatus !=null and isFasttrialStatus !=''">
+			,IS_FASTTRIAL_STATUS = #{isFasttrialStatus}  
+		</if>
+		<if test="customername !=null and customername !=''">
+			,CUSTOMERNAME = #{customername}  
+		</if>
+		<if test="customerpidtype !=null and customerpidtype !=''">
+			,CUSTOMERPIDTYPE = #{customerpidtype}  
+		</if>
+		<if test="customerpid !=null and customerpid !=''">
+			,CUSTOMERPID = #{customerpid}  
+		</if>
+		<if test="customerregdate !=null and customerregdate !=''">
+			,CUSTOMERREGDATE = #{customerregdate}  
+		</if>
+		<if test="branchid !=null and branchid !=''">
+			,BRANCHID = #{branchid}  
+		</if>
+		<if test="attention !=null and attention !=''">
+			,ATTENTION = #{attention}  
+		</if>
+		<if test="customertag !=null and customertag !=''">
+			,CUSTOMERTAG = #{customertag}  
+		</if>
+		<if test="viplevel !=null and viplevel !=''">
+			,VIPLEVEL = #{viplevel}  
+		</if>
+		<if test="lastchangedate !=null and lastchangedate !=''">
+			,LASTCHANGEDATE = #{lastchangedate}  
+		</if>
+		<if test="memo !=null and memo !=''">
+			,MEMO = #{memo}  
+		</if>
+		<if test="email !=null and email !=''">
+			,EMAIL = #{email}  
+		</if>
+		<if test="customeraddr !=null and customeraddr !=''">
+			,CUSTOMERADDR = #{customeraddr}  
+		</if>
+		<if test="businesslicence !=null and businesslicence !=''">
+			,BUSINESSLICENCE = #{businesslicence}  
+		</if>
+		<if test="checkrange !=null and checkrange !=''">
+			,CHECKRANGE = #{checkrange}  
+		</if>
+		<if test="firstreject !=null and firstreject !=''">
+			,FIRSTREJECT = #{firstreject}  
+		</if>
+		<if test="finalreject !=null and finalreject !=''">
+			,FINALREJECT = #{finalreject}  
+		</if>
+		<if test="mobilenolocate !=null and mobilenolocate !=''">
+			,MOBILENOLOCATE = #{mobilenolocate}  
+		</if>
+		<if test="remark !=null and remark !=''">
+			,REMARK = #{remark}  
+		</if>
+		<if test="credittag !=null and credittag !=''">
+			,CREDITTAG = #{credittag}  
+		</if>
+		<if test="idcardvalidbegin !=null and idcardvalidbegin !=''">
+			,IDCARDVALIDBEGIN = #{idcardvalidbegin}  
+		</if>
+		<if test="idcardvalidend !=null and idcardvalidend !=''">
+			,IDCARDVALIDEND = #{idcardvalidend}  
+		</if>
+		<if test="creditvalid !=null and creditvalid !=''">
+			,CREDITVALID = #{creditvalid}  
+		</if>
+		<if test="auditflag !=null and auditflag !=''">
+			,AUDITFLAG = #{auditflag}  
+		</if>
+		<if test="perflag !=null and perflag !=''">
+			,PERFLAG = #{perflag}  
+		</if>
+		<if test="shopstatus !=null and shopstatus !=''">
+			,SHOPSTATUS = #{shopstatus}  
+		</if>
+		<if test="lastresetpassword !=null and lastresetpassword !=''">
+			,LASTRESETPASSWORD = #{lastresetpassword}  
+		</if>
+		<if test="featureflag !=null and featureflag !=''">
+			,FEATUREFLAG = #{featureflag}  
+		</if>
+		<if test="signreason !=null and signreason !=''">
+			,SIGNREASON = #{signreason}  
+		</if>
+		</trim>
+		WHERE 1=1
+		<include refid="paramSql"></include>
+	</update>
+	
+</mapper>

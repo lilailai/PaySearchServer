@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.imobpay.base.dao.UserInstructDao">
+
+	
+	<sql id="paramSql">
+		<!--  此处一定要增加一个查询 -->
+		<if test="status !=null and status !=''">
+			AND STATUS =  #{status}
+		</if>
+		<if test="userinstructtype !=null and userinstructtype !=''">
+			AND USERINSTRUCTTYPE =  #{userinstructtype}
+		</if>
+		<if test="branchid !=null and branchid !=''">
+			AND BRANCHID =  #{branchid}
+		</if>
+		<if test="appuser !=null and appuser !=''">
+			AND APPUSER =  #{appuser}
+		</if>
+		<if test="insurl !=null and insurl !=''">
+			AND INSURL =  #{insurl}
+		</if>
+		<if test="flag !=null and flag !=''">
+			AND FLAG =  #{flag}
+		</if>
+		<if test="modelid !=null and modelid !=''">
+			AND MODELID =  #{modelid}
+		</if>
+		<if test="paramid !=null and paramid !=''">
+			AND PARAMID =  #{paramid}
+		</if>
+		<if test="pk1 !=null and pk1 !=''">
+			AND PK1 =  #{pk1}
+		</if>
+		<if test="pk !=null and pk !=''">
+			AND PK =  #{pk}
+		</if>
+	</sql>
+	
+	<parameterMap type="com.imobpay.base.entity.UserInstruct" id="paramIdUserInstruct">
+		<parameter property="pageflag"  javaType="Boolean" jdbcType="VARCHAR" mode="IN" />
+		<parameter property="curPage"   javaType="Integer" jdbcType="NUMERIC" mode="IN" />
+		<parameter property="pageSize"  javaType="Integer" jdbcType="NUMERIC" mode="IN" />
+		<parameter property="status" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="userinstructtype" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="branchid" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="appuser" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="insurl" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="flag" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="mobileno" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="version" javaType="String" jdbcType="NVARCHAR" mode="IN"   />
+		<parameter property="modelid" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="paramid" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="pk1" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="pk" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+	</parameterMap>
+
+	<resultMap type="com.imobpay.base.entity.UserInstruct" id="resultTbUserInstruct">
+		<result column="STATUS" property="status" javaType="String" jdbcType="VARCHAR" />
+		<result column="USERINSTRUCTTYPE" property="userinstructtype" javaType="String" jdbcType="VARCHAR" />
+		<result column="BRANCHID" property="branchid" javaType="String" jdbcType="VARCHAR" />
+		<result column="APPUSER" property="appuser" javaType="String" jdbcType="VARCHAR" />
+		<result column="INSURL" property="insurl" javaType="String" jdbcType="VARCHAR" />
+		<result column="FLAG" property="flag" javaType="String" jdbcType="VARCHAR" />
+		<result column="VERSION" property="version" javaType="String" jdbcType="NVARCHAR" />
+		<result column="MOBILENO" property="mobileno" javaType="String" jdbcType="VARCHAR" />
+		<result column="MODELID" property="modelid" javaType="String" jdbcType="VARCHAR" />
+		<result column="PARAMID" property="paramid" javaType="String" jdbcType="VARCHAR" />
+		<result column="PK1" property="pk1" javaType="String" jdbcType="VARCHAR" />
+		<result column="PK" property="pk" javaType="String" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<select id="selectById" parameterMap="paramIdUserInstruct" resultMap="resultTbUserInstruct">
+		SELECT * FROM USER_INSTRUCT WHERE  ROWNUM = 1  
+		<include refid="paramSql"></include>
+	</select>
+	
+	<select id="selectUserNote" parameterMap="paramIdUserInstruct" resultMap="resultTbUserInstruct">
+			select ui.USERINSTRUCTTYPE ,
+			ui.PARAMID ,
+			ui.INSURL ,
+			im.mobileno ,
+			im.version
+			from user_instruct ui
+			left join instruct_mobile im
+			on ui.appuser = im.appuser
+			where ui.flag = '1' AND ui.APPUSER =  #{appuser}
+	</select>
+	
+	<select id="list" parameterMap="paramIdUserInstruct" resultMap="resultTbUserInstruct">
+		<if test="pageflag==true">
+			SELECT * FROM (
+				SELECT A.*, ROWNUM RN FROM
+				(
+					SELECT * FROM USER_INSTRUCT WHERE 1=1
+					<include refid="paramSql"></include>
+				) A WHERE ROWNUM &lt;= #{curPage}*#{pageSize}
+				) WHERE RN  &gt;=
+			(#{curPage}-1)*#{pageSize}
+		</if>
+		<if test="pageBlag==false">
+			SELECT * FROM USER_INSTRUCT
+			WHERE 1=1
+			<include refid="paramSql"></include>
+		</if>
+	</select>
+	
+	<select id="listCount" parameterMap="paramIdUserInstruct" resultType="Integer">
+				SELECT count(1) as count FROM USER_INSTRUCT
+				WHERE 1=1 
+				<include refid="paramSql"></include>
+	</select>
+	
+	<!-- 添加 -->
+	<insert id="insert" parameterMap="paramIdUserInstruct" timeout="1000"  >
+		INSERT INTO 
+		USER_INSTRUCT(
+STATUS,
+		USERINSTRUCTTYPE,
+		BRANCHID,
+		APPUSER,
+		INSURL,
+		FLAG,
+		MODELID,
+		PARAMID,
+		PK1,
+				PK
+		
+		)
+		VALUES(		#{status},
+				#{userinstructtype},
+				#{branchid},
+				#{appuser},
+				#{insurl},
+				#{flag},
+				#{modelid},
+				#{paramid},
+				#{pk1},
+		
+#{pk})
+	</insert>
+	
+	<!-- 修改 -->
+	<update id="update"  timeout="1000" >
+		UPDATE USER_INSTRUCT 
+		<trim prefix="SET" prefixOverrides="SET ,">
+		<if test="status !=null and status !=''">
+			,STATUS = #{status}  
+		</if>
+		<if test="userinstructtype !=null and userinstructtype !=''">
+			,USERINSTRUCTTYPE = #{userinstructtype}  
+		</if>
+		<if test="branchid !=null and branchid !=''">
+			,BRANCHID = #{branchid}  
+		</if>
+		<if test="appuser !=null and appuser !=''">
+			,APPUSER = #{appuser}  
+		</if>
+		<if test="insurl !=null and insurl !=''">
+			,INSURL = #{insurl}  
+		</if>
+		<if test="flag !=null and flag !=''">
+			,FLAG = #{flag}  
+		</if>
+		<if test="modelid !=null and modelid !=''">
+			,MODELID = #{modelid}  
+		</if>
+		<if test="paramid !=null and paramid !=''">
+			,PARAMID = #{paramid}  
+		</if>
+		<if test="pk1 !=null and pk1 !=''">
+			,PK1 = #{pk1}  
+		</if>
+		<if test="pk !=null and pk !=''">
+			,PK = #{pk}  
+		</if>
+		</trim>
+		WHERE 1=1
+		<include refid="paramSql"></include>
+	</update>
+	
+</mapper>

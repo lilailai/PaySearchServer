@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.imobpay.base.dao.CrsAppLevelRuleDao">
+
+	
+	<sql id="paramSql">
+		<!--  此处一定要增加一个查询 -->
+		<if test="gotofee !=null and gotofee !=''">
+			AND GOTOFEE =  #{gotofee}
+		</if>
+		<if test="levdesc !=null and levdesc !=''">
+			AND LEVDESC =  #{levdesc}
+		</if>
+		<if test="moneyt1 !=null and moneyt1 !=''">
+			AND MONEYT1 =  #{moneyt1}
+		</if>
+		<if test="moneyt0 !=null and moneyt0 !=''">
+			AND MONEYT0 =  #{moneyt0}
+		</if>
+		<if test="creditnum !=null and creditnum !=''">
+			AND CREDITNUM =  #{creditnum}
+		</if>
+		<if test="ishighestlevel !=null and ishighestlevel !=''">
+			AND ISHIGHESTLEVEL =  #{ishighestlevel}
+		</if>
+		<if test="bingfee !=null and bingfee !=''">
+			AND BINGFEE =  #{bingfee}
+		</if>
+		<if test="levelname !=null and levelname !=''">
+			AND LEVELNAME =  #{levelname}
+		</if>
+		<if test="status !=null and status !=''">
+			AND STATUS =  #{status}
+		</if>
+		<if test="createdate !=null and createdate !=''">
+			AND CREATEDATE =  #{createdate}
+		</if>
+		<if test="appuser !=null and appuser !=''">
+			AND APPUSER =  #{appuser}
+		</if>
+		<if test="branchid !=null and branchid !=''">
+			AND BRANCHID =  #{branchid}
+		</if>
+		<if test="pk1 !=null and pk1 !=''">
+			AND PK1 =  #{pk1}
+		</if>
+		<if test="levelid !=null and levelid !=''">
+			AND LEVELID =  #{levelid}
+		</if>
+	</sql>
+	
+	<parameterMap type="com.imobpay.base.entity.CrsAppLevelRule" id="paramIdCrsAppLevelRule">
+		<parameter property="pageflag"  javaType="Boolean" jdbcType="VARCHAR" mode="IN" />
+		<parameter property="curPage"   javaType="Integer" jdbcType="NUMERIC" mode="IN" />
+		<parameter property="pageSize"  javaType="Integer" jdbcType="NUMERIC" mode="IN" />
+		<parameter property="gotofee" javaType="Integer" jdbcType="NUMERIC" mode="IN"   />
+		<parameter property="levdesc" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="moneyt1" javaType="Integer" jdbcType="NUMERIC" mode="IN"   />
+		<parameter property="moneyt0" javaType="Integer" jdbcType="NUMERIC" mode="IN"   />
+		<parameter property="creditnum" javaType="Integer" jdbcType="NUMERIC" mode="IN"   />
+		<parameter property="ishighestlevel" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="bingfee" javaType="Integer" jdbcType="NUMERIC" mode="IN"   />
+		<parameter property="levelname" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="status" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="createdate" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="appuser" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="branchid" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="pk1" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="levelid" javaType="Integer" jdbcType="NUMERIC" mode="IN"   />
+	</parameterMap>
+
+	<resultMap type="com.imobpay.base.entity.CrsAppLevelRule" id="resultTbCrsAppLevelRule">
+		<result column="GOTOFEE" property="gotofee" javaType="Integer" jdbcType="NUMERIC" />
+		<result column="LEVDESC" property="levdesc" javaType="String" jdbcType="VARCHAR" />
+		<result column="MONEYT1" property="moneyt1" javaType="Integer" jdbcType="NUMERIC" />
+		<result column="MONEYT0" property="moneyt0" javaType="Integer" jdbcType="NUMERIC" />
+		<result column="CREDITNUM" property="creditnum" javaType="Integer" jdbcType="NUMERIC" />
+		<result column="ISHIGHESTLEVEL" property="ishighestlevel" javaType="String" jdbcType="VARCHAR" />
+		<result column="BINGFEE" property="bingfee" javaType="Integer" jdbcType="NUMERIC" />
+		<result column="LEVELNAME" property="levelname" javaType="String" jdbcType="VARCHAR" />
+		<result column="STATUS" property="status" javaType="String" jdbcType="VARCHAR" />
+		<result column="CREATEDATE" property="createdate" javaType="String" jdbcType="VARCHAR" />
+		<result column="APPUSER" property="appuser" javaType="String" jdbcType="VARCHAR" />
+		<result column="BRANCHID" property="branchid" javaType="String" jdbcType="VARCHAR" />
+		<result column="PK1" property="pk1" javaType="String" jdbcType="VARCHAR" />
+		<result column="LEVELID" property="levelid" javaType="Integer" jdbcType="NUMERIC" />
+	</resultMap>
+
+	<select id="selectById" parameterMap="paramIdCrsAppLevelRule" resultMap="resultTbCrsAppLevelRule">
+		SELECT * FROM CRS_APP_LEVEL_RULE WHERE  ROWNUM = 1  
+		<include refid="paramSql"></include>
+	</select>
+	
+	<select id="selRuleCount" parameterMap="paramIdCrsAppLevelRule" resultType="java.lang.Integer">
+		SELECT MAX(LEVELID)
+			FROM CRS_APP_LEVEL_RULE
+		WHERE APPUSER = #{appuser}
+			AND BRANCHID = #{branchid}
+	</select>
+	
+	<select id="list" parameterMap="paramIdCrsAppLevelRule" resultMap="resultTbCrsAppLevelRule">
+		<if test="pageflag==true">
+			SELECT * FROM (
+				SELECT A.*, ROWNUM RN FROM
+				(
+					SELECT * FROM CRS_APP_LEVEL_RULE WHERE 1=1
+					<include refid="paramSql"></include>
+				) A WHERE ROWNUM &lt;= #{curPage}*#{pageSize}
+				) WHERE RN  &gt;=
+			(#{curPage}-1)*#{pageSize}
+		</if>
+		<if test="pageBlag==false">
+			SELECT * FROM CRS_APP_LEVEL_RULE
+			WHERE 1=1
+			<include refid="paramSql"></include>
+		</if>
+	</select>
+	
+	<select id="listCount" parameterMap="paramIdCrsAppLevelRule" resultType="Integer">
+				SELECT count(1) as count FROM CRS_APP_LEVEL_RULE
+				WHERE 1=1 
+				<include refid="paramSql"></include>
+	</select>
+	
+	<!-- 添加 -->
+	<insert id="insert" parameterMap="paramIdCrsAppLevelRule" timeout="1000"  >
+		INSERT INTO 
+		CRS_APP_LEVEL_RULE(
+GOTOFEE,
+		LEVDESC,
+		MONEYT1,
+		MONEYT0,
+		CREDITNUM,
+		ISHIGHESTLEVEL,
+		BINGFEE,
+		LEVELNAME,
+		STATUS,
+		CREATEDATE,
+		APPUSER,
+		BRANCHID,
+		PK1,
+				LEVELID
+		
+		)
+		VALUES(		#{gotofee},
+				#{levdesc},
+				#{moneyt1},
+				#{moneyt0},
+				#{creditnum},
+				#{ishighestlevel},
+				#{bingfee},
+				#{levelname},
+				#{status},
+				#{createdate},
+				#{appuser},
+				#{branchid},
+				#{pk1},
+		
+#{levelid})
+	</insert>
+	
+	<!-- 修改 -->
+	<update id="update"  timeout="1000" >
+		UPDATE CRS_APP_LEVEL_RULE 
+		<trim prefix="SET" prefixOverrides="SET ,">
+		<if test="gotofee !=null and gotofee !=''">
+			,GOTOFEE = #{gotofee}  
+		</if>
+		<if test="levdesc !=null and levdesc !=''">
+			,LEVDESC = #{levdesc}  
+		</if>
+		<if test="moneyt1 !=null and moneyt1 !=''">
+			,MONEYT1 = #{moneyt1}  
+		</if>
+		<if test="moneyt0 !=null and moneyt0 !=''">
+			,MONEYT0 = #{moneyt0}  
+		</if>
+		<if test="creditnum !=null and creditnum !=''">
+			,CREDITNUM = #{creditnum}  
+		</if>
+		<if test="ishighestlevel !=null and ishighestlevel !=''">
+			,ISHIGHESTLEVEL = #{ishighestlevel}  
+		</if>
+		<if test="bingfee !=null and bingfee !=''">
+			,BINGFEE = #{bingfee}  
+		</if>
+		<if test="levelname !=null and levelname !=''">
+			,LEVELNAME = #{levelname}  
+		</if>
+		<if test="status !=null and status !=''">
+			,STATUS = #{status}  
+		</if>
+		<if test="createdate !=null and createdate !=''">
+			,CREATEDATE = #{createdate}  
+		</if>
+		<if test="appuser !=null and appuser !=''">
+			,APPUSER = #{appuser}  
+		</if>
+		<if test="branchid !=null and branchid !=''">
+			,BRANCHID = #{branchid}  
+		</if>
+		<if test="pk1 !=null and pk1 !=''">
+			,PK1 = #{pk1}  
+		</if>
+		<if test="levelid !=null and levelid !=''">
+			,LEVELID = #{levelid}  
+		</if>
+		</trim>
+		WHERE 1=1
+		<include refid="paramSql"></include>
+	</update>
+	
+</mapper>

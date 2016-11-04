@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.imobpay.base.dao.CrsUserGetmoneyListDao">
+
+	
+	<sql id="paramSql">
+		<!--  此处一定要增加一个查询 -->
+		<if test="numt0 !=null and numt0 !=''">
+			AND NUMT0 =  #{numt0}
+		</if>
+		<if test="numt1 !=null and numt1 !=''">
+			AND NUMT1 =  #{numt1}
+		</if>
+		<if test="moneyt1 !=null and moneyt1 !=''">
+			AND MONEYT1 =  #{moneyt1}
+		</if>
+		<if test="moneyt0 !=null and moneyt0 !=''">
+			AND MONEYT0 =  #{moneyt0}
+		</if>
+		<if test="createdate !=null and createdate !=''">
+			AND CREATEDATE =  #{createdate}
+		</if>
+		<if test="addmonth !=null and addmonth !=''">
+			AND ADDMONTH =  #{addmonth}
+		</if>
+		<if test="usercode !=null and usercode !=''">
+			AND USERCODE =  #{usercode}
+		</if>
+		<if test="pk1 !=null and pk1 !=''">
+			AND PK1 =  #{pk1}
+		</if>
+	</sql>
+	
+	<parameterMap type="com.imobpay.base.entity.CrsUserGetmoneyList" id="paramIdCrsUserGetmoneyList">
+		<parameter property="pageflag"  javaType="Boolean" jdbcType="VARCHAR" mode="IN" />
+		<parameter property="curPage"   javaType="Integer" jdbcType="NUMERIC" mode="IN" />
+		<parameter property="pageSize"  javaType="Integer" jdbcType="NUMERIC" mode="IN" />
+		<parameter property="numt0" javaType="Integer" jdbcType="NUMERIC" mode="IN"   />
+		<parameter property="numt1" javaType="Integer" jdbcType="NUMERIC" mode="IN"   />
+		<parameter property="moneyt1" javaType="Integer" jdbcType="NUMERIC" mode="IN"   />
+		<parameter property="moneyt0" javaType="Integer" jdbcType="NUMERIC" mode="IN"   />
+		<parameter property="createdate" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="addmonth" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="usercode" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="pk1" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+	</parameterMap>
+
+	<resultMap type="com.imobpay.base.entity.CrsUserGetmoneyList" id="resultTbCrsUserGetmoneyList">
+		<result column="NUMT0" property="numt0" javaType="Integer" jdbcType="NUMERIC" />
+		<result column="NUMT1" property="numt1" javaType="Integer" jdbcType="NUMERIC" />
+		<result column="MONEYT1" property="moneyt1" javaType="Integer" jdbcType="NUMERIC" />
+		<result column="MONEYT0" property="moneyt0" javaType="Integer" jdbcType="NUMERIC" />
+		<result column="CREATEDATE" property="createdate" javaType="String" jdbcType="VARCHAR" />
+		<result column="ADDMONTH" property="addmonth" javaType="String" jdbcType="VARCHAR" />
+		<result column="USERCODE" property="usercode" javaType="String" jdbcType="VARCHAR" />
+		<result column="PK1" property="pk1" javaType="String" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<select id="selectById" parameterMap="paramIdCrsUserGetmoneyList" resultMap="resultTbCrsUserGetmoneyList">
+		SELECT * FROM CRS_USER_GETMONEY_LIST WHERE  ROWNUM = 1  
+		<include refid="paramSql"></include>
+	</select>
+	
+	<select id="list" parameterMap="paramIdCrsUserGetmoneyList" resultMap="resultTbCrsUserGetmoneyList">
+		<if test="pageflag==true">
+			SELECT * FROM (
+				SELECT A.*, ROWNUM RN FROM
+				(
+					SELECT * FROM CRS_USER_GETMONEY_LIST WHERE 1=1
+					<include refid="paramSql"></include>
+				) A WHERE ROWNUM &lt;= #{curPage}*#{pageSize}
+				) WHERE RN  &gt;=
+			(#{curPage}-1)*#{pageSize}
+		</if>
+		<if test="pageBlag==false">
+			SELECT * FROM CRS_USER_GETMONEY_LIST
+			WHERE 1=1
+			<include refid="paramSql"></include>
+		</if>
+	</select>
+	
+	<select id="listCount" parameterMap="paramIdCrsUserGetmoneyList" resultType="Integer">
+				SELECT count(1) as count FROM CRS_USER_GETMONEY_LIST
+				WHERE 1=1 
+				<include refid="paramSql"></include>
+	</select>
+	
+	<!-- 添加 -->
+	<insert id="insert" parameterMap="paramIdCrsUserGetmoneyList" timeout="1000"  >
+		INSERT INTO 
+		CRS_USER_GETMONEY_LIST(
+NUMT0,
+		NUMT1,
+		MONEYT1,
+		MONEYT0,
+		CREATEDATE,
+		ADDMONTH,
+		USERCODE,
+				PK1
+		
+		)
+		VALUES(		#{numt0},
+				#{numt1},
+				#{moneyt1},
+				#{moneyt0},
+				#{createdate},
+				#{addmonth},
+				#{usercode},
+		
+#{pk1})
+	</insert>
+	
+	<!-- 修改 -->
+	<update id="update"  timeout="1000" >
+		UPDATE CRS_USER_GETMONEY_LIST 
+		<trim prefix="SET" prefixOverrides="SET ,">
+		<if test="numt0 !=null and numt0 !=''">
+			,NUMT0 = #{numt0}  
+		</if>
+		<if test="numt1 !=null and numt1 !=''">
+			,NUMT1 = #{numt1}  
+		</if>
+		<if test="moneyt1 !=null and moneyt1 !=''">
+			,MONEYT1 = #{moneyt1}  
+		</if>
+		<if test="moneyt0 !=null and moneyt0 !=''">
+			,MONEYT0 = #{moneyt0}  
+		</if>
+		<if test="createdate !=null and createdate !=''">
+			,CREATEDATE = #{createdate}  
+		</if>
+		<if test="addmonth !=null and addmonth !=''">
+			,ADDMONTH = #{addmonth}  
+		</if>
+		<if test="usercode !=null and usercode !=''">
+			,USERCODE = #{usercode}  
+		</if>
+		<if test="pk1 !=null and pk1 !=''">
+			,PK1 = #{pk1}  
+		</if>
+		</trim>
+		WHERE 1=1
+		<include refid="paramSql"></include>
+	</update>
+	
+</mapper>

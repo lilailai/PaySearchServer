@@ -1,0 +1,725 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.imobpay.base.dao.PayjnlsDao">
+
+	
+	<sql id="paramSql">
+		<!--  此处一定要增加一个查询 -->
+		<if test="city !=null and city !=''">
+			AND CITY =  #{city}
+		</if>
+		<if test="district !=null and district !=''">
+			AND DISTRICT =  #{district}
+		</if>
+		<if test="citycode !=null and citycode !=''">
+			AND CITYCODE =  #{citycode}
+		</if>
+		<if test="address !=null and address !=''">
+			AND ADDRESS =  #{address}
+		</if>
+		<if test="adcode !=null and adcode !=''">
+			AND ADCODE =  #{adcode}
+		</if>
+		<if test="township !=null and township !=''">
+			AND TOWNSHIP =  #{township}
+		</if>
+		<if test="towncode !=null and towncode !=''">
+			AND TOWNCODE =  #{towncode}
+		</if>
+		<if test="country !=null and country !=''">
+			AND COUNTRY =  #{country}
+		</if>
+		<if test="sndtxlogno !=null and sndtxlogno !=''">
+			AND SNDTXLOGNO =  #{sndtxlogno}
+		</if>
+		<if test="sndtxdate !=null and sndtxdate !=''">
+			AND SNDTXDATE =  #{sndtxdate}
+		</if>
+		<if test="sndtxtime !=null and sndtxtime !=''">
+			AND SNDTXTIME =  #{sndtxtime}
+		</if>
+		<if test="account !=null and account !=''">
+			AND ACCOUNT =  #{account}
+		</if>
+		<if test="account2 !=null and account2 !=''">
+			AND ACCOUNT2 =  #{account2}
+		</if>
+		<if test="amount !=null and amount !=''">
+			AND AMOUNT =  #{amount}
+		</if>
+		<if test="fee !=null and fee !=''">
+			AND FEE =  #{fee}
+		</if>
+		<if test="hostbranchid !=null and hostbranchid !=''">
+			AND HOSTBRANCHID =  #{hostbranchid}
+		</if>
+		<if test="hostmerchid !=null and hostmerchid !=''">
+			AND HOSTMERCHID =  #{hostmerchid}
+		</if>
+		<if test="hosttermid !=null and hosttermid !=''">
+			AND HOSTTERMID =  #{hosttermid}
+		</if>
+		<if test="hostsettlmtdate !=null and hostsettlmtdate !=''">
+			AND HOSTSETTLMTDATE =  #{hostsettlmtdate}
+		</if>
+		<if test="hostlogno !=null and hostlogno !=''">
+			AND HOSTLOGNO =  #{hostlogno}
+		</if>
+		<if test="hostdate !=null and hostdate !=''">
+			AND HOSTDATE =  #{hostdate}
+		</if>
+		<if test="hosttime !=null and hosttime !=''">
+			AND HOSTTIME =  #{hosttime}
+		</if>
+		<if test="hostrefno !=null and hostrefno !=''">
+			AND HOSTREFNO =  #{hostrefno}
+		</if>
+		<if test="hostauthcode !=null and hostauthcode !=''">
+			AND HOSTAUTHCODE =  #{hostauthcode}
+		</if>
+		<if test="issuer !=null and issuer !=''">
+			AND ISSUER =  #{issuer}
+		</if>
+		<if test="issuer2 !=null and issuer2 !=''">
+			AND ISSUER2 =  #{issuer2}
+		</if>
+		<if test="msgcode !=null and msgcode !=''">
+			AND MSGCODE =  #{msgcode}
+		</if>
+		<if test="hostmsgcode !=null and hostmsgcode !=''">
+			AND HOSTMSGCODE =  #{hostmsgcode}
+		</if>
+		<if test="msgtext !=null and msgtext !=''">
+			AND MSGTEXT =  #{msgtext}
+		</if>
+		<if test="status !=null and status !=''">
+			AND STATUS =  #{status}
+		</if>
+		<if test="paytag !=null and paytag !=''">
+			AND PAYTAG =  #{paytag}
+		</if>
+		<if test="checkcode !=null and checkcode !=''">
+			AND CHECKCODE =  #{checkcode}
+		</if>
+		<if test="remark !=null and remark !=''">
+			AND REMARK =  #{remark}
+		</if>
+		<if test="mobileno !=null and mobileno !=''">
+			AND MOBILENO =  #{mobileno}
+		</if>
+		<if test="merchantid !=null and merchantid !=''">
+			AND MERCHANTID =  #{merchantid}
+		</if>
+		<if test="productid !=null and productid !=''">
+			AND PRODUCTID =  #{productid}
+		</if>
+		<if test="revoketag !=null and revoketag !=''">
+			AND REVOKETAG =  #{revoketag}
+		</if>
+		<if test="longitude !=null and longitude !=''">
+			AND LONGITUDE =  #{longitude}
+		</if>
+		<if test="latitude !=null and latitude !=''">
+			AND LATITUDE =  #{latitude}
+		</if>
+		<if test="orderid !=null and orderid !=''">
+			AND ORDERID =  #{orderid}
+		</if>
+		<if test="hostmerchantname !=null and hostmerchantname !=''">
+			AND HOSTMERCHANTNAME =  #{hostmerchantname}
+		</if>
+		<if test="province !=null and province !=''">
+			AND PROVINCE =  #{province}
+		</if>
+		<if test="acqbranchname !=null and acqbranchname !=''">
+			AND ACQBRANCHNAME =  #{acqbranchname}
+		</if>
+		<if test="servcode !=null and servcode !=''">
+			AND SERVCODE =  #{servcode}
+		</if>
+		<if test="tradecode !=null and tradecode !=''">
+			AND TRADECODE =  #{tradecode}
+		</if>
+		<if test="localdate !=null and localdate !=''">
+			AND LOCALDATE =  #{localdate}
+		</if>
+		<if test="localtime !=null and localtime !=''">
+			AND LOCALTIME =  #{localtime}
+		</if>
+		<if test="locallogno !=null and locallogno !=''">
+			AND LOCALLOGNO =  #{locallogno}
+		</if>
+		<if test="localsettlmtdate !=null and localsettlmtdate !=''">
+			AND LOCALSETTLMTDATE =  #{localsettlmtdate}
+		</if>
+		<if test="customerid !=null and customerid !=''">
+			AND CUSTOMERID =  #{customerid}
+		</if>
+		<if test="channelid !=null and channelid !=''">
+			AND CHANNELID =  #{channelid}
+		</if>
+		<if test="termid !=null and termid !=''">
+			AND TERMID =  #{termid}
+		</if>
+		<if test="psamid !=null and psamid !=''">
+			AND PSAMID =  #{psamid}
+		</if>
+		<if test="branchid !=null and branchid !=''">
+			AND BRANCHID =  #{branchid}
+		</if>
+		<if test="orgtxlogno !=null and orgtxlogno !=''">
+			AND ORGTXLOGNO =  #{orgtxlogno}
+		</if>
+		<if test="orgtxrefno !=null and orgtxrefno !=''">
+			AND ORGTXREFNO =  #{orgtxrefno}
+		</if>
+		<if test="orgtxdate !=null and orgtxdate !=''">
+			AND ORGTXDATE =  #{orgtxdate}
+		</if>
+		<if test="orgtxtime !=null and orgtxtime !=''">
+			AND ORGTXTIME =  #{orgtxtime}
+		</if>
+		<if test="orgsettlmtdate !=null and orgsettlmtdate !=''">
+			AND ORGSETTLMTDATE =  #{orgsettlmtdate}
+		</if>
+		<if test="endtag !=null and endtag !=''">
+			AND ENDTAG =  #{endtag}
+		</if>
+		<if test="paytype !=null and paytype !=''">
+			AND PAYTYPE =  #{paytype}
+		</if>
+		<if test="txnip !=null and txnip !=''">
+			AND TXNIP =  #{txnip}
+		</if>
+		<if test="acqmerchantid !=null and acqmerchantid !=''">
+			AND ACQMERCHANTID =  #{acqmerchantid}
+		</if>
+		<if test="acqtermid !=null and acqtermid !=''">
+			AND ACQTERMID =  #{acqtermid}
+		</if>
+		<if test="signtag !=null and signtag !=''">
+			AND SIGNTAG =  #{signtag}
+		</if>
+	</sql>
+	
+	<parameterMap type="com.imobpay.base.entity.Payjnls" id="paramIdPayjnls">
+		<parameter property="pageflag"  javaType="Boolean" jdbcType="VARCHAR" mode="IN" />
+		<parameter property="curPage"   javaType="Integer" jdbcType="NUMERIC" mode="IN" />
+		<parameter property="pageSize"  javaType="Integer" jdbcType="NUMERIC" mode="IN" />
+		<parameter property="city" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="district" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="citycode" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="address" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="adcode" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="township" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="towncode" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="country" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="sndtxlogno" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="sndtxdate" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="sndtxtime" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="account" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="account2" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="amount" javaType="Integer" jdbcType="NUMERIC" mode="IN"   />
+		<parameter property="fee" javaType="Integer" jdbcType="NUMERIC" mode="IN"   />
+		<parameter property="hostbranchid" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="hostmerchid" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="hosttermid" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="hostsettlmtdate" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="hostlogno" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="hostdate" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="hosttime" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="hostrefno" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="hostauthcode" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="issuer" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="issuer2" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="msgcode" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="hostmsgcode" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="msgtext" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="status" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="paytag" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="checkcode" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="remark" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="mobileno" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="merchantid" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="productid" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="revoketag" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="longitude" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="latitude" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="orderid" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="hostmerchantname" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="province" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="acqbranchname" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="servcode" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="tradecode" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="localdate" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="localtime" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="locallogno" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="localsettlmtdate" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="customerid" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="channelid" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="termid" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="psamid" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="branchid" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="orgtxlogno" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="orgtxrefno" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="orgtxdate" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="orgtxtime" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="orgsettlmtdate" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="endtag" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="paytype" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="txnip" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="acqmerchantid" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="acqtermid" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="signtag" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+	</parameterMap>
+
+	<resultMap type="com.imobpay.base.entity.Payjnls" id="resultTbPayjnls">
+		<result column="CITY" property="city" javaType="String" jdbcType="VARCHAR" />
+		<result column="DISTRICT" property="district" javaType="String" jdbcType="VARCHAR" />
+		<result column="CITYCODE" property="citycode" javaType="String" jdbcType="VARCHAR" />
+		<result column="ADDRESS" property="address" javaType="String" jdbcType="VARCHAR" />
+		<result column="ADCODE" property="adcode" javaType="String" jdbcType="VARCHAR" />
+		<result column="TOWNSHIP" property="township" javaType="String" jdbcType="VARCHAR" />
+		<result column="TOWNCODE" property="towncode" javaType="String" jdbcType="VARCHAR" />
+		<result column="COUNTRY" property="country" javaType="String" jdbcType="VARCHAR" />
+		<result column="SNDTXLOGNO" property="sndtxlogno" javaType="String" jdbcType="VARCHAR" />
+		<result column="SNDTXDATE" property="sndtxdate" javaType="String" jdbcType="VARCHAR" />
+		<result column="SNDTXTIME" property="sndtxtime" javaType="String" jdbcType="VARCHAR" />
+		<result column="ACCOUNT" property="account" javaType="String" jdbcType="VARCHAR" />
+		<result column="ACCOUNT2" property="account2" javaType="String" jdbcType="VARCHAR" />
+		<result column="AMOUNT" property="amount" javaType="Integer" jdbcType="NUMERIC" />
+		<result column="FEE" property="fee" javaType="Integer" jdbcType="NUMERIC" />
+		<result column="HOSTBRANCHID" property="hostbranchid" javaType="String" jdbcType="VARCHAR" />
+		<result column="HOSTMERCHID" property="hostmerchid" javaType="String" jdbcType="VARCHAR" />
+		<result column="HOSTTERMID" property="hosttermid" javaType="String" jdbcType="VARCHAR" />
+		<result column="HOSTSETTLMTDATE" property="hostsettlmtdate" javaType="String" jdbcType="VARCHAR" />
+		<result column="HOSTLOGNO" property="hostlogno" javaType="String" jdbcType="VARCHAR" />
+		<result column="HOSTDATE" property="hostdate" javaType="String" jdbcType="VARCHAR" />
+		<result column="HOSTTIME" property="hosttime" javaType="String" jdbcType="VARCHAR" />
+		<result column="HOSTREFNO" property="hostrefno" javaType="String" jdbcType="VARCHAR" />
+		<result column="HOSTAUTHCODE" property="hostauthcode" javaType="String" jdbcType="VARCHAR" />
+		<result column="ISSUER" property="issuer" javaType="String" jdbcType="VARCHAR" />
+		<result column="ISSUER2" property="issuer2" javaType="String" jdbcType="VARCHAR" />
+		<result column="MSGCODE" property="msgcode" javaType="String" jdbcType="VARCHAR" />
+		<result column="HOSTMSGCODE" property="hostmsgcode" javaType="String" jdbcType="VARCHAR" />
+		<result column="MSGTEXT" property="msgtext" javaType="String" jdbcType="VARCHAR" />
+		<result column="STATUS" property="status" javaType="String" jdbcType="VARCHAR" />
+		<result column="PAYTAG" property="paytag" javaType="String" jdbcType="VARCHAR" />
+		<result column="CHECKCODE" property="checkcode" javaType="String" jdbcType="VARCHAR" />
+		<result column="REMARK" property="remark" javaType="String" jdbcType="VARCHAR" />
+		<result column="MOBILENO" property="mobileno" javaType="String" jdbcType="VARCHAR" />
+		<result column="MERCHANTID" property="merchantid" javaType="String" jdbcType="VARCHAR" />
+		<result column="PRODUCTID" property="productid" javaType="String" jdbcType="VARCHAR" />
+		<result column="REVOKETAG" property="revoketag" javaType="String" jdbcType="VARCHAR" />
+		<result column="LONGITUDE" property="longitude" javaType="String" jdbcType="VARCHAR" />
+		<result column="LATITUDE" property="latitude" javaType="String" jdbcType="VARCHAR" />
+		<result column="ORDERID" property="orderid" javaType="String" jdbcType="VARCHAR" />
+		<result column="HOSTMERCHANTNAME" property="hostmerchantname" javaType="String" jdbcType="VARCHAR" />
+		<result column="PROVINCE" property="province" javaType="String" jdbcType="VARCHAR" />
+		<result column="ACQBRANCHNAME" property="acqbranchname" javaType="String" jdbcType="VARCHAR" />
+		<result column="SERVCODE" property="servcode" javaType="String" jdbcType="VARCHAR" />
+		<result column="TRADECODE" property="tradecode" javaType="String" jdbcType="VARCHAR" />
+		<result column="LOCALDATE" property="localdate" javaType="String" jdbcType="VARCHAR" />
+		<result column="LOCALTIME" property="localtime" javaType="String" jdbcType="VARCHAR" />
+		<result column="LOCALLOGNO" property="locallogno" javaType="String" jdbcType="VARCHAR" />
+		<result column="LOCALSETTLMTDATE" property="localsettlmtdate" javaType="String" jdbcType="VARCHAR" />
+		<result column="CUSTOMERID" property="customerid" javaType="String" jdbcType="VARCHAR" />
+		<result column="CHANNELID" property="channelid" javaType="String" jdbcType="VARCHAR" />
+		<result column="TERMID" property="termid" javaType="String" jdbcType="VARCHAR" />
+		<result column="PSAMID" property="psamid" javaType="String" jdbcType="VARCHAR" />
+		<result column="BRANCHID" property="branchid" javaType="String" jdbcType="VARCHAR" />
+		<result column="ORGTXLOGNO" property="orgtxlogno" javaType="String" jdbcType="VARCHAR" />
+		<result column="ORGTXREFNO" property="orgtxrefno" javaType="String" jdbcType="VARCHAR" />
+		<result column="ORGTXDATE" property="orgtxdate" javaType="String" jdbcType="VARCHAR" />
+		<result column="ORGTXTIME" property="orgtxtime" javaType="String" jdbcType="VARCHAR" />
+		<result column="ORGSETTLMTDATE" property="orgsettlmtdate" javaType="String" jdbcType="VARCHAR" />
+		<result column="ENDTAG" property="endtag" javaType="String" jdbcType="VARCHAR" />
+		<result column="PAYTYPE" property="paytype" javaType="String" jdbcType="VARCHAR" />
+		<result column="TXNIP" property="txnip" javaType="String" jdbcType="VARCHAR" />
+		<result column="ACQMERCHANTID" property="acqmerchantid" javaType="String" jdbcType="VARCHAR" />
+		<result column="ACQTERMID" property="acqtermid" javaType="String" jdbcType="VARCHAR" />
+		<result column="SIGNTAG" property="signtag" javaType="String" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<select id="selectById" parameterMap="paramIdPayjnls" resultMap="resultTbPayjnls">
+		SELECT * FROM PAYJNLS WHERE  ROWNUM = 1  
+		<include refid="paramSql"></include>
+	</select>
+	
+	<select id="selBlackUserPay" parameterMap="paramIdPayjnls" resultMap="resultTbPayjnls">
+		SELECT T.CUSTOMERID
+			FROM PAYJNLS T
+		WHERE T.CUSTOMERID = #{customerid}
+			AND (MSGCODE = '03' OR MSGCODE = '41' OR MSGCODE = '43')
+		   	AND T.LOCALDATE = to_char(sysdate, 'yyyymmdd')
+	</select>
+	
+	<select id="list" parameterMap="paramIdPayjnls" resultMap="resultTbPayjnls">
+		<if test="pageflag==true">
+			SELECT * FROM (
+				SELECT A.*, ROWNUM RN FROM
+				(
+					SELECT * FROM PAYJNLS WHERE 1=1
+					<include refid="paramSql"></include>
+				) A WHERE ROWNUM &lt;= #{curPage}*#{pageSize}
+				) WHERE RN  &gt;=
+			(#{curPage}-1)*#{pageSize}
+		</if>
+		<if test="pageBlag==false">
+			SELECT * FROM PAYJNLS
+			WHERE 1=1
+			<include refid="paramSql"></include>
+		</if>
+	</select>
+	
+	<select id="listCount" parameterMap="paramIdPayjnls" resultType="Integer">
+				SELECT count(1) as count FROM PAYJNLS
+				WHERE 1=1 
+				<include refid="paramSql"></include>
+	</select>
+	
+	<!-- 添加 -->
+	<insert id="insert" parameterMap="paramIdPayjnls" timeout="1000"  >
+		INSERT INTO 
+		PAYJNLS(
+CITY,
+		DISTRICT,
+		CITYCODE,
+		ADDRESS,
+		ADCODE,
+		TOWNSHIP,
+		TOWNCODE,
+		COUNTRY,
+		SNDTXLOGNO,
+		SNDTXDATE,
+		SNDTXTIME,
+		ACCOUNT,
+		ACCOUNT2,
+		AMOUNT,
+		FEE,
+		HOSTBRANCHID,
+		HOSTMERCHID,
+		HOSTTERMID,
+		HOSTSETTLMTDATE,
+		HOSTLOGNO,
+		HOSTDATE,
+		HOSTTIME,
+		HOSTREFNO,
+		HOSTAUTHCODE,
+		ISSUER,
+		ISSUER2,
+		MSGCODE,
+		HOSTMSGCODE,
+		MSGTEXT,
+		STATUS,
+		PAYTAG,
+		CHECKCODE,
+		REMARK,
+		MOBILENO,
+		MERCHANTID,
+		PRODUCTID,
+		REVOKETAG,
+		LONGITUDE,
+		LATITUDE,
+		ORDERID,
+		HOSTMERCHANTNAME,
+		PROVINCE,
+		ACQBRANCHNAME,
+		SERVCODE,
+		TRADECODE,
+		LOCALDATE,
+		LOCALTIME,
+		LOCALLOGNO,
+		LOCALSETTLMTDATE,
+		CUSTOMERID,
+		CHANNELID,
+		TERMID,
+		PSAMID,
+		BRANCHID,
+		ORGTXLOGNO,
+		ORGTXREFNO,
+		ORGTXDATE,
+		ORGTXTIME,
+		ORGSETTLMTDATE,
+		ENDTAG,
+		PAYTYPE,
+		TXNIP,
+		ACQMERCHANTID,
+		ACQTERMID,
+				SIGNTAG
+		
+		)
+		VALUES(		#{city},
+				#{district},
+				#{citycode},
+				#{address},
+				#{adcode},
+				#{township},
+				#{towncode},
+				#{country},
+				#{sndtxlogno},
+				#{sndtxdate},
+				#{sndtxtime},
+				#{account},
+				#{account2},
+				#{amount},
+				#{fee},
+				#{hostbranchid},
+				#{hostmerchid},
+				#{hosttermid},
+				#{hostsettlmtdate},
+				#{hostlogno},
+				#{hostdate},
+				#{hosttime},
+				#{hostrefno},
+				#{hostauthcode},
+				#{issuer},
+				#{issuer2},
+				#{msgcode},
+				#{hostmsgcode},
+				#{msgtext},
+				#{status},
+				#{paytag},
+				#{checkcode},
+				#{remark},
+				#{mobileno},
+				#{merchantid},
+				#{productid},
+				#{revoketag},
+				#{longitude},
+				#{latitude},
+				#{orderid},
+				#{hostmerchantname},
+				#{province},
+				#{acqbranchname},
+				#{servcode},
+				#{tradecode},
+				#{localdate},
+				#{localtime},
+				#{locallogno},
+				#{localsettlmtdate},
+				#{customerid},
+				#{channelid},
+				#{termid},
+				#{psamid},
+				#{branchid},
+				#{orgtxlogno},
+				#{orgtxrefno},
+				#{orgtxdate},
+				#{orgtxtime},
+				#{orgsettlmtdate},
+				#{endtag},
+				#{paytype},
+				#{txnip},
+				#{acqmerchantid},
+				#{acqtermid},
+		
+#{signtag})
+	</insert>
+	
+	<!-- 修改 -->
+	<update id="update"  timeout="1000" >
+		UPDATE PAYJNLS 
+		<trim prefix="SET" prefixOverrides="SET ,">
+		<if test="city !=null and city !=''">
+			,CITY = #{city}  
+		</if>
+		<if test="district !=null and district !=''">
+			,DISTRICT = #{district}  
+		</if>
+		<if test="citycode !=null and citycode !=''">
+			,CITYCODE = #{citycode}  
+		</if>
+		<if test="address !=null and address !=''">
+			,ADDRESS = #{address}  
+		</if>
+		<if test="adcode !=null and adcode !=''">
+			,ADCODE = #{adcode}  
+		</if>
+		<if test="township !=null and township !=''">
+			,TOWNSHIP = #{township}  
+		</if>
+		<if test="towncode !=null and towncode !=''">
+			,TOWNCODE = #{towncode}  
+		</if>
+		<if test="country !=null and country !=''">
+			,COUNTRY = #{country}  
+		</if>
+		<if test="sndtxlogno !=null and sndtxlogno !=''">
+			,SNDTXLOGNO = #{sndtxlogno}  
+		</if>
+		<if test="sndtxdate !=null and sndtxdate !=''">
+			,SNDTXDATE = #{sndtxdate}  
+		</if>
+		<if test="sndtxtime !=null and sndtxtime !=''">
+			,SNDTXTIME = #{sndtxtime}  
+		</if>
+		<if test="account !=null and account !=''">
+			,ACCOUNT = #{account}  
+		</if>
+		<if test="account2 !=null and account2 !=''">
+			,ACCOUNT2 = #{account2}  
+		</if>
+		<if test="amount !=null and amount !=''">
+			,AMOUNT = #{amount}  
+		</if>
+		<if test="fee !=null and fee !=''">
+			,FEE = #{fee}  
+		</if>
+		<if test="hostbranchid !=null and hostbranchid !=''">
+			,HOSTBRANCHID = #{hostbranchid}  
+		</if>
+		<if test="hostmerchid !=null and hostmerchid !=''">
+			,HOSTMERCHID = #{hostmerchid}  
+		</if>
+		<if test="hosttermid !=null and hosttermid !=''">
+			,HOSTTERMID = #{hosttermid}  
+		</if>
+		<if test="hostsettlmtdate !=null and hostsettlmtdate !=''">
+			,HOSTSETTLMTDATE = #{hostsettlmtdate}  
+		</if>
+		<if test="hostlogno !=null and hostlogno !=''">
+			,HOSTLOGNO = #{hostlogno}  
+		</if>
+		<if test="hostdate !=null and hostdate !=''">
+			,HOSTDATE = #{hostdate}  
+		</if>
+		<if test="hosttime !=null and hosttime !=''">
+			,HOSTTIME = #{hosttime}  
+		</if>
+		<if test="hostrefno !=null and hostrefno !=''">
+			,HOSTREFNO = #{hostrefno}  
+		</if>
+		<if test="hostauthcode !=null and hostauthcode !=''">
+			,HOSTAUTHCODE = #{hostauthcode}  
+		</if>
+		<if test="issuer !=null and issuer !=''">
+			,ISSUER = #{issuer}  
+		</if>
+		<if test="issuer2 !=null and issuer2 !=''">
+			,ISSUER2 = #{issuer2}  
+		</if>
+		<if test="msgcode !=null and msgcode !=''">
+			,MSGCODE = #{msgcode}  
+		</if>
+		<if test="hostmsgcode !=null and hostmsgcode !=''">
+			,HOSTMSGCODE = #{hostmsgcode}  
+		</if>
+		<if test="msgtext !=null and msgtext !=''">
+			,MSGTEXT = #{msgtext}  
+		</if>
+		<if test="status !=null and status !=''">
+			,STATUS = #{status}  
+		</if>
+		<if test="paytag !=null and paytag !=''">
+			,PAYTAG = #{paytag}  
+		</if>
+		<if test="checkcode !=null and checkcode !=''">
+			,CHECKCODE = #{checkcode}  
+		</if>
+		<if test="remark !=null and remark !=''">
+			,REMARK = #{remark}  
+		</if>
+		<if test="mobileno !=null and mobileno !=''">
+			,MOBILENO = #{mobileno}  
+		</if>
+		<if test="merchantid !=null and merchantid !=''">
+			,MERCHANTID = #{merchantid}  
+		</if>
+		<if test="productid !=null and productid !=''">
+			,PRODUCTID = #{productid}  
+		</if>
+		<if test="revoketag !=null and revoketag !=''">
+			,REVOKETAG = #{revoketag}  
+		</if>
+		<if test="longitude !=null and longitude !=''">
+			,LONGITUDE = #{longitude}  
+		</if>
+		<if test="latitude !=null and latitude !=''">
+			,LATITUDE = #{latitude}  
+		</if>
+		<if test="orderid !=null and orderid !=''">
+			,ORDERID = #{orderid}  
+		</if>
+		<if test="hostmerchantname !=null and hostmerchantname !=''">
+			,HOSTMERCHANTNAME = #{hostmerchantname}  
+		</if>
+		<if test="province !=null and province !=''">
+			,PROVINCE = #{province}  
+		</if>
+		<if test="acqbranchname !=null and acqbranchname !=''">
+			,ACQBRANCHNAME = #{acqbranchname}  
+		</if>
+		<if test="servcode !=null and servcode !=''">
+			,SERVCODE = #{servcode}  
+		</if>
+		<if test="tradecode !=null and tradecode !=''">
+			,TRADECODE = #{tradecode}  
+		</if>
+		<if test="localdate !=null and localdate !=''">
+			,LOCALDATE = #{localdate}  
+		</if>
+		<if test="localtime !=null and localtime !=''">
+			,LOCALTIME = #{localtime}  
+		</if>
+		<if test="locallogno !=null and locallogno !=''">
+			,LOCALLOGNO = #{locallogno}  
+		</if>
+		<if test="localsettlmtdate !=null and localsettlmtdate !=''">
+			,LOCALSETTLMTDATE = #{localsettlmtdate}  
+		</if>
+		<if test="customerid !=null and customerid !=''">
+			,CUSTOMERID = #{customerid}  
+		</if>
+		<if test="channelid !=null and channelid !=''">
+			,CHANNELID = #{channelid}  
+		</if>
+		<if test="termid !=null and termid !=''">
+			,TERMID = #{termid}  
+		</if>
+		<if test="psamid !=null and psamid !=''">
+			,PSAMID = #{psamid}  
+		</if>
+		<if test="branchid !=null and branchid !=''">
+			,BRANCHID = #{branchid}  
+		</if>
+		<if test="orgtxlogno !=null and orgtxlogno !=''">
+			,ORGTXLOGNO = #{orgtxlogno}  
+		</if>
+		<if test="orgtxrefno !=null and orgtxrefno !=''">
+			,ORGTXREFNO = #{orgtxrefno}  
+		</if>
+		<if test="orgtxdate !=null and orgtxdate !=''">
+			,ORGTXDATE = #{orgtxdate}  
+		</if>
+		<if test="orgtxtime !=null and orgtxtime !=''">
+			,ORGTXTIME = #{orgtxtime}  
+		</if>
+		<if test="orgsettlmtdate !=null and orgsettlmtdate !=''">
+			,ORGSETTLMTDATE = #{orgsettlmtdate}  
+		</if>
+		<if test="endtag !=null and endtag !=''">
+			,ENDTAG = #{endtag}  
+		</if>
+		<if test="paytype !=null and paytype !=''">
+			,PAYTYPE = #{paytype}  
+		</if>
+		<if test="txnip !=null and txnip !=''">
+			,TXNIP = #{txnip}  
+		</if>
+		<if test="acqmerchantid !=null and acqmerchantid !=''">
+			,ACQMERCHANTID = #{acqmerchantid}  
+		</if>
+		<if test="acqtermid !=null and acqtermid !=''">
+			,ACQTERMID = #{acqtermid}  
+		</if>
+		<if test="signtag !=null and signtag !=''">
+			,SIGNTAG = #{signtag}  
+		</if>
+		</trim>
+		WHERE 1=1
+		<include refid="paramSql"></include>
+	</update>
+	
+</mapper>

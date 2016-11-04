@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.imobpay.base.dao.TfeecommonparamDao">
+
+	
+	<sql id="paramSql">
+		<!--  此处一定要增加一个查询 -->
+		<if test="fsWorkfeeid !=null and fsWorkfeeid !=''">
+			AND FS_WORKFEEID =  #{fsWorkfeeid}
+		</if>
+		<if test="fsAccountno !=null and fsAccountno !=''">
+			AND FS_ACCOUNTNO =  #{fsAccountno}
+		</if>
+		<if test="fsSettleid !=null and fsSettleid !=''">
+			AND FS_SETTLEID =  #{fsSettleid}
+		</if>
+		<if test="fsWorklimit !=null and fsWorklimit !=''">
+			AND FS_WORKLIMIT =  #{fsWorklimit}
+		</if>
+		<if test="fsDefaultsettlebranch !=null and fsDefaultsettlebranch !=''">
+			AND FS_DEFAULTSETTLEBRANCH =  #{fsDefaultsettlebranch}
+		</if>
+		<if test="fsWeekfeeid !=null and fsWeekfeeid !=''">
+			AND FS_WEEKFEEID =  #{fsWeekfeeid}
+		</if>
+		<if test="fsSettfeeid !=null and fsSettfeeid !=''">
+			AND FS_SETTFEEID =  #{fsSettfeeid}
+		</if>
+		<if test="fsDelaytype !=null and fsDelaytype !=''">
+			AND FS_DELAYTYPE =  #{fsDelaytype}
+		</if>
+		<if test="fsBusitype !=null and fsBusitype !=''">
+			AND FS_BUSITYPE =  #{fsBusitype}
+		</if>
+		<if test="fsBranchid !=null and fsBranchid !=''">
+			AND FS_BRANCHID =  #{fsBranchid}
+		</if>
+	</sql>
+	
+	<parameterMap type="com.imobpay.base.entity.Tfeecommonparam" id="paramIdTfeecommonparam">
+		<parameter property="pageflag"  javaType="Boolean" jdbcType="VARCHAR" mode="IN" />
+		<parameter property="curPage"   javaType="Integer" jdbcType="NUMERIC" mode="IN" />
+		<parameter property="pageSize"  javaType="Integer" jdbcType="NUMERIC" mode="IN" />
+		<parameter property="fsWorkfeeid" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="fsAccountno" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="fsSettleid" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="fsWorklimit" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="fsDefaultsettlebranch" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="fsWeekfeeid" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="fsSettfeeid" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="fsDelaytype" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="fsBusitype" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="fsBranchid" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+	</parameterMap>
+
+	<resultMap type="com.imobpay.base.entity.Tfeecommonparam" id="resultTbTfeecommonparam">
+		<result column="FS_WORKFEEID" property="fsWorkfeeid" javaType="String" jdbcType="VARCHAR" />
+		<result column="FS_ACCOUNTNO" property="fsAccountno" javaType="String" jdbcType="VARCHAR" />
+		<result column="FS_SETTLEID" property="fsSettleid" javaType="String" jdbcType="VARCHAR" />
+		<result column="FS_WORKLIMIT" property="fsWorklimit" javaType="String" jdbcType="VARCHAR" />
+		<result column="FS_DEFAULTSETTLEBRANCH" property="fsDefaultsettlebranch" javaType="String" jdbcType="VARCHAR" />
+		<result column="FS_WEEKFEEID" property="fsWeekfeeid" javaType="String" jdbcType="VARCHAR" />
+		<result column="FS_SETTFEEID" property="fsSettfeeid" javaType="String" jdbcType="VARCHAR" />
+		<result column="FS_DELAYTYPE" property="fsDelaytype" javaType="String" jdbcType="VARCHAR" />
+		<result column="FS_BUSITYPE" property="fsBusitype" javaType="String" jdbcType="VARCHAR" />
+		<result column="FS_BRANCHID" property="fsBranchid" javaType="String" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<select id="selectById" parameterMap="paramIdTfeecommonparam" resultMap="resultTbTfeecommonparam">
+		SELECT * FROM qtfund.TFEECOMMONPARAM WHERE  ROWNUM = 1  
+		<include refid="paramSql"></include>
+	</select>
+	
+	<select id="list" parameterMap="paramIdTfeecommonparam" resultMap="resultTbTfeecommonparam">
+		<if test="pageflag==true">
+			SELECT * FROM (
+				SELECT A.*, ROWNUM RN FROM
+				(
+					SELECT * FROM qtfund.TFEECOMMONPARAM WHERE 1=1
+					<include refid="paramSql"></include>
+				) A WHERE ROWNUM &lt;= #{curPage}*#{pageSize}
+				) WHERE RN  &gt;=
+			(#{curPage}-1)*#{pageSize}
+		</if>
+		<if test="pageBlag==false">
+			SELECT * FROM qtfund.TFEECOMMONPARAM
+			WHERE 1=1
+			<include refid="paramSql"></include>
+		</if>
+	</select>
+	<select id="queryCommonFee" parameterMap="paramIdTfeecommonparam" resultMap="resultTbTfeecommonparam">
+				select fc.fs_branchid as fsBranchid,
+				       fc.fs_busitype as fsBusitype,
+				       fc.fs_delaytype as fsDelaytype, 
+				       fc.fs_worklimit as fsWorklimit,
+				       fc.fs_workfeeid as fsWorkfeeid,
+				       fc.fs_weekfeeid as fsWeekfeeid
+				  from qtfund.tfeecommonparam fc
+				 where fc.fs_busitype = #{fsBusitype}
+				   and fc.fs_branchid = #{fsBranchid}
+	</select>
+	
+	<select id="listCount" parameterMap="paramIdTfeecommonparam" resultType="Integer">
+				SELECT count(1) as count FROM qtfund.TFEECOMMONPARAM
+				WHERE 1=1 
+				<include refid="paramSql"></include>
+	</select>
+	
+	<!-- 添加 -->
+	<insert id="insert" parameterMap="paramIdTfeecommonparam" timeout="1000"  >
+		INSERT INTO 
+		qtfund.TFEECOMMONPARAM(
+FS_WORKFEEID,
+		FS_ACCOUNTNO,
+		FS_SETTLEID,
+		FS_WORKLIMIT,
+		FS_DEFAULTSETTLEBRANCH,
+		FS_WEEKFEEID,
+		FS_SETTFEEID,
+		FS_DELAYTYPE,
+		FS_BUSITYPE,
+				FS_BRANCHID
+		
+		)
+		VALUES(		#{fsWorkfeeid},
+				#{fsAccountno},
+				#{fsSettleid},
+				#{fsWorklimit},
+				#{fsDefaultsettlebranch},
+				#{fsWeekfeeid},
+				#{fsSettfeeid},
+				#{fsDelaytype},
+				#{fsBusitype},
+		
+#{fsBranchid})
+	</insert>
+	
+	<!-- 修改 -->
+	<update id="update"  timeout="1000" >
+		UPDATE qtfund.TFEECOMMONPARAM 
+		<trim prefix="SET" prefixOverrides="SET ,">
+		<if test="fsWorkfeeid !=null and fsWorkfeeid !=''">
+			,FS_WORKFEEID = #{fsWorkfeeid}  
+		</if>
+		<if test="fsAccountno !=null and fsAccountno !=''">
+			,FS_ACCOUNTNO = #{fsAccountno}  
+		</if>
+		<if test="fsSettleid !=null and fsSettleid !=''">
+			,FS_SETTLEID = #{fsSettleid}  
+		</if>
+		<if test="fsWorklimit !=null and fsWorklimit !=''">
+			,FS_WORKLIMIT = #{fsWorklimit}  
+		</if>
+		<if test="fsDefaultsettlebranch !=null and fsDefaultsettlebranch !=''">
+			,FS_DEFAULTSETTLEBRANCH = #{fsDefaultsettlebranch}  
+		</if>
+		<if test="fsWeekfeeid !=null and fsWeekfeeid !=''">
+			,FS_WEEKFEEID = #{fsWeekfeeid}  
+		</if>
+		<if test="fsSettfeeid !=null and fsSettfeeid !=''">
+			,FS_SETTFEEID = #{fsSettfeeid}  
+		</if>
+		<if test="fsDelaytype !=null and fsDelaytype !=''">
+			,FS_DELAYTYPE = #{fsDelaytype}  
+		</if>
+		<if test="fsBusitype !=null and fsBusitype !=''">
+			,FS_BUSITYPE = #{fsBusitype}  
+		</if>
+		<if test="fsBranchid !=null and fsBranchid !=''">
+			,FS_BRANCHID = #{fsBranchid}  
+		</if>
+		</trim>
+		WHERE 1=1
+		<include refid="paramSql"></include>
+	</update>
+	
+</mapper>

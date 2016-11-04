@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.imobpay.base.dao.PayawardjnlsDao">
+
+	
+	<sql id="paramSql">
+		<!--  此处一定要增加一个查询 -->
+		<if test="awardsid !=null and awardsid !=''">
+			AND AWARDSID =  #{awardsid}
+		</if>
+		<if test="factAwardDate !=null and factAwardDate !=''">
+			AND FACT_AWARD_DATE =  #{factAwardDate}
+		</if>
+		<if test="customerid !=null and customerid !=''">
+			AND CUSTOMERID =  #{customerid}
+		</if>
+		<if test="customername !=null and customername !=''">
+			AND CUSTOMERNAME =  #{customername}
+		</if>
+		<if test="mobileno !=null and mobileno !=''">
+			AND MOBILENO =  #{mobileno}
+		</if>
+		<if test="branchname !=null and branchname !=''">
+			AND BRANCHNAME =  #{branchname}
+		</if>
+		<if test="awardname !=null and awardname !=''">
+			AND AWARDNAME =  #{awardname}
+		</if>
+		<if test="localdate !=null and localdate !=''">
+			AND LOCALDATE =  #{localdate}
+		</if>
+		<if test="localtime !=null and localtime !=''">
+			AND LOCALTIME =  #{localtime}
+		</if>
+		<if test="awardno !=null and awardno !=''">
+			AND AWARDNO =  #{awardno}
+		</if>
+		<if test="status !=null and status !=''">
+			AND STATUS =  #{status}
+		</if>
+		<if test="token !=null and token !=''">
+			AND TOKEN =  #{token}
+		</if>
+		<if test="appflag !=null and appflag !=''">
+			AND APPFLAG =  #{appflag}
+		</if>
+		<if test="branchid !=null and branchid !=''">
+			AND BRANCHID =  #{branchid}
+		</if>
+	</sql>
+	
+	<parameterMap type="com.imobpay.base.entity.Payawardjnls" id="paramIdPayawardjnls">
+		<parameter property="pageflag"  javaType="Boolean" jdbcType="VARCHAR" mode="IN" />
+		<parameter property="curPage"   javaType="Integer" jdbcType="NUMERIC" mode="IN" />
+		<parameter property="pageSize"  javaType="Integer" jdbcType="NUMERIC" mode="IN" />
+		<parameter property="awardsid" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="factAwardDate" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="customerid" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="customername" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="mobileno" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="branchname" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="awardname" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="localdate" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="localtime" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="awardno" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="status" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="token" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="appflag" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="branchid" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+	</parameterMap>
+
+	<resultMap type="com.imobpay.base.entity.Payawardjnls" id="resultTbPayawardjnls">
+		<result column="AWARDSID" property="awardsid" javaType="String" jdbcType="VARCHAR" />
+		<result column="FACT_AWARD_DATE" property="factAwardDate" javaType="String" jdbcType="VARCHAR" />
+		<result column="CUSTOMERID" property="customerid" javaType="String" jdbcType="VARCHAR" />
+		<result column="CUSTOMERNAME" property="customername" javaType="String" jdbcType="VARCHAR" />
+		<result column="MOBILENO" property="mobileno" javaType="String" jdbcType="VARCHAR" />
+		<result column="BRANCHNAME" property="branchname" javaType="String" jdbcType="VARCHAR" />
+		<result column="AWARDNAME" property="awardname" javaType="String" jdbcType="VARCHAR" />
+		<result column="LOCALDATE" property="localdate" javaType="String" jdbcType="VARCHAR" />
+		<result column="LOCALTIME" property="localtime" javaType="String" jdbcType="VARCHAR" />
+		<result column="AWARDNO" property="awardno" javaType="String" jdbcType="VARCHAR" />
+		<result column="STATUS" property="status" javaType="String" jdbcType="VARCHAR" />
+		<result column="TOKEN" property="token" javaType="String" jdbcType="VARCHAR" />
+		<result column="APPFLAG" property="appflag" javaType="String" jdbcType="VARCHAR" />
+		<result column="BRANCHID" property="branchid" javaType="String" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<select id="selectById" parameterMap="paramIdPayawardjnls" resultMap="resultTbPayawardjnls">
+		SELECT * FROM PAYAWARDJNLS WHERE  ROWNUM = 1  
+		<include refid="paramSql"></include>
+	</select>
+	
+	<select id="list" parameterMap="paramIdPayawardjnls" resultMap="resultTbPayawardjnls">
+		<if test="pageflag==true">
+			SELECT *
+			  FROM (SELECT A.*, ROWNUM RN
+			          FROM (SELECT *
+			                  FROM PAYAWARDJNLS
+			                 WHERE 1 = 1
+			                   and substr(LOCALDATE, 0, 6) = #{localdate}
+			                 ORDER BY LOCALDATE, LOCALTIME DESC) A
+			         WHERE ROWNUM &lt;= #{curPage}*#{pageSize})
+			 WHERE RN &gt;(#{curPage}-1)*#{pageSize}
+		</if>
+		<if test="pageBlag==false">
+			SELECT * FROM PAYAWARDJNLS
+			WHERE 1=1
+			<include refid="paramSql"></include>
+		</if>
+	</select>
+	
+	<select id="listCount" parameterMap="paramIdPayawardjnls" resultType="Integer">
+				SELECT count(1) as count FROM PAYAWARDJNLS
+				WHERE 1=1 
+				<include refid="paramSql"></include>
+	</select>
+	
+	<!-- 添加 -->
+	<insert id="insert" parameterMap="paramIdPayawardjnls" timeout="1000"  >
+		INSERT INTO 
+		PAYAWARDJNLS(
+AWARDSID,
+		FACT_AWARD_DATE,
+		CUSTOMERID,
+		CUSTOMERNAME,
+		MOBILENO,
+		BRANCHNAME,
+		AWARDNAME,
+		LOCALDATE,
+		LOCALTIME,
+		AWARDNO,
+		STATUS,
+		TOKEN,
+		APPFLAG,
+				BRANCHID
+		
+		)
+		VALUES(		#{awardsid},
+				#{factAwardDate},
+				#{customerid},
+				#{customername},
+				#{mobileno},
+				#{branchname},
+				#{awardname},
+				#{localdate},
+				#{localtime},
+				#{awardno},
+				#{status},
+				#{token},
+				#{appflag},
+		
+#{branchid})
+	</insert>
+	
+	<!-- 修改 -->
+	<update id="update"  timeout="1000" >
+		UPDATE PAYAWARDJNLS 
+		<trim prefix="SET" prefixOverrides="SET ,">
+		<if test="awardsid !=null and awardsid !=''">
+			,AWARDSID = #{awardsid}  
+		</if>
+		<if test="factAwardDate !=null and factAwardDate !=''">
+			,FACT_AWARD_DATE = #{factAwardDate}  
+		</if>
+		<if test="customerid !=null and customerid !=''">
+			,CUSTOMERID = #{customerid}  
+		</if>
+		<if test="customername !=null and customername !=''">
+			,CUSTOMERNAME = #{customername}  
+		</if>
+		<if test="mobileno !=null and mobileno !=''">
+			,MOBILENO = #{mobileno}  
+		</if>
+		<if test="branchname !=null and branchname !=''">
+			,BRANCHNAME = #{branchname}  
+		</if>
+		<if test="awardname !=null and awardname !=''">
+			,AWARDNAME = #{awardname}  
+		</if>
+		<if test="localdate !=null and localdate !=''">
+			,LOCALDATE = #{localdate}  
+		</if>
+		<if test="localtime !=null and localtime !=''">
+			,LOCALTIME = #{localtime}  
+		</if>
+		<if test="awardno !=null and awardno !=''">
+			,AWARDNO = #{awardno}  
+		</if>
+		<if test="status !=null and status !=''">
+			,STATUS = #{status}  
+		</if>
+		<if test="token !=null and token !=''">
+			,TOKEN = #{token}  
+		</if>
+		<if test="appflag !=null and appflag !=''">
+			,APPFLAG = #{appflag}  
+		</if>
+		<if test="branchid !=null and branchid !=''">
+			,BRANCHID = #{branchid}  
+		</if>
+		</trim>
+		WHERE 1=1
+		<include refid="paramSql"></include>
+	</update>
+	
+</mapper>

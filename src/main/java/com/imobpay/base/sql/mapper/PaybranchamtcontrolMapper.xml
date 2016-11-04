@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.imobpay.base.dao.PaybranchamtcontrolDao">
+
+	
+	<sql id="paramSql">
+		<!--  此处一定要增加一个查询 -->
+		<if test="remark1 !=null and remark1 !=''">
+			AND REMARK1 =  #{remark1}
+		</if>
+		<if test="remark2 !=null and remark2 !=''">
+			AND REMARK2 =  #{remark2}
+		</if>
+		<if test="branchid !=null and branchid !=''">
+			AND BRANCHID =  #{branchid}
+		</if>
+		<if test="servcode !=null and servcode !=''">
+			AND SERVCODE =  #{servcode}
+		</if>
+		<if test="productid !=null and productid !=''">
+			AND PRODUCTID =  #{productid}
+		</if>
+		<if test="monamount !=null and monamount !=''">
+			AND MONAMOUNT =  #{monamount}
+		</if>
+		<if test="dayamount !=null and dayamount !=''">
+			AND DAYAMOUNT =  #{dayamount}
+		</if>
+		<if test="cardlimit !=null and cardlimit !=''">
+			AND CARDLIMIT =  #{cardlimit}
+		</if>
+		<if test="cardamount !=null and cardamount !=''">
+			AND CARDAMOUNT =  #{cardamount}
+		</if>
+		<if test="monlimit !=null and monlimit !=''">
+			AND MONLIMIT =  #{monlimit}
+		</if>
+		<if test="daylimit !=null and daylimit !=''">
+			AND DAYLIMIT =  #{daylimit}
+		</if>
+	</sql>
+	
+	<parameterMap type="com.imobpay.base.entity.Paybranchamtcontrol" id="paramIdPaybranchamtcontrol">
+		<parameter property="pageflag"  javaType="Boolean" jdbcType="VARCHAR" mode="IN" />
+		<parameter property="curPage"   javaType="Integer" jdbcType="NUMERIC" mode="IN" />
+		<parameter property="pageSize"  javaType="Integer" jdbcType="NUMERIC" mode="IN" />
+		<parameter property="remark1" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="remark2" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="branchid" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="servcode" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="productid" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="monamount" javaType="Integer" jdbcType="NUMERIC" mode="IN"   />
+		<parameter property="dayamount" javaType="Integer" jdbcType="NUMERIC" mode="IN"   />
+		<parameter property="cardlimit" javaType="Integer" jdbcType="NUMERIC" mode="IN"   />
+		<parameter property="cardamount" javaType="Integer" jdbcType="NUMERIC" mode="IN"   />
+		<parameter property="monlimit" javaType="Integer" jdbcType="NUMERIC" mode="IN"   />
+		<parameter property="daylimit" javaType="Integer" jdbcType="NUMERIC" mode="IN"   />
+	</parameterMap>
+
+	<resultMap type="com.imobpay.base.entity.Paybranchamtcontrol" id="resultTbPaybranchamtcontrol">
+		<result column="REMARK1" property="remark1" javaType="String" jdbcType="VARCHAR" />
+		<result column="REMARK2" property="remark2" javaType="String" jdbcType="VARCHAR" />
+		<result column="BRANCHID" property="branchid" javaType="String" jdbcType="VARCHAR" />
+		<result column="SERVCODE" property="servcode" javaType="String" jdbcType="VARCHAR" />
+		<result column="PRODUCTID" property="productid" javaType="String" jdbcType="VARCHAR" />
+		<result column="MONAMOUNT" property="monamount" javaType="Integer" jdbcType="NUMERIC" />
+		<result column="DAYAMOUNT" property="dayamount" javaType="Integer" jdbcType="NUMERIC" />
+		<result column="CARDLIMIT" property="cardlimit" javaType="Integer" jdbcType="NUMERIC" />
+		<result column="CARDAMOUNT" property="cardamount" javaType="Integer" jdbcType="NUMERIC" />
+		<result column="MONLIMIT" property="monlimit" javaType="Integer" jdbcType="NUMERIC" />
+		<result column="DAYLIMIT" property="daylimit" javaType="Integer" jdbcType="NUMERIC" />
+	</resultMap>
+
+	<select id="selectById" parameterMap="paramIdPaybranchamtcontrol" resultMap="resultTbPaybranchamtcontrol">
+		SELECT * FROM PAYBRANCHAMTCONTROL WHERE  ROWNUM = 1  
+		<include refid="paramSql"></include>
+	</select>
+	
+	<select id="list" parameterMap="paramIdPaybranchamtcontrol" resultMap="resultTbPaybranchamtcontrol">
+		<if test="pageflag==true">
+			SELECT * FROM (
+				SELECT A.*, ROWNUM RN FROM
+				(
+					SELECT * FROM PAYBRANCHAMTCONTROL WHERE 1=1
+					<include refid="paramSql"></include>
+				) A WHERE ROWNUM &lt;= #{curPage}*#{pageSize}
+				) WHERE RN  &gt;=
+			(#{curPage}-1)*#{pageSize}
+		</if>
+		<if test="pageBlag==false">
+			SELECT * FROM PAYBRANCHAMTCONTROL
+			WHERE 1=1
+			<include refid="paramSql"></include>
+		</if>
+	</select>
+	
+	<select id="listCount" parameterMap="paramIdPaybranchamtcontrol" resultType="Integer">
+				SELECT count(1) as count FROM PAYBRANCHAMTCONTROL
+				WHERE 1=1 
+				<include refid="paramSql"></include>
+	</select>
+	
+	<!-- 添加 -->
+	<insert id="insert" parameterMap="paramIdPaybranchamtcontrol" timeout="1000"  >
+		INSERT INTO 
+		PAYBRANCHAMTCONTROL(
+REMARK1,
+		REMARK2,
+		BRANCHID,
+		SERVCODE,
+		PRODUCTID,
+		MONAMOUNT,
+		DAYAMOUNT,
+		CARDLIMIT,
+		CARDAMOUNT,
+		MONLIMIT,
+				DAYLIMIT
+		
+		)
+		VALUES(		#{remark1},
+				#{remark2},
+				#{branchid},
+				#{servcode},
+				#{productid},
+				#{monamount},
+				#{dayamount},
+				#{cardlimit},
+				#{cardamount},
+				#{monlimit},
+		
+#{daylimit})
+	</insert>
+	
+	<!-- 修改 -->
+	<update id="update"  timeout="1000" >
+		UPDATE PAYBRANCHAMTCONTROL 
+		<trim prefix="SET" prefixOverrides="SET ,">
+		<if test="remark1 !=null and remark1 !=''">
+			,REMARK1 = #{remark1}  
+		</if>
+		<if test="remark2 !=null and remark2 !=''">
+			,REMARK2 = #{remark2}  
+		</if>
+		<if test="branchid !=null and branchid !=''">
+			,BRANCHID = #{branchid}  
+		</if>
+		<if test="servcode !=null and servcode !=''">
+			,SERVCODE = #{servcode}  
+		</if>
+		<if test="productid !=null and productid !=''">
+			,PRODUCTID = #{productid}  
+		</if>
+		<if test="monamount !=null and monamount !=''">
+			,MONAMOUNT = #{monamount}  
+		</if>
+		<if test="dayamount !=null and dayamount !=''">
+			,DAYAMOUNT = #{dayamount}  
+		</if>
+		<if test="cardlimit !=null and cardlimit !=''">
+			,CARDLIMIT = #{cardlimit}  
+		</if>
+		<if test="cardamount !=null and cardamount !=''">
+			,CARDAMOUNT = #{cardamount}  
+		</if>
+		<if test="monlimit !=null and monlimit !=''">
+			,MONLIMIT = #{monlimit}  
+		</if>
+		<if test="daylimit !=null and daylimit !=''">
+			,DAYLIMIT = #{daylimit}  
+		</if>
+		</trim>
+		WHERE 1=1
+		<include refid="paramSql"></include>
+	</update>
+	
+</mapper>

@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.imobpay.base.dao.PrepAppStartpicDao">
+
+	
+	<sql id="paramSql">
+		<!--  此处一定要增加一个查询 -->
+		<if test="startios4 !=null and startios4 !=''">
+			AND STARTIOS4 =  #{startios4}
+		</if>
+		<if test="appuser !=null and appuser !=''">
+			AND APPUSER =  #{appuser}
+		</if>
+		<if test="startandroid !=null and startandroid !=''">
+			AND STARTANDROID =  #{startandroid}
+		</if>
+		<if test="description !=null and description !=''">
+			AND DESCRIPTION =  #{description}
+		</if>
+		<if test="startios5 !=null and startios5 !=''">
+			AND STARTIOS5 =  #{startios5}
+		</if>
+		<if test="status !=null and status !=''">
+			AND STATUS =  #{status}
+		</if>
+		<if test="timestamp !=null and timestamp !=''">
+			AND TIMESTAMP =  #{timestamp}
+		</if>
+		<if test="id !=null and id !=''">
+			AND ID =  #{id}
+		</if>
+	</sql>
+	
+	<parameterMap type="com.imobpay.base.entity.PrepAppStartpic" id="paramIdPrepAppStartpic">
+		<parameter property="pageflag"  javaType="Boolean" jdbcType="VARCHAR" mode="IN" />
+		<parameter property="curPage"   javaType="Integer" jdbcType="NUMERIC" mode="IN" />
+		<parameter property="pageSize"  javaType="Integer" jdbcType="NUMERIC" mode="IN" />
+		<parameter property="startios4" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="appuser" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="startandroid" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="description" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="startios5" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="status" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="timestamp" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="id" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+	</parameterMap>
+
+	<resultMap type="com.imobpay.base.entity.PrepAppStartpic" id="resultTbPrepAppStartpic">
+		<result column="STARTIOS4" property="startios4" javaType="String" jdbcType="VARCHAR" />
+		<result column="APPUSER" property="appuser" javaType="String" jdbcType="VARCHAR" />
+		<result column="STARTANDROID" property="startandroid" javaType="String" jdbcType="VARCHAR" />
+		<result column="DESCRIPTION" property="description" javaType="String" jdbcType="VARCHAR" />
+		<result column="STARTIOS5" property="startios5" javaType="String" jdbcType="VARCHAR" />
+		<result column="STATUS" property="status" javaType="String" jdbcType="VARCHAR" />
+		<result column="TIMESTAMP" property="timestamp" javaType="String" jdbcType="VARCHAR" />
+		<result column="ID" property="id" javaType="String" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<select id="selectById" parameterMap="paramIdPrepAppStartpic" resultMap="resultTbPrepAppStartpic">
+		SELECT * FROM PREP_APP_STARTPIC WHERE  ROWNUM = 1  
+		<include refid="paramSql"></include>
+	</select>
+	
+	<select id="list" parameterMap="paramIdPrepAppStartpic" resultMap="resultTbPrepAppStartpic">
+		<if test="pageflag==true">
+			SELECT * FROM (
+				SELECT A.*, ROWNUM RN FROM
+				(
+					SELECT * FROM PREP_APP_STARTPIC WHERE 1=1
+					<include refid="paramSql"></include>
+				) A WHERE ROWNUM &lt;= #{curPage}*#{pageSize}
+				) WHERE RN  &gt;=
+			(#{curPage}-1)*#{pageSize}
+		</if>
+		<if test="pageBlag==false">
+			SELECT * FROM PREP_APP_STARTPIC
+			WHERE 1=1
+			<include refid="paramSql"></include>
+		</if>
+	</select>
+	<select id="selectStartPic" parameterType="String" resultMap="resultTbPrepAppStartpic">
+				 SELECT *
+				   FROM PREP_APP_STARTPIC P
+				  WHERE P.APPUSER = #{appUser}
+				    AND P.STATUS = '1'
+	</select>
+	
+	<select id="listCount" parameterMap="paramIdPrepAppStartpic" resultType="Integer">
+				SELECT count(1) as count FROM PREP_APP_STARTPIC
+				WHERE 1=1 
+				<include refid="paramSql"></include>
+	</select>
+	
+	<!-- 添加 -->
+	<insert id="insert" parameterMap="paramIdPrepAppStartpic" timeout="1000"  >
+		INSERT INTO 
+		PREP_APP_STARTPIC(
+STARTIOS4,
+		APPUSER,
+		STARTANDROID,
+		DESCRIPTION,
+		STARTIOS5,
+		STATUS,
+		TIMESTAMP,
+				ID
+		
+		)
+		VALUES(		#{startios4},
+				#{appuser},
+				#{startandroid},
+				#{description},
+				#{startios5},
+				#{status},
+				#{timestamp},
+		
+#{id})
+	</insert>
+	
+	<!-- 修改 -->
+	<update id="update"  timeout="1000" >
+		UPDATE PREP_APP_STARTPIC 
+		<trim prefix="SET" prefixOverrides="SET ,">
+		<if test="startios4 !=null and startios4 !=''">
+			,STARTIOS4 = #{startios4}  
+		</if>
+		<if test="appuser !=null and appuser !=''">
+			,APPUSER = #{appuser}  
+		</if>
+		<if test="startandroid !=null and startandroid !=''">
+			,STARTANDROID = #{startandroid}  
+		</if>
+		<if test="description !=null and description !=''">
+			,DESCRIPTION = #{description}  
+		</if>
+		<if test="startios5 !=null and startios5 !=''">
+			,STARTIOS5 = #{startios5}  
+		</if>
+		<if test="status !=null and status !=''">
+			,STATUS = #{status}  
+		</if>
+		<if test="timestamp !=null and timestamp !=''">
+			,TIMESTAMP = #{timestamp}  
+		</if>
+		<if test="id !=null and id !=''">
+			,ID = #{id}  
+		</if>
+		</trim>
+		WHERE 1=1
+		<include refid="paramSql"></include>
+	</update>
+	
+</mapper>

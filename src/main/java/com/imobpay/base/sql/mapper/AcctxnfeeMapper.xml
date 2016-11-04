@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.imobpay.base.dao.AcctxnfeeDao">
+
+	
+	<sql id="paramSql">
+		<!--  此处一定要增加一个查询 -->
+		<if test="txncode !=null and txncode !=''">
+			AND TXNCODE =  #{txncode}
+		</if>
+		<if test="feeid !=null and feeid !=''">
+			AND FEEID =  #{feeid}
+		</if>
+		<if test="txndecide !=null and txndecide !=''">
+			AND TXNDECIDE =  #{txndecide}
+		</if>
+		<if test="txnnature !=null and txnnature !=''">
+			AND TXNNATURE =  #{txnnature}
+		</if>
+	</sql>
+	
+	<parameterMap type="com.imobpay.base.entity.Acctxnfee" id="paramIdAcctxnfee">
+		<parameter property="pageflag"  javaType="Boolean" jdbcType="VARCHAR" mode="IN" />
+		<parameter property="curPage"   javaType="Integer" jdbcType="NUMERIC" mode="IN" />
+		<parameter property="pageSize"  javaType="Integer" jdbcType="NUMERIC" mode="IN" />
+		<parameter property="txncode" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="feeid" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="txndecide" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="txnnature" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="shopno" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="instid" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="feedst" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+	</parameterMap>
+
+	<resultMap type="com.imobpay.base.entity.Acctxnfee" id="resultTbAcctxnfee">
+		<result column="TXNCODE" property="txncode" javaType="String" jdbcType="VARCHAR" />
+		<result column="FEEID" property="feeid" javaType="String" jdbcType="VARCHAR" />
+		<result column="TXNDECIDE" property="txndecide" javaType="String" jdbcType="VARCHAR" />
+		<result column="TXNNATURE" property="txnnature" javaType="String" jdbcType="VARCHAR" />
+		<result column="FEEMAX" property="feemax" javaType="BigDecimal" jdbcType="NUMERIC" />
+		<result column="FEEMIN" property="feemin" javaType="BigDecimal" jdbcType="NUMERIC" />
+		<result column="FEERATE" property="feerate" javaType="BigDecimal" jdbcType="NUMERIC" />
+	</resultMap>
+
+	<select id="selectById" parameterMap="paramIdAcctxnfee" resultMap="resultTbAcctxnfee">
+		SELECT * FROM ACCTXNFEE WHERE  ROWNUM = 1  
+		<include refid="paramSql"></include>
+	</select>
+	
+	
+	
+	<select id="selectAcctxnfeeDao" parameterMap="paramIdAcctxnfee" resultMap="resultTbAcctxnfee">
+         select a.FEEMAX,
+             a.FEEMIN,
+               a.FEERATE
+           from qtacct.accfeeplan a
+          where feeid in
+                (select feeid
+                   from qtacct.acctxnfee
+                  where txndecide = (select distinct txndecide
+                                       from qtacct.acctxndecide
+                                      where shopno = #{shopno}
+                                        and instid = #{instid}))
+            and a.FEEDST = #{feedst}
+	</select>
+	<select id="list" parameterMap="paramIdAcctxnfee" resultMap="resultTbAcctxnfee">
+		<if test="pageflag==true">
+			SELECT * FROM (
+				SELECT A.*, ROWNUM RN FROM
+				(
+					SELECT * FROM ACCTXNFEE WHERE 1=1
+					<include refid="paramSql"></include>
+				) A WHERE ROWNUM &lt;= #{curPage}*#{pageSize}
+				) WHERE RN  &gt;=
+			(#{curPage}-1)*#{pageSize}
+		</if>
+		<if test="pageBlag==false">
+			SELECT * FROM ACCTXNFEE
+			WHERE 1=1
+			<include refid="paramSql"></include>
+		</if>
+	</select>
+	
+	<select id="listCount" parameterMap="paramIdAcctxnfee" resultType="Integer">
+				SELECT count(1) as count FROM ACCTXNFEE
+				WHERE 1=1 
+				<include refid="paramSql"></include>
+	</select>
+	
+	<!-- 添加 -->
+	<insert id="insert" parameterMap="paramIdAcctxnfee" timeout="1000"  >
+		INSERT INTO 
+		ACCTXNFEE(
+TXNCODE,
+		FEEID,
+		TXNDECIDE,
+				TXNNATURE
+		
+		)
+		VALUES(		#{txncode},
+				#{feeid},
+				#{txndecide},
+		
+#{txnnature})
+	</insert>
+	
+	<!-- 修改 -->
+	<update id="update"  timeout="1000" >
+		UPDATE ACCTXNFEE 
+		<trim prefix="SET" prefixOverrides="SET ,">
+		<if test="txncode !=null and txncode !=''">
+			,TXNCODE = #{txncode}  
+		</if>
+		<if test="feeid !=null and feeid !=''">
+			,FEEID = #{feeid}  
+		</if>
+		<if test="txndecide !=null and txndecide !=''">
+			,TXNDECIDE = #{txndecide}  
+		</if>
+		<if test="txnnature !=null and txnnature !=''">
+			,TXNNATURE = #{txnnature}  
+		</if>
+		</trim>
+		WHERE 1=1
+		<include refid="paramSql"></include>
+	</update>
+	
+</mapper>

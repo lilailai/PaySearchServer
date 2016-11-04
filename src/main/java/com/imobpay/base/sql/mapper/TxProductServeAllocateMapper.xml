@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.imobpay.base.dao.TxProductServeAllocateDao">
+
+	
+	<sql id="paramSql">
+		<!--  此处一定要增加一个查询 -->
+	</sql>
+	
+	<parameterMap type="com.imobpay.base.entity.TxProductServeAllocate" id="paramIdTxProductServeAllocate">
+		<parameter property="pageflag"  javaType="Boolean" jdbcType="VARCHAR" mode="IN" />
+		<parameter property="curPage"   javaType="Integer" jdbcType="NUMERIC" mode="IN" />
+		<parameter property="pageSize"  javaType="Integer" jdbcType="NUMERIC" mode="IN" />
+		<parameter property="productCode" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="serveCode" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="serveName" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="id" javaType="Integer" jdbcType="NUMERIC" mode="IN"   />
+	</parameterMap>
+
+	<resultMap type="com.imobpay.base.entity.TxProductServeAllocate" id="resultTbTxProductServeAllocate">
+		<result column="product_Code" property="productCode" javaType="String" jdbcType="VARCHAR" />
+		<result column="serve_Code" property="serveCode" javaType="String" jdbcType="VARCHAR" />
+		<result column="serve_Name" property="serveName" javaType="String" jdbcType="VARCHAR" />
+		<result column="ID" property="id" javaType="Integer" jdbcType="NUMERIC" />
+	</resultMap>
+
+	<select id="selectById" parameterMap="paramIdTxProductServeAllocate" resultMap="resultTbTxProductServeAllocate">
+		SELECT * FROM TX_PRODUCT_SERVE_ALLOCATE WHERE  ROWNUM = 1 
+	</select>
+	
+	<select id="list" parameterMap="paramIdTxProductServeAllocate" resultMap="resultTbTxProductServeAllocate">
+		<if test="pageflag==true">
+			SELECT * FROM (
+				SELECT A.*, ROWNUM RN FROM
+				(
+					SELECT * FROM TX_PRODUCT_SERVE_ALLOCATE WHERE 1=1
+					<include refid="paramSql"></include>
+				) A WHERE ROWNUM &lt;= #{curPage}*#{pageSize}
+				) WHERE RN  &gt;=
+			(#{curPage}-1)*#{pageSize}
+		</if>
+		<if test="pageBlag==false">
+			SELECT * FROM TX_PRODUCT_SERVE_ALLOCATE
+			WHERE 1=1
+			<include refid="paramSql"></include>
+		</if>
+	</select>
+	
+	<select id="selectServerCode" parameterType="String" resultType="String">
+		SELECT "serve_Code" FROM TX_PRODUCT_SERVE_ALLOCATE WHERE  ROWNUM = 1 AND "product_Code"=#{merchantId}
+	</select>
+	
+	<select id="listCount" parameterMap="paramIdTxProductServeAllocate" resultType="Integer">
+				SELECT count(1) as count FROM TX_PRODUCT_SERVE_ALLOCATE
+				WHERE 1=1 
+				<include refid="paramSql"></include>
+	</select>
+	
+</mapper>

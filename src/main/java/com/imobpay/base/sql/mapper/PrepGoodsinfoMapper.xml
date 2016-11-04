@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.imobpay.base.dao.PrepGoodsinfoDao">
+
+	
+	<sql id="paramSql">
+		<!--  此处一定要增加一个查询 -->
+		<if test="xyz !=null and xyz !=''">
+			AND XYZ =  #{xyz}
+		</if>
+		<if test="remark !=null and remark !=''">
+			AND REMARK =  #{remark}
+		</if>
+		<if test="simpname !=null and simpname !=''">
+			AND SIMPNAME =  #{simpname}
+		</if>
+		<if test="addreepic !=null and addreepic !=''">
+			AND ADDREEPIC =  #{addreepic}
+		</if>
+		<if test="appuser !=null and appuser !=''">
+			AND APPUSER =  #{appuser}
+		</if>
+		<if test="createtime !=null and createtime !=''">
+			AND CREATETIME =  #{createtime}
+		</if>
+		<if test="timestamp !=null and timestamp !=''">
+			AND TIMESTAMP =  #{timestamp}
+		</if>
+		<if test="customerid !=null and customerid !=''">
+			AND CUSTOMERID =  #{customerid}
+		</if>
+		<if test="mobileno !=null and mobileno !=''">
+			AND MOBILENO =  #{mobileno}
+		</if>
+		<if test="goodpic !=null and goodpic !=''">
+			AND GOODPIC =  #{goodpic}
+		</if>
+		<if test="goodname !=null and goodname !=''">
+			AND GOODNAME =  #{goodname}
+		</if>
+		<if test="goodstatus !=null and goodstatus !=''">
+			AND GOODSTATUS =  #{goodstatus}
+		</if>
+		<if test="createdate !=null and createdate !=''">
+			AND CREATEDATE =  #{createdate}
+		</if>
+		<if test="price !=null and price !=''">
+			AND PRICE =  #{price}
+		</if>
+		<if test="goodid !=null and goodid !=''">
+			AND GOODID =  #{goodid}
+		</if>
+	</sql>
+	
+	<parameterMap type="com.imobpay.base.entity.PrepGoodsinfo" id="paramIdPrepGoodsinfo">
+		<parameter property="pageflag"  javaType="Boolean" jdbcType="VARCHAR" mode="IN" />
+		<parameter property="curPage"   javaType="Integer" jdbcType="NUMERIC" mode="IN" />
+		<parameter property="pageSize"  javaType="Integer" jdbcType="NUMERIC" mode="IN" />
+		<parameter property="xyz" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="remark" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="simpname" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="addreepic" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="appuser" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="createtime" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="timestamp" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="customerid" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="mobileno" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="goodpic" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="goodname" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="goodstatus" javaType="Integer" jdbcType="NUMERIC" mode="IN"   />
+		<parameter property="createdate" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="price" javaType="Integer" jdbcType="NUMERIC" mode="IN"   />
+		<parameter property="goodid" javaType="Integer" jdbcType="NUMERIC" mode="IN"   />
+	</parameterMap>
+
+	<resultMap type="com.imobpay.base.entity.PrepGoodsinfo" id="resultTbPrepGoodsinfo">
+		<result column="XYZ" property="xyz" javaType="String" jdbcType="VARCHAR" />
+		<result column="REMARK" property="remark" javaType="String" jdbcType="VARCHAR" />
+		<result column="SIMPNAME" property="simpname" javaType="String" jdbcType="VARCHAR" />
+		<result column="ADDREEPIC" property="addreepic" javaType="String" jdbcType="VARCHAR" />
+		<result column="APPUSER" property="appuser" javaType="String" jdbcType="VARCHAR" />
+		<result column="CREATETIME" property="createtime" javaType="String" jdbcType="VARCHAR" />
+		<result column="TIMESTAMP" property="timestamp" javaType="String" jdbcType="VARCHAR" />
+		<result column="CUSTOMERID" property="customerid" javaType="String" jdbcType="VARCHAR" />
+		<result column="MOBILENO" property="mobileno" javaType="String" jdbcType="VARCHAR" />
+		<result column="GOODPIC" property="goodpic" javaType="String" jdbcType="VARCHAR" />
+		<result column="GOODNAME" property="goodname" javaType="String" jdbcType="VARCHAR" />
+		<result column="GOODSTATUS" property="goodstatus" javaType="Integer" jdbcType="NUMERIC" />
+		<result column="CREATEDATE" property="createdate" javaType="String" jdbcType="VARCHAR" />
+		<result column="PRICE" property="price" javaType="Integer" jdbcType="NUMERIC" />
+		<result column="GOODID" property="goodid" javaType="Integer" jdbcType="NUMERIC" />
+	</resultMap>
+
+	<select id="selectById" parameterMap="paramIdPrepGoodsinfo" resultMap="resultTbPrepGoodsinfo">
+		SELECT * FROM PREP_GOODSINFO WHERE  ROWNUM = 1  
+		<include refid="paramSql"></include>
+	</select>
+	<!-- 查询云商图片 -->
+	<select id="SelectPublicPic" parameterType="String" resultMap="resultTbPrepGoodsinfo">
+				SELECT * FROM PREP_GOODSINFO
+				WHERE 
+				CUSTOMERID = #{appUser}
+             	ORDER BY TIMESTAMP
+	</select>
+	<!-- 查询banner图 -->
+	<select id="SelectBannerPic" parameterType="String" resultMap="resultTbPrepGoodsinfo">
+				SELECT * FROM PREP_GOODSINFO
+				WHERE 
+            	GOODSTATUS = 4
+            	AND   CUSTOMERID = #{appUser}
+             	ORDER BY TIMESTAMP
+	</select>
+	
+	<select id="list" parameterMap="paramIdPrepGoodsinfo" resultMap="resultTbPrepGoodsinfo">
+		<if test="pageflag==true">
+			SELECT * FROM (
+				SELECT A.*, ROWNUM RN FROM
+				(
+					SELECT * FROM PREP_GOODSINFO WHERE 1=1
+					<include refid="paramSql"></include>
+				) A WHERE ROWNUM &lt;= #{curPage}*#{pageSize}
+				) WHERE RN  &gt;=
+			(#{curPage}-1)*#{pageSize}
+		</if>
+		<if test="pageBlag==false">
+			SELECT * FROM PREP_GOODSINFO
+			WHERE 1=1
+			<include refid="paramSql"></include>
+		</if>
+	</select>
+	
+	<select id="listCount" parameterMap="paramIdPrepGoodsinfo" resultType="Integer">
+				SELECT count(1) as count FROM PREP_GOODSINFO
+				WHERE 1=1 
+				<include refid="paramSql"></include>
+	</select>
+	
+	<!-- 添加 -->
+	<insert id="insert" parameterMap="paramIdPrepGoodsinfo" timeout="1000"  >
+		INSERT INTO 
+		PREP_GOODSINFO(
+		XYZ,
+		REMARK,
+		SIMPNAME,
+		ADDREEPIC,
+		APPUSER,
+		CREATETIME,
+		TIMESTAMP,
+		CUSTOMERID,
+		MOBILENO,
+		GOODPIC,
+		GOODNAME,
+		GOODSTATUS,
+		CREATEDATE,
+		PRICE,
+				GOODID
+		
+		)
+		VALUES(		#{xyz},
+				#{remark},
+				#{simpname},
+				#{addreepic},
+				#{appuser},
+				#{createtime},
+				#{timestamp},
+				#{customerid},
+				#{mobileno},
+				#{goodpic},
+				#{goodname},
+				#{goodstatus},
+				#{createdate},
+				#{price},
+		
+#{goodid})
+	</insert>
+	
+	<!-- 修改 -->
+	<update id="update"  timeout="1000" >
+		UPDATE PREP_GOODSINFO 
+		<trim prefix="SET" prefixOverrides="SET ,">
+		<if test="xyz !=null and xyz !=''">
+			,XYZ = #{xyz}  
+		</if>
+		<if test="remark !=null and remark !=''">
+			,REMARK = #{remark}  
+		</if>
+		<if test="simpname !=null and simpname !=''">
+			,SIMPNAME = #{simpname}  
+		</if>
+		<if test="addreepic !=null and addreepic !=''">
+			,ADDREEPIC = #{addreepic}  
+		</if>
+		<if test="appuser !=null and appuser !=''">
+			,APPUSER = #{appuser}  
+		</if>
+		<if test="createtime !=null and createtime !=''">
+			,CREATETIME = #{createtime}  
+		</if>
+		<if test="timestamp !=null and timestamp !=''">
+			,TIMESTAMP = #{timestamp}  
+		</if>
+		<if test="customerid !=null and customerid !=''">
+			,CUSTOMERID = #{customerid}  
+		</if>
+		<if test="mobileno !=null and mobileno !=''">
+			,MOBILENO = #{mobileno}  
+		</if>
+		<if test="goodpic !=null and goodpic !=''">
+			,GOODPIC = #{goodpic}  
+		</if>
+		<if test="goodname !=null and goodname !=''">
+			,GOODNAME = #{goodname}  
+		</if>
+		<if test="goodstatus !=null and goodstatus !=''">
+			,GOODSTATUS = #{goodstatus}  
+		</if>
+		<if test="createdate !=null and createdate !=''">
+			,CREATEDATE = #{createdate}  
+		</if>
+		<if test="price !=null and price !=''">
+			,PRICE = #{price}  
+		</if>
+		<if test="goodid !=null and goodid !=''">
+			,GOODID = #{goodid}  
+		</if>
+		</trim>
+		WHERE 1=1
+		<include refid="paramSql"></include>
+	</update>
+	
+</mapper>

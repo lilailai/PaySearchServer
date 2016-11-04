@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.imobpay.base.dao.PrepUseShareDao">
+
+	
+	<sql id="paramSql">
+		<!--  此处一定要增加一个查询 -->
+		<if test="timestamp !=null and timestamp !=''">
+			AND TIMESTAMP =  #{timestamp}
+		</if>
+		<if test="sharecode !=null and sharecode !=''">
+			AND SHARECODE =  #{sharecode}
+		</if>
+		<if test="usercustomerid !=null and usercustomerid !=''">
+			AND USERCUSTOMERID =  #{usercustomerid}
+		</if>
+		<if test="appuser !=null and appuser !=''">
+			AND APPUSER =  #{appuser}
+		</if>
+		<if test="customerid !=null and customerid !=''">
+			AND CUSTOMERID =  #{customerid}
+		</if>
+	</sql>
+	
+	<parameterMap type="com.imobpay.base.entity.PrepUseShare" id="paramIdPrepUseShare">
+		<parameter property="pageflag"  javaType="Boolean" jdbcType="VARCHAR" mode="IN" />
+		<parameter property="curPage"   javaType="Integer" jdbcType="NUMERIC" mode="IN" />
+		<parameter property="pageSize"  javaType="Integer" jdbcType="NUMERIC" mode="IN" />
+		<parameter property="timestamp" javaType="java.util.Date" jdbcType="DATE" mode="IN"   />
+		<parameter property="sharecode" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="usercustomerid" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="appuser" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="customerid" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+	</parameterMap>
+
+	<resultMap type="com.imobpay.base.entity.PrepUseShare" id="resultTbPrepUseShare">
+		<result column="TIMESTAMP" property="timestamp" javaType="java.util.Date" jdbcType="DATE" />
+		<result column="SHARECODE" property="sharecode" javaType="String" jdbcType="VARCHAR" />
+		<result column="USERCUSTOMERID" property="usercustomerid" javaType="String" jdbcType="VARCHAR" />
+		<result column="APPUSER" property="appuser" javaType="String" jdbcType="VARCHAR" />
+		<result column="CUSTOMERID" property="customerid" javaType="String" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<select id="selectById" parameterMap="paramIdPrepUseShare" resultMap="resultTbPrepUseShare">
+		SELECT * FROM PREP_USE_SHARE WHERE  ROWNUM = 1  
+		<include refid="paramSql"></include>
+	</select>
+	
+	<select id="list" parameterMap="paramIdPrepUseShare" resultMap="resultTbPrepUseShare">
+		<if test="pageflag==true">
+			SELECT * FROM (
+				SELECT A.*, ROWNUM RN FROM
+				(
+					SELECT * FROM PREP_USE_SHARE WHERE 1=1
+					<include refid="paramSql"></include>
+				) A WHERE ROWNUM &lt;= #{curPage}*#{pageSize}
+				) WHERE RN  &gt;=
+			(#{curPage}-1)*#{pageSize}
+		</if>
+		<if test="pageBlag==false">
+			SELECT * FROM PREP_USE_SHARE
+			WHERE 1=1
+			<include refid="paramSql"></include>
+		</if>
+	</select>
+	
+	<select id="listCount" parameterMap="paramIdPrepUseShare" resultType="Integer">
+				SELECT count(1) as count FROM PREP_USE_SHARE
+				WHERE 1=1 
+				<include refid="paramSql"></include>
+	</select>
+	
+	<!-- 添加 -->
+	<insert id="insert" parameterMap="paramIdPrepUseShare" timeout="1000"  >
+		INSERT INTO 
+		PREP_USE_SHARE(
+TIMESTAMP,
+		SHARECODE,
+		USERCUSTOMERID,
+		APPUSER,
+				CUSTOMERID
+		
+		)
+		VALUES(		#{timestamp},
+				#{sharecode},
+				#{usercustomerid},
+				#{appuser},
+		
+#{customerid})
+	</insert>
+	
+	<!-- 修改 -->
+	<update id="update"  timeout="1000" >
+		UPDATE PREP_USE_SHARE 
+		<trim prefix="SET" prefixOverrides="SET ,">
+		<if test="timestamp !=null and timestamp !=''">
+			,TIMESTAMP = #{timestamp}  
+		</if>
+		<if test="sharecode !=null and sharecode !=''">
+			,SHARECODE = #{sharecode}  
+		</if>
+		<if test="usercustomerid !=null and usercustomerid !=''">
+			,USERCUSTOMERID = #{usercustomerid}  
+		</if>
+		<if test="appuser !=null and appuser !=''">
+			,APPUSER = #{appuser}  
+		</if>
+		<if test="customerid !=null and customerid !=''">
+			,CUSTOMERID = #{customerid}  
+		</if>
+		</trim>
+		WHERE 1=1
+		<include refid="paramSql"></include>
+	</update>
+	
+</mapper>

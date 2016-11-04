@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.imobpay.base.dao.PrepAppBottomDao">
+
+	
+	<sql id="paramSql">
+		<!--  此处一定要增加一个查询 -->
+		<if test="sortnum !=null and sortnum !=''">
+			AND SORTNUM =  #{sortnum}
+		</if>
+		<if test="moduleid !=null and moduleid !=''">
+			AND MODULEID =  #{moduleid}
+		</if>
+		<if test="appuser !=null and appuser !=''">
+			AND APPUSER =  #{appuser}
+		</if>
+		<if test="updatetime !=null and updatetime !=''">
+			AND UPDATETIME =  #{updatetime}
+		</if>
+		<if test="version !=null and version !=''">
+			AND VERSION =  #{version}
+		</if>
+		<if test="isnow !=null and isnow !=''">
+			AND ISNOW =  #{isnow}
+		</if>
+		<if test="status !=null and status !=''">
+			AND STATUS =  #{status}
+		</if>
+		<if test="id !=null and id !=''">
+			AND ID =  #{id}
+		</if>
+	</sql>
+	
+	<parameterMap type="com.imobpay.base.entity.PrepAppBottom" id="paramIdPrepAppBottom">
+		<parameter property="pageflag"  javaType="Boolean" jdbcType="VARCHAR" mode="IN" />
+		<parameter property="curPage"   javaType="Integer" jdbcType="NUMERIC" mode="IN" />
+		<parameter property="pageSize"  javaType="Integer" jdbcType="NUMERIC" mode="IN" />
+		<parameter property="sortnum" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="moduleid" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="appuser" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="updatetime" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="version" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="isnow" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="status" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+		<parameter property="id" javaType="String" jdbcType="VARCHAR" mode="IN"   />
+	</parameterMap>
+
+	<resultMap type="com.imobpay.base.entity.PrepAppBottom" id="resultTbPrepAppBottom">
+		<result column="SORTNUM" property="sortnum" javaType="String" jdbcType="VARCHAR" />
+		<result column="MODULEID" property="moduleid" javaType="String" jdbcType="VARCHAR" />
+		<result column="APPUSER" property="appuser" javaType="String" jdbcType="VARCHAR" />
+		<result column="UPDATETIME" property="updatetime" javaType="String" jdbcType="VARCHAR" />
+		<result column="VERSION" property="version" javaType="String" jdbcType="VARCHAR" />
+		<result column="ISNOW" property="isnow" javaType="String" jdbcType="VARCHAR" />
+		<result column="STATUS" property="status" javaType="String" jdbcType="VARCHAR" />
+		<result column="ID" property="id" javaType="String" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<select id="selectById" parameterMap="paramIdPrepAppBottom" resultMap="resultTbPrepAppBottom">
+		SELECT * FROM PREP_APP_BOTTOM WHERE  ROWNUM = 1  
+		<include refid="paramSql"></include>
+	</select>
+	
+	<select id="list" parameterMap="paramIdPrepAppBottom" resultMap="resultTbPrepAppBottom">
+		<if test="pageflag==true">
+			SELECT * FROM (
+				SELECT A.*, ROWNUM RN FROM
+				(
+					SELECT * FROM PREP_APP_BOTTOM WHERE 1=1
+					<include refid="paramSql"></include>
+				) A WHERE ROWNUM &lt;= #{curPage}*#{pageSize}
+				) WHERE RN  &gt;=
+			(#{curPage}-1)*#{pageSize}
+		</if>
+		<if test="pageBlag==false">
+			SELECT * FROM PREP_APP_BOTTOM
+			WHERE 1=1
+			<include refid="paramSql"></include>
+		</if>
+	</select>
+	
+	
+	<!-- 查询底部模块总数 -->
+	<select id="listCount" parameterMap="paramIdPrepAppBottom" resultType="Integer">
+			   SELECT count(1) as count FROM PREP_APP_BOTTOM
+				WHERE 1=1 
+				  AND STATUS !=0 
+				<include refid="paramSql"></include>
+	</select>
+	<!-- 添加 -->
+	<insert id="insert" parameterMap="paramIdPrepAppBottom" timeout="1000"  >
+		INSERT INTO 
+		PREP_APP_BOTTOM(
+SORTNUM,
+		MODULEID,
+		APPUSER,
+		UPDATETIME,
+		VERSION,
+		ISNOW,
+		STATUS,
+				ID
+		
+		)
+		VALUES(		#{sortnum},
+				#{moduleid},
+				#{appuser},
+				#{updatetime},
+				#{version},
+				#{isnow},
+				#{status},
+		
+#{id})
+	</insert>
+	
+	<!-- 修改 -->
+	<update id="update"  timeout="1000" >
+		UPDATE PREP_APP_BOTTOM 
+		<trim prefix="SET" prefixOverrides="SET ,">
+		<if test="sortnum !=null and sortnum !=''">
+			,SORTNUM = #{sortnum}  
+		</if>
+		<if test="moduleid !=null and moduleid !=''">
+			,MODULEID = #{moduleid}  
+		</if>
+		<if test="appuser !=null and appuser !=''">
+			,APPUSER = #{appuser}  
+		</if>
+		<if test="updatetime !=null and updatetime !=''">
+			,UPDATETIME = #{updatetime}  
+		</if>
+		<if test="version !=null and version !=''">
+			,VERSION = #{version}  
+		</if>
+		<if test="isnow !=null and isnow !=''">
+			,ISNOW = #{isnow}  
+		</if>
+		<if test="status !=null and status !=''">
+			,STATUS = #{status}  
+		</if>
+		<if test="id !=null and id !=''">
+			,ID = #{id}  
+		</if>
+		</trim>
+		WHERE 1=1
+		<include refid="paramSql"></include>
+	</update>
+	
+</mapper>
