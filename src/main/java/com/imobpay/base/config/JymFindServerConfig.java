@@ -58,6 +58,13 @@ public final class JymFindServerConfig {
         item.put(Console_Server_Jym.JYM_QUERYUSERLOTCOUNT, "servicesQueryUserLotCount");
         /** 查询中奖记录 */
         item.put(Console_Server_Jym.JYM_QUERYWINRECORD, "servicesQueryWinRecord");
+
+        /** 获取银行信息 */
+        item.put(Console_Server_Jym.JYM_TAGETBANKINFO, "servicesGetBankInfo");
+        /** 获取微信用户信息 */
+        item.put(Console_Server_Jym.JYM_TAGETUSERWXINFO, "servicesGetUserWxInfo");
+        /** 获取TA卡交易记录 */
+        item.put(Console_Server_Jym.JYM_TATRANSRECORDS, "servicesQueryTransRds");
         
         /** 添加返回对象实体bean */
         result.put(Console_Server_Jym.JYM_CLIENTUPDATE, "mapResultBean");
@@ -72,6 +79,10 @@ public final class JymFindServerConfig {
         result.put(Console_Server_Jym.JYM_PAYMENTRECEIVEDRATE, "mapResultBean");
         result.put(Console_Server_Jym.JYM_QUERYUSERLOTCOUNT, "defaultResultBean");
         result.put(Console_Server_Jym.JYM_QUERYWINRECORD, "defaultResultBean");
+        
+        result.put(Console_Server_Jym.JYM_TAGETBANKINFO, "defaultResultBean");
+        result.put(Console_Server_Jym.JYM_TAGETUSERWXINFO, "defaultResultBean");
+        result.put(Console_Server_Jym.JYM_TATRANSRECORDS, "defaultResultBean");
     }
 
     /**
