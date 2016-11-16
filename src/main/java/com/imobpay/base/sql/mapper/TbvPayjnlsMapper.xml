@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.imobpay.base.dao.TbvPayjnlsDao">
+
+
+	<sql id="paramSql">
+		<!-- 此处一定要增加一个查询 -->
+		<if test="paytype !=null and paytype !=''">
+			AND PAYTYPE = #{paytype}
+		</if>
+		<if test="accountno !=null and accountno !=''">
+			AND ACCOUNTNO = #{accountno}
+		</if>
+		<if test="fee !=null and fee !=''">
+			AND FEE = #{fee}
+		</if>
+		<if test="issuingAmount !=null and issuingAmount !=''">
+			AND ISSUING_AMOUNT = #{issuingAmount}
+		</if>
+		<if test="ip !=null and ip !=''">
+			AND IP = #{ip}
+		</if>
+		<if test="longitude !=null and longitude !=''">
+			AND LONGITUDE = #{longitude}
+		</if>
+		<if test="latitude !=null and latitude !=''">
+			AND LATITUDE = #{latitude}
+		</if>
+		<if test="msgcode !=null and msgcode !=''">
+			AND MSGCODE = #{msgcode}
+		</if>
+		<if test="msgtext !=null and msgtext !=''">
+			AND MSGTEXT = #{msgtext}
+		</if>
+		<if test="branchid !=null and branchid !=''">
+			AND BRANCHID = #{branchid}
+		</if>
+		<if test="merchantid !=null and merchantid !=''">
+			AND MERCHANTID = #{merchantid}
+		</if>
+		<if test="merchantname !=null and merchantname !=''">
+			AND MERCHANTNAME = #{merchantname}
+		</if>
+		<if test="amount !=null and amount !=''">
+			AND AMOUNT = #{amount}
+		</if>
+		<if test="locallogno !=null and locallogno !=''">
+			AND LOCALLOGNO = #{locallogno}
+		</if>
+		<if test="servcode !=null and servcode !=''">
+			AND SERVCODE = #{servcode}
+		</if>
+		<if test="localdate !=null and localdate !=''">
+			AND LOCALDATE = #{localdate}
+		</if>
+		<if test="localtime !=null and localtime !=''">
+			AND LOCALTIME = #{localtime}
+		</if>
+		<if test="orderId !=null and orderId !=''">
+			AND ORDER_ID = #{orderId}
+		</if>
+		<if test="tid !=null and tid !=''">
+			AND TID = #{tid}
+		</if>
+		<if test="taaccount !=null and taaccount !=''">
+			AND TAACCOUNT = #{taaccount}
+		</if>
+		<if test="mobile !=null and mobile !=''">
+			AND MOBILE = #{mobile}
+		</if>
+		<if test="id !=null and id !=''">
+			AND ID = #{id}
+		</if>
+	</sql>
+
+	<parameterMap type="com.imobpay.base.entity.TbvPayjnls" id="paramIdTbvPayjnls">
+		<parameter property="pageflag" javaType="Boolean" jdbcType="VARCHAR" mode="IN" />
+		<parameter property="curPage" javaType="Integer" jdbcType="NUMERIC" mode="IN" />
+		<parameter property="pageSize" javaType="Integer" jdbcType="NUMERIC" mode="IN" />
+		<parameter property="paytype" javaType="String" jdbcType="VARCHAR" mode="IN" />
+		<parameter property="accountno" javaType="String" jdbcType="VARCHAR" mode="IN" />
+		<parameter property="fee" javaType="Integer" jdbcType="NUMERIC" mode="IN" />
+		<parameter property="issuingAmount" javaType="Integer" jdbcType="NUMERIC" mode="IN" />
+		<parameter property="ip" javaType="String" jdbcType="VARCHAR" mode="IN" />
+		<parameter property="longitude" javaType="String" jdbcType="VARCHAR" mode="IN" />
+		<parameter property="latitude" javaType="String" jdbcType="VARCHAR" mode="IN" />
+		<parameter property="msgcode" javaType="String" jdbcType="VARCHAR" mode="IN" />
+		<parameter property="msgtext" javaType="String" jdbcType="VARCHAR" mode="IN" />
+		<parameter property="branchid" javaType="String" jdbcType="VARCHAR" mode="IN" />
+		<parameter property="merchantid" javaType="String" jdbcType="VARCHAR" mode="IN" />
+		<parameter property="merchantname" javaType="String" jdbcType="VARCHAR" mode="IN" />
+		<parameter property="amount" javaType="Integer" jdbcType="NUMERIC" mode="IN" />
+		<parameter property="locallogno" javaType="String" jdbcType="VARCHAR" mode="IN" />
+		<parameter property="servcode" javaType="String" jdbcType="VARCHAR" mode="IN" />
+		<parameter property="localdate" javaType="String" jdbcType="VARCHAR" mode="IN" />
+		<parameter property="localtime" javaType="String" jdbcType="VARCHAR" mode="IN" />
+		<parameter property="orderId" javaType="String" jdbcType="VARCHAR" mode="IN" />
+		<parameter property="tid" javaType="String" jdbcType="VARCHAR" mode="IN" />
+		<parameter property="taaccount" javaType="String" jdbcType="VARCHAR" mode="IN" />
+		<parameter property="mobile" javaType="String" jdbcType="VARCHAR" mode="IN" />
+		<parameter property="id" javaType="String" jdbcType="VARCHAR" mode="IN" />
+		<parameter property="fdFee" javaType="String" jdbcType="VARCHAR" mode="IN" />
+
+	</parameterMap>
+
+	<resultMap type="com.imobpay.base.entity.TbvPayjnls" id="resultTbTbvPayjnls">
+		<result column="PAYTYPE" property="paytype" javaType="String" jdbcType="VARCHAR" />
+		<result column="ACCOUNTNO" property="accountno" javaType="String" jdbcType="VARCHAR" />
+		<result column="FEE" property="fee" javaType="Integer" jdbcType="NUMERIC" />
+		<result column="ISSUING_AMOUNT" property="issuingAmount" javaType="Integer" jdbcType="NUMERIC" />
+		<result column="IP" property="ip" javaType="String" jdbcType="VARCHAR" />
+		<result column="LONGITUDE" property="longitude" javaType="String" jdbcType="VARCHAR" />
+		<result column="LATITUDE" property="latitude" javaType="String" jdbcType="VARCHAR" />
+		<result column="MSGCODE" property="msgcode" javaType="String" jdbcType="VARCHAR" />
+		<result column="MSGTEXT" property="msgtext" javaType="String" jdbcType="VARCHAR" />
+		<result column="BRANCHID" property="branchid" javaType="String" jdbcType="VARCHAR" />
+		<result column="MERCHANTID" property="merchantid" javaType="String" jdbcType="VARCHAR" />
+		<result column="MERCHANTNAME" property="merchantname" javaType="String" jdbcType="VARCHAR" />
+		<result column="AMOUNT" property="amount" javaType="Integer" jdbcType="NUMERIC" />
+		<result column="LOCALLOGNO" property="locallogno" javaType="String" jdbcType="VARCHAR" />
+		<result column="SERVCODE" property="servcode" javaType="String" jdbcType="VARCHAR" />
+		<result column="LOCALDATE" property="localdate" javaType="String" jdbcType="VARCHAR" />
+		<result column="LOCALTIME" property="localtime" javaType="String" jdbcType="VARCHAR" />
+		<result column="ORDER_ID" property="orderId" javaType="String" jdbcType="VARCHAR" />
+		<result column="TID" property="tid" javaType="String" jdbcType="VARCHAR" />
+		<result column="TAACCOUNT" property="taaccount" javaType="String" jdbcType="VARCHAR" />
+		<result column="MOBILE" property="mobile" javaType="String" jdbcType="VARCHAR" />
+		<result column="ID" property="id" javaType="String" jdbcType="VARCHAR" />
+		<result column="FD_FEE" property="fdFee" javaType="String" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<select id="selectById" parameterMap="paramIdTbvPayjnls" resultMap="resultTbTbvPayjnls">
+		SELECT * FROM TBV_PAYJNLS WHERE ROWNUM = 1
+		<include refid="paramSql"></include>
+	</select>
+
+	<select id="list" parameterMap="paramIdTbvPayjnls" resultMap="resultTbTbvPayjnls">
+		SELECT * FROM (
+		SELECT A.*, ROWNUM RN FROM
+		(
+		SELECT TP.*,TD.FD_FEE FROM TBV_PAYJNLS TP LEFT JOIN qtfund.tdflist TD
+		ON TP.LOCALDATE = TD.FS_ORIGDATE AND
+		TP.LOCALTIME = TD.FS_ORIGTIME AND TP.ORDER_ID = TD.FS_ORIGSEQNO
+		WHERE 1=1
+		<include refid="paramSql"></include>
+		ORDER BY LOCALDATE DESC,LOCALTIME DESC
+		) A WHERE ROWNUM &lt;= #{curPage}*#{pageSize}
+		) WHERE RN &gt;
+		(#{curPage}-1)*#{pageSize}
+	</select>
+
+	<select id="listCount" parameterMap="paramIdTbvPayjnls" resultType="Integer">
+		SELECT COUNT(1) FROM TBV_PAYJNLS TP LEFT JOIN qtfund.tdflist TD
+		ON TP.LOCALDATE = TD.FS_ORIGDATE AND TP.LOCALTIME = TD.FS_ORIGTIME AND TP.ORDER_ID =
+		TD.FS_ORIGSEQNO
+		WHERE 1=1
+		<include refid="paramSql"></include>
+	</select>
+
+
+</mapper>

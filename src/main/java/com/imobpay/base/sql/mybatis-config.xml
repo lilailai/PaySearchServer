@@ -39,5 +39,9 @@
 		<mapper resource="com/imobpay/base/sql/mapper/TbGlbSysParamMapper.xml" />
 		<mapper resource="com/imobpay/base/sql/mapper/TbCustActivityRecordMapper.xml" />
 		<mapper resource="com/imobpay/base/sql/mapper/PayawardjnlsMapper.xml" />
+		
+		<mapper resource="com/imobpay/base/sql/mapper/CsCardbinMapper.xml" />
+		<mapper resource="com/imobpay/base/sql/mapper/TbvPayjnlsMapper.xml" />
+		<mapper resource="com/imobpay/base/sql/mapper/TbvCustomerMapper.xml" />
 	</mappers>
 </configuration>
