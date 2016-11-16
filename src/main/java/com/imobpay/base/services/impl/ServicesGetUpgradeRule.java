@@ -74,7 +74,7 @@ public class ServicesGetUpgradeRule implements BusinessInterface {
 
         CrsAppLevelRule data = appLevelRuleDao.selectById(appLevelRuleBean);
         if (EmptyChecker.isEmpty(data)) {
-            throw new QTException(Console_ErrCode.NO_RESULT, Console_ErrCode.NO_lEVELDESC);
+            throw new QTException(Console_ErrCode.NO_RESULT, Console_ErrCode.NO_LEVELDESC);
         }
         resultJson.put(Console_Column.RULEDESC, data.getLevdesc());
         resultJson.put(Console_Column.RULENAME, data.getLevelname());

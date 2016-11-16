@@ -40,7 +40,6 @@ public final class JymFindServerConfig {
 
     static {
         /** 添加用户 */
-        item.put(Console_Server_Jym.JYM_AppMoudlesCompare, "servicesAppMoudlesCompare");
         item.put(Console_Server_Jym.JYM_CLIENTUPDATE, "servicesClientUpdate");
         item.put(Console_Server_Jym.JYM_SELECTPUBLICPIC, "servicesSelectPublicPic");
         item.put(Console_Server_Jym.JYM_COMPARELOAD, "servicesCompareLoad");
@@ -61,7 +60,6 @@ public final class JymFindServerConfig {
         item.put(Console_Server_Jym.JYM_QUERYWINRECORD, "servicesQueryWinRecord");
         
         /** 添加返回对象实体bean */
-        result.put(Console_Server_Jym.JYM_AppMoudlesCompare, "defaultResultBean");
         result.put(Console_Server_Jym.JYM_CLIENTUPDATE, "mapResultBean");
         result.put(Console_Server_Jym.JYM_SELECTPUBLICPIC, "listResultBean");
         result.put(Console_Server_Jym.JYM_COMPARELOAD, "mapResultBean");
