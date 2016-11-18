@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.imobpay.base.entity.Bank;
+import com.imobpay.base.log.LogPay;
 import com.imobpay.base.util.EmptyChecker;
 
 /**
@@ -27,22 +28,30 @@ public class Const {
      */
     public static List<String[]> bankList = new ArrayList<String[]>();
     static {
+        BufferedReader in = null;
         try {
             /** 此读取方法比上面这个方法 中文兼容性更好 建议使用这个种模式 */
             File f = new File("/home/weblogic/etc/PayTACard/bank.txt");
             InputStreamReader read = new InputStreamReader(new FileInputStream(f), "UTF-8");
-            BufferedReader in = new BufferedReader(read);
+            in = new BufferedReader(read);
             String line;
             in.readLine();
             while ((line = in.readLine()) != null) {
-                System.out.println(line);
+                LogPay.info(line);
                 bankList.add(new String(line.getBytes()).split(","));
             }
-            in.close();
-            System.out.println("建设银行初始化超级网银接入银成功。");
+            LogPay.info("建设银行初始化超级网银接入银成功。");
         } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("建设银行初始化超级网银接入银失败。");
+            LogPay.error(e.getMessage(), e);
+            LogPay.info("建设银行初始化超级网银接入银失败。");
+        } finally {
+            try {
+                if (EmptyChecker.isNotEmpty(in)) {
+                    in.close();
+                }
+            } catch (Exception e2) {
+                LogPay.error(e2.getMessage(), e2);
+            }
         }
     }
 

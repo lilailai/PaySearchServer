@@ -55,25 +55,25 @@ public class SearchConsoleColumn {
     public static final String ISLAST                   = "isLast";
     /** 返回结果 */
     public static final String RESULTS                  = "results";
-    /** 返回结果 */
+    /** 状态*/
     public static final String RS_STATUS                = "status";
-    /** 返回结果 */
+    /** 总计 */
     public static final String RS_AMOUNT                = "amount";
-    /** 返回结果 */
+    /** TA账号 */
     public static final String RS_TAACCOUNT             = "taAccount";
-    /** 返回结果 */
+    /** 手续费 */
     public static final String RS_FEE                   = "fee";
-    /** 返回结果 */
+    /** 手续费2 */
     public static final String RS_FD_FEE                = "fdFee";
-    /** 返回结果 */
+    /** 当前日期 */
     public static final String RS_LOCALDATE             = "localDate";
-    /** 返回结果 */
+    /** 当前时间 */
     public static final String RS_LOCALTIME             = "localTime";
-    /** 返回结果 */
+    /** 订单号 */
     public static final String RS_ORDER_ID              = "orderId";
-    /** 返回结果 */
+    /** 支付类型 */
     public static final String RS_PAYTYPE               = "payType";
-    /** 返回结果 */
+    /** 账号 */
     public static final String RS_ACCOUNTNO             = "accountNo";
     /** 银行ID */
     public static final String BANKID                   = "bankId";
