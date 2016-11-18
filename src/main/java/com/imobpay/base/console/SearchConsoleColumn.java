@@ -39,8 +39,18 @@ public class SearchConsoleColumn {
     public static final String MOBILENO                 = "MOBILENO";
     /** 客户号 */
     public static final String CUSTOMERID               = "CUSTOMERID";
+    /** 微信公众号 */
+    public static final String PUB_ACCOUNT              = "pubAccount";
     
     
+    /** 微信token */
+    public static final String TOKEN                    = "token";
+    /** 标签 */
+    public static final String TICKET                   = "ticket";
+    /** 应用id */
+    public static final String APPID                    = "appId";
+    /** 秘钥 */
+    public static final String SECRET                   = "secret";
     /** 是否是最后一条 */
     public static final String ISLAST                   = "isLast";
     /** 返回结果 */
