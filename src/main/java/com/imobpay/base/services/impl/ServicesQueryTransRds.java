@@ -9,6 +9,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONObject;
+import com.imobpay.base.console.Console_Column;
 import com.imobpay.base.console.Console_ErrCode;
 import com.imobpay.base.console.SearchConsoleColumn;
 import com.imobpay.base.dao.TbvCustomerDao;
@@ -122,6 +123,12 @@ public class ServicesQueryTransRds implements BusinessInterface {
         JSONObject respObj = new JSONObject();
         respObj.put(SearchConsoleColumn.RESULTS, respList.toString());
         respObj.put(SearchConsoleColumn.ISLAST, isLast);
-        return respObj.toString();
+        
+        /** 组装成功信息返回 */
+        JSONObject respJson = new JSONObject();
+        respJson.put(Console_Column.RESULTBEAN, respObj.toString());
+        respJson.put(Console_Column.MSG_CODE, Console_ErrCode.SUCCESS);
+        respJson.put(Console_Column.MSG_TEXT, Console_ErrCode.SUCCESSDESC);
+        return respJson.toString();
     }
 }

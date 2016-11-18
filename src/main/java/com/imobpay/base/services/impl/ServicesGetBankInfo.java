@@ -17,6 +17,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONObject;
+import com.imobpay.base.console.Console_Column;
 import com.imobpay.base.console.Console_ErrCode;
 import com.imobpay.base.console.SearchConsoleColumn;
 import com.imobpay.base.dao.CsCardbinDao;
@@ -94,9 +95,15 @@ public class ServicesGetBankInfo implements BusinessInterface {
         if (!(selectPayBankNo > 0)) {
             throw new QTException(Console_ErrCode.NOTE_NOBACKBANKCODE, Console_ErrCode.NOTE_NOBACKBANKDESC);
         }
+        JSONObject resultBean = new JSONObject();
+        resultBean.put(SearchConsoleColumn.BANKID, selectByCardLen.getBankid());
+        resultBean.put(SearchConsoleColumn.BANKNAME, selectByCardLen.getBankname());
+        
+        /** 组装成功信息返回 */
         JSONObject respJson = new JSONObject();
-        respJson.put(SearchConsoleColumn.BANKID, selectByCardLen.getBankid());
-        respJson.put(SearchConsoleColumn.BANKNAME, selectByCardLen.getBankname());
+        respJson.put(Console_Column.RESULTBEAN, resultBean.toString());
+        respJson.put(Console_Column.MSG_CODE, Console_ErrCode.SUCCESS);
+        respJson.put(Console_Column.MSG_TEXT, Console_ErrCode.SUCCESSDESC);
         return respJson.toString();
     }
     

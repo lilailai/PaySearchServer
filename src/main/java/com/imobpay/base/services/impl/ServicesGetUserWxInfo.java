@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONObject;
 import com.imobpay.base.console.Console_Column;
+import com.imobpay.base.console.Console_ErrCode;
 import com.imobpay.base.console.SearchConsoleColumn;
 import com.imobpay.base.exception.QTException;
 import com.imobpay.base.iface.BusinessInterface;
@@ -44,6 +45,13 @@ public class ServicesGetUserWxInfo implements BusinessInterface {
             LogPay.info("获取微信用户信息异常");
         }
         LogPay.info("获取用户返回信息:" + sendGet);
-        return sendGet;
+        
+        /** 组装成功信息返回 */
+        JSONObject respJson = new JSONObject();
+        respJson.put(Console_Column.RESULTBEAN, sendGet.toString());
+        respJson.put(Console_Column.MSG_CODE, Console_ErrCode.SUCCESS);
+        respJson.put(Console_Column.MSG_TEXT, Console_ErrCode.SUCCESSDESC);
+        return respJson.toString();
+        
     }
 }
